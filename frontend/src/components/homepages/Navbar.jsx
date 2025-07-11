@@ -146,10 +146,10 @@ const AgroLinkNavbar = () => {
                         My Profile
                       </a>
                       <a
-                        href="#"
+                        href="/myorders"
                         className="block px-4 py-2 text-sm text-gray-300 hover:text-yellow-400 hover:bg-gray-800/50 transition-all duration-300"
                       >
-                        My Listings
+                        My Orders
                       </a>
                       <a
                         href="#"

@@ -17,15 +17,18 @@ import StatsSection from "./components/homepages/StatsSection";
 import TestimonialsSection from "./components/homepages/TestimonialsSection";
 import HowItWorksSection from './components/homepages/FeaturesSection/HowItWorksSection';
 import FooterSection from "./components/homepages/FooterSection";
+import MyOrder from "./components/order/MyOrder";
+import PageTransition from "./components/animations/PageTransition";
 const App = () => {
   return (
-    <Router>
+   <PageTransition>
+     <Router>
       <div className=" min-h-screen relative bg-gradient-to-br from-black via-gray-900 to-gray-800">
         {/* Fixed Navbar */}
         <div className="fixed top-0 left-0 right-0 z-50">
           <Navbar />
         </div>
-
+        
         {/* Routed content with padding */}
         <div className="pt-16">
           <Routes>
@@ -51,11 +54,13 @@ const App = () => {
             <Route path="/checkout/:productId" element={<Checkout />} />
             <Route path="/chat" element={<ChatBox />} />
             <Route path="/weather" element={<Weather />} />
+            <Route path="/myorders" element={<MyOrder/>}/>
           </Routes>
         </div>
         <FooterSection/>
       </div>
     </Router>
+   </PageTransition>
   );
 };
 
