@@ -42,6 +42,7 @@ const PaymentRoutes = require("./routes/paymentRoutes");
 const MessageRoutes = require("./routes/messageRoutes");
 const MyOrderRoute=require('./routes/MyOrderRoute');
 const admin=require('./routes/admin');
+const FarmerRoute=require('./routes/FarmerRoute');
 app.use("/api", MessageRoutes);
 app.use("/api/users", UserRoute);
 app.use("/api/users", ProfileRoute);
@@ -54,6 +55,7 @@ app.use("/api/users", OrderRoutes);
 app.use("/api/users", PaymentRoutes);
 app.use("/api/users",MyOrderRoute);
 app.use('/api/admin',admin);
+app.use('/api/admin',FarmerRoute);
 app.get("/", (req, res) => {
   res.json({ message: "Server is running", database: "Connected to MongoDB" });
 });

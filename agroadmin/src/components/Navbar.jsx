@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { Link as RouterLink } from 'react-router-dom';
 import {
   Users,
   Package,
@@ -95,15 +96,22 @@ const Navbar = () => {
     setOpenMobileCollapsible(openMobileCollapsible === title ? null : title)
   }
 
-  // Mock Link component since we don't have react-router-dom
-  const Link = ({ to, children, className, onClick }) => (
-    <a href={to} className={className} onClick={(e) => { e.preventDefault(); onClick && onClick(); }}>
+ const Link = ({ to, children, className = '', onClick }) => {
+  return (
+    <RouterLink
+      to={to}
+      className={className}
+      onClick={(e) => {
+        if (onClick) onClick(e);
+      }}
+    >
       {children}
-    </a>
-  )
+    </RouterLink>
+  );
+};
 
   return (
-    <nav className="bg-gray-950 border-b border-gray-800 sticky top-0 z-50 shadow-lg">
+    <nav className="bg-black border-b border-gray-800 sticky top-0 z-50 shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -397,31 +405,7 @@ const Navbar = () => {
         </div>
       </div>
       
-      {/* Quick Stats Bar (only when logged in) */}
-      {isLoggedIn && (
-        <div className="bg-gray-900 border-t border-gray-800 px-4 sm:px-6 lg:px-8 py-2">
-          <div className="flex items-center justify-between text-sm">
-            <div className="flex items-center space-x-6">
-              <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                <span className="text-gray-400">System Status: </span>
-                <span className="text-green-400 font-medium">Online</span>
-              </div>
-              <div className="hidden sm:flex items-center space-x-2">
-                <ShoppingCart className="w-4 h-4 text-yellow-400" />
-                <span className="text-gray-400">Today's Orders: </span>
-                <span className="text-white font-medium">47</span>
-              </div>
-              <div className="hidden md:flex items-center space-x-2">
-                <DollarSign className="w-4 h-4 text-yellow-400" />
-                <span className="text-gray-400">Today's Revenue: </span>
-                <span className="text-white font-medium">₹1,23,450</span>
-              </div>
-            </div>
-            <div className="text-gray-400 text-xs">Last updated: 2 minutes ago</div>
-          </div>
-        </div>
-      )}
+
     </nav>
   )
 }
