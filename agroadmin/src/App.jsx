@@ -17,27 +17,32 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
 
+  // Log isLoggedIn state changes in App.tsx
+  useEffect(() => {
+    console.log("App.tsx - isLoggedIn state updated to:", isLoggedIn)
+  }, [isLoggedIn])
+
   // Check authentication status on component mount
   useEffect(() => {
     const checkAuthStatus = () => {
       try {
-        // In a real environment, localStorage would be available.
-        // For v0 preview, we simulate it or acknowledge its absence.
         const adminLoginStatus = localStorage.getItem("adminlogin")
         if (adminLoginStatus === "true") {
           setIsLoggedIn(true)
         } else {
           setIsLoggedIn(false)
         }
+        // IMPORTANT: Ensure this line is NOT present: localStorage.setItem('adminlogin',true);
       } catch (error) {
-        console.error("Error accessing localStorage:", error)
+        console.error("App.tsx - Error accessing localStorage:", error)
         setIsLoggedIn(false) // Default to not logged in if localStorage is inaccessible
       } finally {
         setIsLoading(false)
+        console.log("App.tsx - Initial auth check complete. isLoading set to false.")
       }
     }
     checkAuthStatus()
-  }, [])
+  }, []) // Empty dependency array means it runs only once on mount
 
   if (isLoading) {
     // You can render a global loading spinner or skeleton here
@@ -48,7 +53,7 @@ const App = () => {
 
   return (
     <Router>
-      <div className="bg-black min-h-screen flex flex-col">
+      <div className="bg-black  flex flex-col">
         {/* Navbar shown on all pages */}
         <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
 

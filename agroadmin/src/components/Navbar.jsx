@@ -1,6 +1,7 @@
-"use client"
-
-import { useState, useEffect, useRef } from "react"
+"use client";
+import logo from "../../../frontend/src/assets/agro.png";
+import { useState, useEffect, useRef } from "react";
+import { Link as RouterLink, useNavigate, useLocation } from "react-router-dom";
 import {
   Users,
   Package,
@@ -26,44 +27,74 @@ import {
   UsersRound,
   LayoutDashboard,
   Lock,
-} from "lucide-react"
+} from "lucide-react";
 
-const ADMIN_SECRET_CODE = "7739254874"
+const ADMIN_SECRET_CODE = "7739254874";
 
 const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [showPasskeyInput, setShowPasskeyInput] = useState(false)
-  const [adminCode, setAdminCode] = useState("")
-  const [loginError, setLoginError] = useState("")
-  const [openDesktopDropdown, setOpenDesktopDropdown] = useState(null)
-  const [openMobileCollapsible, setOpenMobileCollapsible] = useState(null)
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showPasskeyInput, setShowPasskeyInput] = useState(false);
+  const [adminCode, setAdminCode] = useState("");
+  const [loginError, setLoginError] = useState("");
+  const [openDesktopDropdown, setOpenDesktopDropdown] = useState(null);
+  const [openMobileCollapsible, setOpenMobileCollapsible] = useState(null);
 
-  const profileDropdownRef = useRef(null)
-  const desktopNavDropdownRef = useRef(null)
-  const passkeyInputRef = useRef(null)
+  const profileDropdownRef = useRef(null);
+  const desktopNavDropdownRef = useRef(null);
+  const passkeyInputRef = useRef(null);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Working Link component from first navbar
+  const Link = ({ to, children, className = '', onClick }) => {
+    return (
+      <RouterLink
+        to={to}
+        className={className}
+        onClick={(e) => {
+          if (onClick) onClick(e);
+        }}
+      >
+        {children}
+      </RouterLink>
+    );
+  };
 
   // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (profileDropdownRef.current && !profileDropdownRef.current.contains(event.target)) {
-        setOpenDesktopDropdown(null)
+      if (
+        profileDropdownRef.current &&
+        !profileDropdownRef.current.contains(event.target)
+      ) {
+        setOpenDesktopDropdown(null);
       }
-      if (desktopNavDropdownRef.current && !desktopNavDropdownRef.current.contains(event.target)) {
-        setOpenDesktopDropdown(null)
+      if (
+        desktopNavDropdownRef.current &&
+        !desktopNavDropdownRef.current.contains(event.target)
+      ) {
+        setOpenDesktopDropdown(null);
       }
-    }
-    document.addEventListener("mousedown", handleClickOutside)
+    };
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-  }, [])
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   // Focus on passkey input when it appears
   useEffect(() => {
     if (showPasskeyInput && passkeyInputRef.current) {
-      passkeyInputRef.current.focus()
+      passkeyInputRef.current.focus();
     }
-  }, [showPasskeyInput])
+  }, [showPasskeyInput]);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsMenuOpen(false);
+    setOpenDesktopDropdown(null);
+    setOpenMobileCollapsible(null);
+  }, [location.pathname]);
 
   const navGroups = [
     {
@@ -91,7 +122,11 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
         { name: "Total Orders", to: "/total-orders", icon: BarChart3 },
         { name: "Total Earnings", to: "/total-earnings", icon: DollarSign },
         { name: "Sales Trends", to: "/sales-trends", icon: LineChart },
-        { name: "Inventory Report", to: "/inventory-report", icon: ClipboardList },
+        {
+          name: "Inventory Report",
+          to: "/inventory-report",
+          icon: ClipboardList,
+        },
       ],
     },
     {
@@ -109,58 +144,72 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
         { name: "Contact Us", to: "/contact-us", icon: Mail },
       ],
     },
-  ]
+  ];
 
   const handleLoginClick = () => {
-    setShowPasskeyInput(true)
-    setLoginError("")
-  }
+    setShowPasskeyInput(true);
+    setLoginError("");
+  };
 
   const handleLogin = () => {
     if (adminCode === ADMIN_SECRET_CODE) {
-      setIsLoggedIn(true)
-      setShowPasskeyInput(false)
-      setLoginError("")
-      setAdminCode("")
+      setIsLoggedIn(true);
+      setShowPasskeyInput(false);
+      setLoginError("");
+      setAdminCode("");
       try {
-        localStorage.setItem("adminlogin", "true")
-        console.log("Login successful - adminlogin set to true")
+        localStorage.setItem("adminlogin", "true");
+        console.log("Login successful - adminlogin set to true");
+        // Navigate to dashboard after successful login
+        navigate("/overview");
       } catch (error) {
-        console.error("Error saving login state:", error)
+        console.error("Error saving login state:", error);
       }
     } else {
-      setLoginError("Invalid passkey. Please try again.")
+      setLoginError("Invalid passkey. Please try again.");
     }
-  }
+  };
 
   const handleLogout = () => {
-    setIsLoggedIn(false)
-    setShowPasskeyInput(false)
-    setAdminCode("")
-    setLoginError("")
-    setOpenDesktopDropdown(null)
-    setIsMenuOpen(false)
+    setIsLoggedIn(false);
+    setShowPasskeyInput(false);
+    setAdminCode("");
+    setLoginError("");
+    setOpenDesktopDropdown(null);
+    setIsMenuOpen(false);
     try {
-      localStorage.removeItem("adminlogin")
-      console.log("Logout successful - adminlogin removed from localStorage")
+      localStorage.removeItem("adminlogin");
+      console.log("Logout successful - adminlogin removed from localStorage");
+      // Navigate to home after logout
+      navigate("/");
     } catch (error) {
-      console.error("Error removing login state:", error)
+      console.error("Error removing login state:", error);
     }
-  }
+  };
 
   const handleCancelLogin = () => {
-    setShowPasskeyInput(false)
-    setAdminCode("")
-    setLoginError("")
-  }
+    setShowPasskeyInput(false);
+    setAdminCode("");
+    setLoginError("");
+  };
 
   const toggleDesktopDropdown = (title) => {
-    setOpenDesktopDropdown(openDesktopDropdown === title ? null : title)
-  }
+    setOpenDesktopDropdown(openDesktopDropdown === title ? null : title);
+  };
 
   const toggleMobileCollapsible = (title) => {
-    setOpenMobileCollapsible(openMobileCollapsible === title ? null : title)
-  }
+    setOpenMobileCollapsible(openMobileCollapsible === title ? null : title);
+  };
+
+  // Check if current route is active
+  const isActiveRoute = (path) => {
+    return location.pathname === path;
+  };
+
+  // Check if any item in a group is active
+  const isGroupActive = (group) => {
+    return group.items.some(item => isActiveRoute(item.to));
+  };
 
   return (
     <nav className="bg-black sticky top-0 z-50 shadow-lg">
@@ -169,67 +218,89 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
           {/* Logo */}
           <div className="flex items-center space-x-2 sm:space-x-3">
             <div className="relative">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-lg flex items-center justify-center shadow-yellow-400/20 shadow-lg">
-                <div className="w-4 h-4 sm:w-6 sm:h-6 bg-yellow-400 rounded-full animate-pulse"></div>
-              </div>
-              <div className="absolute -top-1 -right-1 w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
+              <Link to="/">
+                <img
+                  src={logo}
+                  className="h-10 cursor-pointer transition-transform duration-200 hover:scale-105"
+                  alt="AgroLink Logo"
+                />
+              </Link>
             </div>
             <div>
-              <span className="text-lg sm:text-xl font-bold text-white">AgroLink</span>
               <span className="ml-1 sm:ml-2 text-xs sm:text-sm text-yellow-400 font-medium bg-yellow-400/10 px-1 sm:px-2 py-0.5 sm:py-1 rounded-full">
                 Admin
               </span>
             </div>
           </div>
+          
           {/* Desktop Nav (only shown if logged in) */}
           {isLoggedIn && (
             <div className="hidden lg:flex xl:space-x-2 lg:space-x-1 items-center">
-              {/* Dashboard - Active */}
-              <button
-                onClick={() => alert("Navigate to: " + navGroups[0].items[0].to)}
-                className="xl:px-4 lg:px-3 py-2 rounded-lg xl:text-sm lg:text-xs font-medium transition-all duration-300 relative group text-yellow-400 hover:bg-gray-800"
+              {/* Dashboard - Direct Link */}
+              <Link
+                to={navGroups[0].items[0].to}
+                className={`xl:px-4 lg:px-3 py-2 rounded-lg xl:text-sm lg:text-xs font-medium transition-all duration-300 relative group ${
+                  isActiveRoute(navGroups[0].items[0].to)
+                    ? 'text-yellow-400 bg-gray-800/50'
+                    : 'text-white hover:text-yellow-400 hover:bg-gray-800'
+                }`}
               >
                 <span className="hidden xl:inline">{navGroups[0].title}</span>
                 <span className="xl:hidden lg:inline">Dash</span>
-                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full"></div>
-              </button>
+                {isActiveRoute(navGroups[0].items[0].to) && (
+                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full"></div>
+                )}
+              </Link>
+              
               {/* Dropdown Groups */}
               {navGroups.slice(1).map((group) => (
-                <div key={group.title} className="relative" ref={desktopNavDropdownRef}>
+                <div
+                  key={group.title}
+                  className="relative"
+                  ref={desktopNavDropdownRef}
+                >
                   <button
                     onClick={() => toggleDesktopDropdown(group.title)}
-                    className="xl:px-4 lg:px-3 py-2 rounded-lg xl:text-sm lg:text-xs font-medium text-white hover:text-yellow-400 hover:bg-gray-800 transition-all duration-300 flex items-center space-x-1"
+                    className={`xl:px-4 lg:px-3 py-2 rounded-lg xl:text-sm lg:text-xs font-medium transition-all duration-300 flex items-center space-x-1 ${
+                      isGroupActive(group)
+                        ? 'text-yellow-400 bg-gray-800/50'
+                        : 'text-white hover:text-yellow-400 hover:bg-gray-800'
+                    }`}
                   >
                     <span className="hidden xl:inline">{group.title}</span>
                     <span className="xl:hidden lg:inline">
                       {group.title === "Management"
                         ? "Mgmt"
                         : group.title === "Settings"
-                          ? "Set"
-                          : group.title === "Reports"
-                            ? "Rep"
-                            : group.title === "Support"
-                              ? "Sup"
-                              : group.title}
+                        ? "Set"
+                        : group.title === "Reports"
+                        ? "Rep"
+                        : group.title === "Support"
+                        ? "Sup"
+                        : group.title}
                     </span>
                     <ChevronDown
-                      className={`h-3 w-3 xl:h-4 xl:w-4 transition-transform duration-200 ${openDesktopDropdown === group.title ? "rotate-180" : ""}`}
+                      className={`h-3 w-3 xl:h-4 xl:w-4 transition-transform duration-200 ${
+                        openDesktopDropdown === group.title ? "rotate-180" : ""
+                      }`}
                     />
                   </button>
                   {openDesktopDropdown === group.title && (
                     <div className="absolute top-full left-0 mt-2 w-52 p-2 bg-gray-900 border border-gray-700 rounded-lg shadow-xl shadow-black/30 transition-all duration-200 z-50 space-y-1">
                       {group.items.map((item) => (
-                        <button
+                        <Link
                           key={item.name}
-                          onClick={() => {
-                            alert("Navigate to: " + item.to)
-                            setOpenDesktopDropdown(null)
-                          }}
-                          className="flex items-center space-x-3 px-4 py-2 text-sm text-white hover:text-yellow-400 hover:bg-gray-800 rounded-md transition-all duration-300 w-full text-left"
+                          to={item.to}
+                          onClick={() => setOpenDesktopDropdown(null)}
+                          className={`flex items-center space-x-3 px-4 py-2 text-sm rounded-md transition-all duration-300 w-full text-left ${
+                            isActiveRoute(item.to)
+                              ? 'text-yellow-400 bg-gray-800'
+                              : 'text-white hover:text-yellow-400 hover:bg-gray-800'
+                          }`}
                         >
                           <item.icon className="w-4 h-4" />
                           <span>{item.name}</span>
-                        </button>
+                        </Link>
                       ))}
                     </div>
                   )}
@@ -237,6 +308,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
               ))}
             </div>
           )}
+          
           {/* Right Side */}
           <div className="flex items-center space-x-2 sm:space-x-4">
             {/* Search */}
@@ -252,6 +324,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
                 />
               </div>
             )}
+            
             {/* Search Icon for md screens */}
             {isLoggedIn && (
               <div className="md:block lg:hidden">
@@ -260,65 +333,35 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
                 </button>
               </div>
             )}
+            
             {/* Notifications */}
             {isLoggedIn && (
-              <button className="relative p-2 text-white hover:text-yellow-400 hover:bg-gray-800 rounded-lg transition-all duration-300">
+              <Link
+                to="/notifications"
+                className={`relative p-2 rounded-lg transition-all duration-300 ${
+                  isActiveRoute("/notifications")
+                    ? 'text-yellow-400 bg-gray-800'
+                    : 'text-white hover:text-yellow-400 hover:bg-gray-800'
+                }`}
+              >
                 <Bell className="h-4 w-4 sm:h-5 sm:w-5" />
                 <div className="absolute -top-1 -right-1 w-2.5 h-2.5 sm:w-3 sm:h-3 bg-red-500 rounded-full flex items-center justify-center">
-                  <span className="text-xs text-white font-bold hidden sm:inline">5</span>
+                  <span className="text-xs text-white font-bold hidden sm:inline">
+                    5
+                  </span>
                 </div>
-              </button>
+              </Link>
             )}
+            
             {/* Profile or Auth */}
             <div className="relative" ref={profileDropdownRef}>
               {isLoggedIn ? (
-                <>
-                  <button
-                    onClick={() => toggleDesktopDropdown("profile")}
-                    className="flex items-center space-x-1 sm:space-x-2 p-1.5 sm:p-2 text-white hover:text-yellow-400 hover:bg-gray-800 rounded-lg transition-all duration-300"
-                  >
-                    <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center">
-                      <Shield className="h-3 w-3 sm:h-4 sm:w-4 text-black" />
-                    </div>
-                    <span className="text-xs sm:text-sm hidden sm:block">Admin</span>
-                    <ChevronDown
-                      className={`h-3 w-3 sm:h-4 sm:w-4 transition-transform duration-200 ${openDesktopDropdown === "profile" ? "rotate-180" : ""}`}
-                    />
-                  </button>
-                  {openDesktopDropdown === "profile" && (
-                    <div className="absolute right-0 mt-2 w-48 bg-gray-900 border border-gray-700 rounded-lg shadow-xl shadow-black/30 py-2 z-50">
-                      <div className="px-4 py-3 border-b border-gray-800">
-                        <p className="text-white font-medium">Admin Panel</p>
-                        <p className="text-gray-400 text-sm">admin@agrolink.com</p>
-                      </div>
-                      <button
-                        onClick={() => {
-                          alert("Navigate to: /profile")
-                          setOpenDesktopDropdown(null)
-                        }}
-                        className="block w-full text-left px-4 py-2 text-sm text-white hover:text-yellow-400 hover:bg-gray-800 transition-all duration-300"
-                      >
-                        Profile Settings
-                      </button>
-                      <button
-                        onClick={() => {
-                          alert("Navigate to: /view-site")
-                          setOpenDesktopDropdown(null)
-                        }}
-                        className="block w-full text-left px-4 py-2 text-sm text-white hover:text-yellow-400 hover:bg-gray-800 transition-all duration-300"
-                      >
-                        View Site
-                      </button>
-                      <hr className="my-2 border-gray-700" />
-                      <button
-                        onClick={handleLogout}
-                        className="w-full text-left px-4 py-2 text-sm text-red-400 hover:text-red-300 hover:bg-gray-800 transition-all duration-300"
-                      >
-                        Logout
-                      </button>
-                    </div>
-                  )}
-                </>
+                <button
+                  onClick={handleLogout}
+                  className="inline-flex items-center px-6 py-2 border border-transparent text-base font-medium rounded-xl shadow-sm text-black bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 transition-all duration-300 transform mr-4 shadow-lg hover:shadow-xl"
+                >
+                  Logout
+                </button>
               ) : (
                 <div className="flex items-center space-x-2">
                   {!showPasskeyInput ? (
@@ -340,14 +383,14 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
                             placeholder="Enter passkey"
                             value={adminCode}
                             onChange={(e) => {
-                              setAdminCode(e.target.value)
-                              setLoginError("")
+                              setAdminCode(e.target.value);
+                              setLoginError("");
                             }}
                             onKeyDown={(e) => {
                               if (e.key === "Enter") {
-                                handleLogin()
+                                handleLogin();
                               } else if (e.key === "Escape") {
-                                handleCancelLogin()
+                                handleCancelLogin();
                               }
                             }}
                             className="pl-10 pr-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm w-36 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/50 transition-all duration-300"
@@ -376,23 +419,33 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
                 </div>
               )}
             </div>
+            
             {/* Mobile Toggle */}
             {isLoggedIn && (
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="lg:hidden p-1.5 sm:p-2 text-white hover:text-yellow-400 hover:bg-gray-800 rounded-lg transition-all duration-300"
               >
-                {isMenuOpen ? <X className="h-5 w-5 sm:h-6 sm:w-6" /> : <Menu className="h-5 w-5 sm:h-6 sm:w-6" />}
+                {isMenuOpen ? (
+                  <X className="h-5 w-5 sm:h-6 sm:w-6" />
+                ) : (
+                  <Menu className="h-5 w-5 sm:h-6 sm:w-6" />
+                )}
                 <span className="sr-only">Toggle navigation menu</span>
               </button>
             )}
           </div>
         </div>
       </div>
+      
       {/* Mobile Menu Overlay */}
       {isMenuOpen && isLoggedIn && (
-        <div className="fixed inset-0 bg-black/60 z-40 lg:hidden" onClick={() => setIsMenuOpen(false)}></div>
+        <div
+          className="fixed inset-0 bg-black/60 z-40 lg:hidden"
+          onClick={() => setIsMenuOpen(false)}
+        ></div>
       )}
+      
       {/* Mobile Menu Content */}
       {isLoggedIn && (
         <div
@@ -411,6 +464,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
                 <span className="sr-only">Close menu</span>
               </button>
             </div>
+            
             {/* Logo in mobile sheet */}
             <div className="flex items-center space-x-2 sm:space-x-3 mb-6 sm:mb-8">
               <div className="relative">
@@ -420,12 +474,15 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
                 <div className="absolute -top-1 -right-1 w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
               </div>
               <div>
-                <span className="text-lg sm:text-xl font-bold text-white">AgroLink</span>
+                <span className="text-lg sm:text-xl font-bold text-white">
+                  AgroLink
+                </span>
                 <span className="ml-1 sm:ml-2 text-xs sm:text-sm text-yellow-400 font-medium bg-yellow-400/10 px-1 sm:px-2 py-0.5 sm:py-1 rounded-full">
                   Admin
                 </span>
               </div>
             </div>
+            
             {/* Search in Mobile */}
             <div className="mb-4 sm:mb-6">
               <div className="relative">
@@ -439,43 +496,57 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
                 />
               </div>
             </div>
+            
             {/* Mobile Navigation Links */}
             <div className="flex-1 overflow-y-auto space-y-2 sm:space-y-3">
               {navGroups.map((group) => (
                 <div key={group.title} className="w-full">
                   <button
                     onClick={() => toggleMobileCollapsible(group.title)}
-                    className="flex w-full items-center justify-between px-3 py-2 rounded-lg text-sm sm:text-base font-medium text-white hover:text-yellow-400 hover:bg-gray-800 transition-all duration-300"
+                    className={`flex w-full items-center justify-between px-3 py-2 rounded-lg text-sm sm:text-base font-medium transition-all duration-300 ${
+                      isGroupActive(group)
+                        ? 'text-yellow-400 bg-gray-800'
+                        : 'text-white hover:text-yellow-400 hover:bg-gray-800'
+                    }`}
                   >
                     <span>{group.title}</span>
                     <ChevronDown
-                      className={`h-4 w-4 shrink-0 transition-transform duration-200 ${openMobileCollapsible === group.title ? "rotate-180" : ""}`}
+                      className={`h-4 w-4 shrink-0 transition-transform duration-200 ${
+                        openMobileCollapsible === group.title
+                          ? "rotate-180"
+                          : ""
+                      }`}
                     />
                   </button>
                   <div
                     className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                      openMobileCollapsible === group.title ? "max-h-screen opacity-100 pt-1" : "max-h-0 opacity-0"
+                      openMobileCollapsible === group.title
+                        ? "max-h-screen opacity-100 pt-1"
+                        : "max-h-0 opacity-0"
                     }`}
                   >
                     <div className="ml-2 sm:ml-4 space-y-1">
                       {group.items.map((item) => (
-                        <button
+                        <Link
                           key={item.name}
-                          onClick={() => {
-                            alert("Navigate to: " + item.to)
-                            setIsMenuOpen(false)
-                          }}
-                          className="flex items-center space-x-2 sm:space-x-3 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium text-white hover:text-yellow-400 hover:bg-gray-800 transition-all duration-300 w-full text-left"
+                          to={item.to}
+                          onClick={() => setIsMenuOpen(false)}
+                          className={`flex items-center space-x-2 sm:space-x-3 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-300 w-full text-left ${
+                            isActiveRoute(item.to)
+                              ? 'text-yellow-400 bg-gray-800'
+                              : 'text-white hover:text-yellow-400 hover:bg-gray-800'
+                          }`}
                         >
                           <item.icon className="w-3 h-3 sm:w-4 sm:h-4" />
                           <span>{item.name}</span>
-                        </button>
+                        </Link>
                       ))}
                     </div>
                   </div>
                 </div>
               ))}
             </div>
+            
             {/* Auth in Mobile */}
             <div className="mt-auto pt-4 sm:pt-6 border-t border-gray-800">
               <button
@@ -488,13 +559,18 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
           </div>
         </div>
       )}
+      
       {/* Access Denied Overlay */}
       {!isLoggedIn && !showPasskeyInput && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-30 flex items-center justify-center">
           <div className="bg-gray-900 border border-gray-700 rounded-xl p-8 max-w-md mx-4 text-center">
             <Lock className="h-16 w-16 mx-auto text-yellow-400 mb-4" />
-            <h2 className="text-2xl font-bold text-white mb-2">Access Restricted</h2>
-            <p className="text-gray-400 mb-6">Please login with your admin passkey to access the dashboard.</p>
+            <h2 className="text-2xl font-bold text-white mb-2">
+              Access Restricted
+            </h2>
+            <p className="text-gray-400 mb-6">
+              Please login with your admin passkey to access the dashboard.
+            </p>
             <button
               onClick={handleLoginClick}
               className="w-full flex items-center justify-center px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-medium rounded-lg hover:from-yellow-500 hover:to-yellow-700 transition-all duration-300 shadow-lg shadow-yellow-400/20"
@@ -506,7 +582,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
         </div>
       )}
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
