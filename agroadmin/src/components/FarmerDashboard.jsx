@@ -2,28 +2,52 @@
 
 import { useEffect, useState } from "react"
 import axios from "axios"
+import { useNavigate } from "react-router-dom"
 import { Users, Crop, BarChart3, Search, Loader2, Eye, X } from "lucide-react"
 
 export default function FarmerDashboard() {
+  const router = useNavigate() // Initialize useRouter
   const [farmers, setFarmers] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
   const [searchTerm, setSearchTerm] = useState("")
-  const [showCropsDialog, setShowCropsDialog] = useState(false)
+  const [showAllCropsDialog, setShowAllCropsDialog] = useState(false) // For overall crop counts
+  const [showFarmerCropsDialog, setShowFarmerCropsDialog] = useState(false) // For individual farmer's crops
+  const [selectedFarmer, setSelectedFarmer] = useState(null) // To store the farmer whose crops are being viewed
   const [crops, setCrops] = useState({})
+  const [regions, setRegions] = useState([]) // Declare regions variable
 
   useEffect(() => {
     const fetchFarmers = async () => {
       try {
+        // Simulating API response with added 'listedCrops' for demonstration
         const response = await axios.get("http://localhost:5000/api/admin/farmer")
-        setFarmers(response.data)
+        const fetchedFarmers = response.data.map((farmer) => ({
+          ...farmer,
+          // Add dummy listedCrops for demonstration if not present
+          listedCrops:
+            farmer.listedCrops || (farmer.crop ? [farmer.crop, "Wheat", "Corn", "Soybeans", "Potatoes"] : []),
+        }))
+
+        setFarmers(fetchedFarmers)
         const cropCounts = {}
-        response.data.forEach((farmer) => {
+        const regionCounts = {}
+        fetchedFarmers.forEach((farmer) => {
+          // Count all crops, including those in listedCrops
           if (farmer.crop) {
             cropCounts[farmer.crop] = (cropCounts[farmer.crop] || 0) + 1
           }
+          farmer.listedCrops?.forEach((listedCrop) => {
+            cropCounts[listedCrop] = (cropCounts[listedCrop] || 0) + 1
+          })
+
+          // Count unique regions
+          if (farmer.region) {
+            regionCounts[farmer.region] = true
+          }
         })
         setCrops(cropCounts)
+        setRegions(Object.keys(regionCounts)) // Set regions array
         setLoading(false)
       } catch (err) {
         setError("Failed to fetch farmers.")
@@ -38,87 +62,116 @@ export default function FarmerDashboard() {
       farmer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       farmer.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
       farmer.region?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      farmer.crop?.toLowerCase().includes(searchTerm.toLowerCase()),
+      farmer.crop?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      farmer.listedCrops?.some((crop) => crop.toLowerCase().includes(searchTerm.toLowerCase())),
   )
 
-  const regions = [...new Set(farmers.map((farmer) => farmer.region).filter(Boolean))]
+  const openFarmerCropsDialog = (farmer) => {
+    setSelectedFarmer(farmer)
+    setShowFarmerCropsDialog(true)
+  }
+
+  const navigateToFarmerProducts = (farmerEmail) => {
+    router(`/farmer-products?email=${farmerEmail}`)
+  }
 
   return (
-    <div className="min-h-screen bg-black text-white p-6">
-      <h1 className="text-3xl font-bold mb-2">Farmer Dashboard</h1>
-      <p className="text-gray-400 mb-6">Manage and monitor all registered farmers</p>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-        <div className="bg-gray-800 p-4 rounded-lg shadow">
-          <h2 className="text-lg mb-2">Total Farmers</h2>
+    <div className="min-h-screen  bg-black text-white p-6 sm:p-8 lg:p-10 font-sans">
+      <h3 className="text-xl sm:text-3xl font-extrabold mb-2 text-yellow-400 drop-shadow-lg animate-fade-in-down">
+        Farmer Dashboard
+      </h3>
+      <p className="text-gray-300 mb-8 text-lg animate-fade-in-down delay-100">
+        Manage and monitor all registered farmers with ease.
+      </p>
+
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+        <div className="bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-700 hover:border-yellow-500 animate-slide-in-up">
+          <h2 className="text-xl font-semibold mb-3 text-gray-200">Total Farmers</h2>
           <div className="flex items-center">
-            <Users className="text-yellow-400 mr-2" />
-            <span className="text-2xl font-bold">{farmers.length}</span>
+            <Users className="text-yellow-400 mr-3 h-8 w-8" />
+            <span className="text-4xl font-bold text-white">{farmers.length}</span>
           </div>
         </div>
-        <div className="bg-gray-800 p-4 rounded-lg shadow">
-          <h2 className="text-lg mb-2">Unique Crops</h2>
+        <div className="bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-700 hover:border-yellow-500 animate-slide-in-up delay-100">
+          <h2 className="text-xl font-semibold mb-3 text-gray-200">Unique Crops</h2>
           <div className="flex items-center">
-            <Crop className="text-yellow-400 mr-2" />
-            <span className="text-2xl font-bold">{Object.keys(crops).length}</span>
+            <Crop className="text-yellow-400 mr-3 h-8 w-8" />
+            <span className="text-4xl font-bold text-white">{Object.keys(crops).length}</span>
           </div>
         </div>
-        <div className="bg-gray-800 p-4 rounded-lg shadow">
-          <h2 className="text-lg mb-2">Regions</h2>
+        <div className="bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-700 hover:border-yellow-500 animate-slide-in-up delay-200">
+          <h2 className="text-xl font-semibold mb-3 text-gray-200">Regions Covered</h2>
           <div className="flex items-center">
-            <BarChart3 className="text-yellow-400 mr-2" />
-            <span className="text-2xl font-bold">{regions.length}</span>
+            <BarChart3 className="text-yellow-400 mr-3 h-8 w-8" />
+            <span className="text-4xl font-bold text-white">{regions.length}</span>
           </div>
         </div>
       </div>
-      <div className="mb-6 flex flex-col md:flex-row justify-between gap-4">
-        <div className="relative w-full md:w-1/2">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+
+      {/* Search and Global Actions */}
+      <div className="mb-8 flex flex-col md:flex-row justify-between items-center gap-6 animate-pop-in">
+        <div className="relative w-full md:w-2/3 lg:w-1/2 group">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-yellow-400 transition-colors duration-200" />
           <input
             type="text"
-            className="w-full bg-gray-800 text-white rounded pl-10 py-2 outline-none border border-gray-700"
-            placeholder="Search farmers..."
+            className="w-full bg-gray-800 text-white rounded-full pl-12 pr-12 py-3 outline-none border border-gray-700 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-500 transition-all duration-300 shadow-md placeholder:text-gray-500"
+            placeholder="Search farmers by name, email, region, or crop..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
+          {searchTerm && (
+            <button
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors duration-200 p-1 rounded-full hover:bg-gray-700"
+              onClick={() => setSearchTerm("")}
+              aria-label="Clear search"
+            >
+              <X className="h-5 w-5" />
+            </button>
+          )}
         </div>
         <button
-          className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-yellow-500 text-black hover:bg-yellow-600 h-10 px-4 py-2"
-          onClick={() => setShowCropsDialog(true)}
+          className="inline-flex items-center justify-center whitespace-nowrap rounded-full text-base font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-yellow-500 text-gray-900 hover:bg-yellow-600 h-12 px-8 py-3 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 active:translate-y-0"
+          onClick={() => setShowAllCropsDialog(true)}
         >
-          View All Crops
+          View All Crops Overview
         </button>
       </div>
 
-      {showCropsDialog && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80">
-          <div className="relative w-full max-w-md rounded-lg border border-gray-700 bg-gray-800 p-6 shadow-lg">
+      {/* All Crops Overview Dialog */}
+      {showAllCropsDialog && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm animate-fade-in">
+          <div className="relative w-full max-w-lg rounded-xl border border-gray-700 bg-gray-800 p-8 shadow-2xl animate-dialog-show">
             {/* Dialog Header */}
-            <div className="flex flex-col space-y-1.5 text-center sm:text-left">
-              <h2 className="text-lg font-semibold leading-none tracking-tight">All Crops</h2>
-              <p className="text-sm text-gray-400">Overview of all crops listed by farmers and their counts.</p>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold text-white">All Crops Overview</h2>
               <button
-                className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none"
-                onClick={() => setShowCropsDialog(false)}
+                className="rounded-full p-2 text-gray-400 hover:bg-gray-700 hover:text-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                onClick={() => setShowAllCropsDialog(false)}
+                aria-label="Close dialog"
               >
-                <X className="h-4 w-4" />
+                <X className="h-6 w-6" />
                 <span className="sr-only">Close</span>
               </button>
             </div>
 
             {/* Dialog Content */}
-            <div className="grid gap-4 py-4">
+            <div className="max-h-[60vh] overflow-y-auto pr-2">
               <table className="w-full text-left">
                 <thead>
-                  <tr>
-                    <th className="py-2">Crop</th>
-                    <th className="py-2">Count</th>
+                  <tr className="sticky top-0 bg-gray-800">
+                    <th className="py-3 text-gray-300 font-semibold text-lg">Crop</th>
+                    <th className="py-3 text-gray-300 font-semibold text-lg">Count</th>
                   </tr>
                 </thead>
                 <tbody>
                   {Object.entries(crops).map(([crop, count]) => (
-                    <tr key={crop}>
-                      <td className="py-1">{crop}</td>
-                      <td className="py-1">{count}</td>
+                    <tr
+                      key={crop}
+                      className="border-t border-gray-700 hover:bg-gray-700 transition-colors duration-150"
+                    >
+                      <td className="py-2 text-white">{crop}</td>
+                      <td className="py-2 text-white">{count}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -126,10 +179,10 @@ export default function FarmerDashboard() {
             </div>
 
             {/* Dialog Footer */}
-            <div className="flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2">
+            <div className="flex justify-end mt-6">
               <button
-                className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2"
-                onClick={() => setShowCropsDialog(false)}
+                className="inline-flex items-center justify-center whitespace-nowrap rounded-full text-base font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gray-700 text-white hover:bg-gray-600 h-10 px-6 py-2 shadow-md"
+                onClick={() => setShowAllCropsDialog(false)}
               >
                 Close
               </button>
@@ -138,50 +191,116 @@ export default function FarmerDashboard() {
         </div>
       )}
 
+      {/* Farmer Specific Crops Dialog */}
+      {showFarmerCropsDialog && selectedFarmer && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm animate-fade-in">
+          <div className="relative w-full max-w-md rounded-xl border border-gray-700 bg-gray-800 p-8 shadow-2xl animate-dialog-show">
+            {/* Dialog Header */}
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold text-white">Crops by {selectedFarmer.name}</h2>
+              <button
+                className="rounded-full p-2 text-gray-400 hover:bg-gray-700 hover:text-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                onClick={() => setShowFarmerCropsDialog(false)}
+                aria-label="Close dialog"
+              >
+                <X className="h-6 w-6" />
+                <span className="sr-only">Close</span>
+              </button>
+            </div>
+
+            {/* Dialog Content */}
+            <div className="max-h-[60vh] overflow-y-auto pr-2">
+              {selectedFarmer.listedCrops && selectedFarmer.listedCrops.length > 0 ? (
+                <ul className="list-disc pl-6 text-white text-lg space-y-2">
+                  {selectedFarmer.listedCrops.map((crop, index) => (
+                    <li key={index} className="py-1">
+                      {crop}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-gray-400 text-lg">No additional crops listed by this farmer.</p>
+              )}
+            </div>
+
+            {/* Dialog Footer */}
+            <div className="flex justify-end mt-6">
+              <button
+                className="inline-flex items-center justify-center whitespace-nowrap rounded-full text-base font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gray-700 text-white hover:bg-gray-600 h-10 px-6 py-2 shadow-md"
+                onClick={() => setShowFarmerCropsDialog(false)}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Farmers Table */}
       {loading ? (
-        <div className="flex justify-center items-center h-32">
-          <Loader2 className="animate-spin text-yellow-400 mr-2" />
-          <span>Loading farmers...</span>
+        <div className="flex flex-col justify-center items-center h-64 bg-gray-800 rounded-xl shadow-lg animate-pulse-glow">
+          <Loader2 className="animate-spin text-yellow-400 mr-4 h-12 w-12" />
+          <span className="text-xl text-gray-300 mt-4">Loading farmers data...</span>
         </div>
       ) : error ? (
-        <div className="bg-red-600 p-4 rounded">{error}</div>
+        <div className="bg-red-700 p-6 rounded-xl text-white text-lg font-semibold shadow-lg animate-pop-in">
+          {error}
+        </div>
       ) : filteredFarmers.length === 0 ? (
-        <div className="bg-gray-700 p-4 rounded">No farmers found.</div>
+        <div className="bg-gray-700 p-6 rounded-xl text-white text-lg font-semibold shadow-lg animate-pop-in">
+          No farmers found matching your search criteria.
+        </div>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="min-w-full text-left bg-gray-800 rounded">
-            <thead className="bg-gray-700">
+        <div className="overflow-x-auto bg-gray-800 rounded-xl shadow-lg border border-gray-700 animate-slide-in-up delay-300">
+          <table className="min-w-full text-left">
+            <thead className="bg-gray-700 border-b border-gray-600">
               <tr>
-                <th className="p-2">Name</th>
-                <th className="p-2">Email</th>
-                <th className="p-2">Role</th>
-                <th className="p-2">Phone</th>
-                <th className="p-2">Crop</th>
-                <th className="p-2">Region</th>
-                <th className="p-2">Crops Listed</th>
+                <th className="p-4 text-gray-200 font-semibold text-sm uppercase tracking-wider">Name</th>
+                <th className="p-4 text-gray-200 font-semibold text-sm uppercase tracking-wider">Email</th>
+                <th className="p-4 text-gray-200 font-semibold text-sm uppercase tracking-wider">Role</th>
+                <th className="p-4 text-gray-200 font-semibold text-sm uppercase tracking-wider">Phone</th>
+                <th className="p-4 text-gray-200 font-semibold text-sm uppercase tracking-wider">Primary Crop</th>
+                <th className="p-4 text-gray-200 font-semibold text-sm uppercase tracking-wider">Region</th>
+                <th className="p-4 text-gray-200 font-semibold text-sm uppercase tracking-wider">Crops Listed</th>
+                <th className="p-4 text-gray-200 font-semibold text-sm uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
             <tbody>
               {filteredFarmers.map((farmer) => (
-                <tr key={farmer._id} className="border-t border-gray-700">
-                  <td className="p-2">{farmer.name}</td>
-                  <td className="p-2">{farmer.email}</td>
-                  <td className="p-2">{farmer.role}</td>
-                  <td className="p-2">{farmer.phone}</td>
-                  <td className="p-2">{farmer.crop || "N/A"}</td>
-                  <td className="p-2">{farmer.region || "N/A"}</td>
-                  <td className="p-2">
+                <tr
+                  key={farmer._id}
+                  className="border-t border-gray-700 hover:bg-gray-700 transition-colors duration-150"
+                >
+                  <td className="p-4 text-white">{farmer.name}</td>
+                  <td className="p-4 text-gray-300">{farmer.email}</td>
+                  <td className="p-4 text-gray-300">{farmer.role}</td>
+                  <td className="p-4 text-gray-300">{farmer.phone}</td>
+                  <td className="p-4 text-gray-300">{farmer.crop || "N/A"}</td>
+                  <td className="p-4 text-gray-300">{farmer.region || "N/A"}</td>
+                  <td className="p-4">
                     {farmer.crop ? (
-                      <button className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-8 px-3 py-2 text-yellow-400 border-yellow-400 hover:bg-yellow-400 hover:text-black bg-transparent">
-                        <Eye className="h-4 w-4 mr-2" />
-                        {farmer.email}
+                      <span className="inline-flex items-center text-yellow-400 font-medium">
+                        <Eye className="h-4 w-4 mr-1" />
+                        {farmer.crop}
+                      </span>
+                    ) : (
+                      <span className="text-gray-500">No Primary Crop</span>
+                    )}
+                  </td>
+                  <td className="p-4">
+                    {farmer.listedCrops && farmer.listedCrops.length > 0 ? (
+                      <button
+                        className="inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-yellow-400 bg-transparent text-yellow-400 hover:bg-yellow-400 hover:text-gray-900 h-9 px-4 py-2 shadow-sm hover:shadow-md transform hover:-translate-y-0.5 active:translate-y-0"
+                        onClick={() => navigateToFarmerProducts(farmer.email)}
+                      >
+                        View Products ({farmer.listedCrops.length})
                       </button>
                     ) : (
                       <button
                         disabled
-                        className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-8 px-3 py-2 text-gray-500"
+                        className="inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium ring-offset-background disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2 text-gray-500 cursor-not-allowed"
                       >
-                        No Crop
+                        No Products
                       </button>
                     )}
                   </td>
