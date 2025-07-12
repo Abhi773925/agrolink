@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const PaymentController = require('../controllers/paymentController');
+const PaymentController = require('../controllers/PaymentController');
 
 // Get product details for checkout
 router.get('/checkout/:id', PaymentController.getProductForCheckout);

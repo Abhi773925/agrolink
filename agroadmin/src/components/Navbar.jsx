@@ -441,7 +441,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
       {/* Mobile Menu Overlay */}
       {isMenuOpen && isLoggedIn && (
         <div
-          className="fixed inset-0 bg-black/60 z-40 lg:hidden"
+          className="fixed inset-0 bg-black/60 z-40 lg:hidden pointer-events-auto"
           onClick={() => setIsMenuOpen(false)}
         ></div>
       )}
@@ -449,7 +449,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
       {/* Mobile Menu Content */}
       {isLoggedIn && (
         <div
-          className={`fixed inset-y-0 left-0 w-64 sm:w-72 bg-gray-950 border-r border-gray-800 p-4 sm:p-6 z-50 transform transition-transform duration-300 ease-in-out lg:hidden ${
+          className={`fixed inset-y-0 left-0 w-64 sm:w-72 bg-gray-950 border-r border-gray-800 p-4 sm:p-6 z-50 transform transition-transform duration-300 ease-in-out lg:hidden pointer-events-auto ${
             isMenuOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >

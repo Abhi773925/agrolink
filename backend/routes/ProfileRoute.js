@@ -5,7 +5,7 @@ const {
   getprofile,
   updateProfile,
   getAllProfiles,
-} = require("../controllers/profileController");
+} = require("../controllers/ProfileController");
 
 // Routes
 router.get("/profile", getprofile);

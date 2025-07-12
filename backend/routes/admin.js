@@ -1,7 +1,7 @@
 // routes/admin.js - Admin Order Management Routes
 const express = require('express');
 const router = express.Router();
-const AdminController = require('../controllers/adminController');
+const AdminController = require('../controllers/AdminController');
 
 // Middleware to verify admin authentication
 const verifyAdmin = (req, res, next) => {

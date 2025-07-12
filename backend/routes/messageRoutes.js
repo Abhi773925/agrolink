@@ -4,7 +4,7 @@ const upload = require("../middlewares/upload");
 const {
   createMessage,
   getMessages,
-} = require("../controllers/messageController");
+} = require("../controllers/MessageController");
 
 router.post("/messages", upload.single("file"), createMessage);
 router.get("/messages", getMessages);
