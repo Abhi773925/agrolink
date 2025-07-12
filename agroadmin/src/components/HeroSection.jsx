@@ -320,7 +320,7 @@ export default function HeroSection() {
               View Dashboard
             </Link>
             <a
-              href="http://localhost:5173" // Change this to your client site URL
+              href="https://agrolink-ag.vercel.app/" // Change this to your client site URL
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center px-6 py-3 border border-green-400 text-base font-medium rounded-md shadow-sm text-green-400 bg-transparent hover:bg-green-400/10 transition-all duration-300 backdrop-blur-sm"

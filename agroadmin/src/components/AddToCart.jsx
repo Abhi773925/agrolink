@@ -11,7 +11,7 @@ const AddToCart = () => {
   const handleCheckout = (item) => {
 
     navigate("/");
-    window.location.href = "http://localhost:5173/";
+    window.location.href = "https://agrolink-ag.vercel.app//";
 
   };
 
