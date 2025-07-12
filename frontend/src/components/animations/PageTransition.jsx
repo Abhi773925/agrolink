@@ -38,7 +38,7 @@ export default function PageTransition({ children }) {
           {/* Modern loading indicator */}
           <div className="relative">
             <div className="w-10 h-10 border-3 border-gray-200 border-t-yellow-400 rounded-full animate-spin mx-auto"></div>
-            <div className="absolute inset-0 w-10 h-10 border-3 border-transparent border-r-yellow-400/50 rounded-full animate-spin mx-auto" style={{animationDirection: 'reverse', animationDuration: '1.5s'}}></div>
+            <div className="absolute inset-0 w-10 h-10 border-3 border-transparent border-r-yellow-400/50 rounded-full animate-spin mx-auto" style={{animationDirection: 'reverse', animationDuration: '1.0s'}}></div>
           </div>
         </div>
       </div>

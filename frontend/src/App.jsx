@@ -19,6 +19,7 @@ import HowItWorksSection from './components/homepages/FeaturesSection/HowItWorks
 import FooterSection from "./components/homepages/FooterSection";
 import MyOrder from "./components/order/MyOrder";
 import PageTransition from "./components/animations/PageTransition";
+import Notifications from "./components/homepages/Notifications";
 const App = () => {
   return (
    <PageTransition>
@@ -36,6 +37,7 @@ const App = () => {
               path="/"
               element={
                 <>
+                <Notifications/>
                   <HeroSection /> <FeaturesSection />
                     <HowItWorksSection/>
                   <StatsSection />
