@@ -1,38 +1,83 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+"use client"
+
+import { useState, useEffect } from "react"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
 // Component imports
-import Navbar from "./components/Navbar";
-import AdminDashboard from "./components/AdminDashboard";
-import FarmerDashboard from "./components/FarmerDashboard";
-import FarmerProduct from "./components/FarmerProduct";
-import Product from "./components/Product";
-import AddToCart from "./components/AddToCart";
-import HeroSection from "./components/HeroSection";
-import Footer from "./components/Footer";
+import Navbar from "./components/Navbar"
+import AdminDashboard from "./components/AdminDashboard"
+import FarmerDashboard from "./components/FarmerDashboard"
+import FarmerProduct from "./components/FarmerProduct"
+import Product from "./components/Product"
+import AddToCart from "./components/AddToCart"
+import HeroSection from "./components/HeroSection"
+import Footer from "./components/Footer" // Assuming Footer is also a component
 
 const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+
+  // Check authentication status on component mount
+  useEffect(() => {
+    const checkAuthStatus = () => {
+      try {
+        // In a real environment, localStorage would be available.
+        // For v0 preview, we simulate it or acknowledge its absence.
+        const adminLoginStatus = localStorage.getItem("adminlogin")
+        if (adminLoginStatus === "true") {
+          setIsLoggedIn(true)
+        } else {
+          setIsLoggedIn(false)
+        }
+      } catch (error) {
+        console.error("Error accessing localStorage:", error)
+        setIsLoggedIn(false) // Default to not logged in if localStorage is inaccessible
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    checkAuthStatus()
+  }, [])
+
+  if (isLoading) {
+    // You can render a global loading spinner or skeleton here
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-black text-white">Loading application...</div>
+    )
+  }
+
   return (
     <Router>
-      <div className="" >
+      <div className="bg-black min-h-screen flex flex-col">
         {/* Navbar shown on all pages */}
-        <Navbar />
+        <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
 
-        {/* Main content */}
-        <main className="">
-          <Routes>
-            <Route path="/" element={<HeroSection/>}/>
-            <Route path="/overview" element={<AdminDashboard />} />
-            <Route path="/all-farmers" element={<FarmerDashboard />} />
-            <Route path="/farmer-products" element={<FarmerProduct/>} />
-            <Route path="/all-listings" element={<Product/>}/>
-            <Route path='cart/:id' element={<AddToCart/>}/>
-          </Routes>
-        </main>
+        {/* Main content, conditionally rendered based on login status */}
+        {isLoggedIn ? (
+          <main className="flex-1">
+            <Routes>
+              <Route path="/" element={<HeroSection />} />
+              <Route path="/overview" element={<AdminDashboard />} />
+              <Route path="/all-farmers" element={<FarmerDashboard />} />
+              <Route path="/farmer-products" element={<FarmerProduct />} />
+              <Route path="/all-listings" element={<Product />} />
+              <Route path="/cart/:id" element={<AddToCart />} />
+              {/* Add other routes here */}
+            </Routes>
+          </main>
+        ) : (
+          // This block is now handled by the Navbar's internal logic
+          // when isLoggedIn is false and showPasskeyInput is false.
+          // We keep the main content empty or show a generic message if not logged in
+          // and the Navbar's overlay isn't active.
+          <div className="flex-1 flex items-center justify-center text-white">
+            {/* Content will be shown via Navbar's access restricted overlay */}
+          </div>
+        )}
+        <Footer />
       </div>
-    
     </Router>
-  );
-};
+  )
+}
 
-export default App;
+export default App

@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import Link from 'react-router-dom';
 import {
   Users,
   Package,
@@ -26,45 +25,45 @@ import {
   ClipboardList,
   UsersRound,
   LayoutDashboard,
+  Lock,
 } from "lucide-react"
 
 const ADMIN_SECRET_CODE = "7739254874"
 
-const Navbar = () => {
+const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [showPasskeyInput, setShowPasskeyInput] = useState(false)
   const [adminCode, setAdminCode] = useState("")
   const [loginError, setLoginError] = useState("")
-  const [openDesktopDropdown, setOpenDesktopDropdown] = useState<string | null>(null)
-  const [openMobileCollapsible, setOpenMobileCollapsible] = useState<string | null>(null)
+  const [openDesktopDropdown, setOpenDesktopDropdown] = useState(null)
+  const [openMobileCollapsible, setOpenMobileCollapsible] = useState(null)
 
-  const profileDropdownRef = useRef<HTMLDivElement>(null)
-  const desktopNavDropdownRef = useRef<HTMLDivElement>(null)
-
-  // Load login state from localStorage on mount
-  useEffect(() => {
-    const storedLoginStatus = localStorage.getItem("adminLoggedIn")
-    if (storedLoginStatus === "true") {
-      setIsLoggedIn(true)
-    }
-  }, [])
+  const profileDropdownRef = useRef(null)
+  const desktopNavDropdownRef = useRef(null)
+  const passkeyInputRef = useRef(null)
 
   // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (profileDropdownRef.current && !profileDropdownRef.current.contains(event.target )) {
+      if (profileDropdownRef.current && !profileDropdownRef.current.contains(event.target)) {
         setOpenDesktopDropdown(null)
       }
       if (desktopNavDropdownRef.current && !desktopNavDropdownRef.current.contains(event.target)) {
         setOpenDesktopDropdown(null)
       }
     }
-
     document.addEventListener("mousedown", handleClickOutside)
     return () => {
       document.removeEventListener("mousedown", handleClickOutside)
     }
   }, [])
+
+  // Focus on passkey input when it appears
+  useEffect(() => {
+    if (showPasskeyInput && passkeyInputRef.current) {
+      passkeyInputRef.current.focus()
+    }
+  }, [showPasskeyInput])
 
   const navGroups = [
     {
@@ -112,22 +111,47 @@ const Navbar = () => {
     },
   ]
 
+  const handleLoginClick = () => {
+    setShowPasskeyInput(true)
+    setLoginError("")
+  }
+
   const handleLogin = () => {
     if (adminCode === ADMIN_SECRET_CODE) {
       setIsLoggedIn(true)
-      localStorage.setItem("adminLoggedIn", "true")
+      setShowPasskeyInput(false)
       setLoginError("")
-      setAdminCode("") // Clear input after successful login
+      setAdminCode("")
+      try {
+        localStorage.setItem("adminlogin", "true")
+        console.log("Login successful - adminlogin set to true")
+      } catch (error) {
+        console.error("Error saving login state:", error)
+      }
     } else {
-      setLoginError("Invalid admin code.")
+      setLoginError("Invalid passkey. Please try again.")
     }
   }
 
   const handleLogout = () => {
     setIsLoggedIn(false)
-    localStorage.removeItem("adminLoggedIn")
-    setOpenDesktopDropdown(null) // Close any open dropdowns on logout
-    setIsMenuOpen(false) // Close mobile menu on logout
+    setShowPasskeyInput(false)
+    setAdminCode("")
+    setLoginError("")
+    setOpenDesktopDropdown(null)
+    setIsMenuOpen(false)
+    try {
+      localStorage.removeItem("adminlogin")
+      console.log("Logout successful - adminlogin removed from localStorage")
+    } catch (error) {
+      console.error("Error removing login state:", error)
+    }
+  }
+
+  const handleCancelLogin = () => {
+    setShowPasskeyInput(false)
+    setAdminCode("")
+    setLoginError("")
   }
 
   const toggleDesktopDropdown = (title) => {
@@ -157,20 +181,18 @@ const Navbar = () => {
               </span>
             </div>
           </div>
-
           {/* Desktop Nav (only shown if logged in) */}
           {isLoggedIn && (
             <div className="hidden lg:flex xl:space-x-2 lg:space-x-1 items-center">
               {/* Dashboard - Active */}
-              <Link
-                href={navGroups[0].items[0].to}
+              <button
+                onClick={() => alert("Navigate to: " + navGroups[0].items[0].to)}
                 className="xl:px-4 lg:px-3 py-2 rounded-lg xl:text-sm lg:text-xs font-medium transition-all duration-300 relative group text-yellow-400 hover:bg-gray-800"
               >
                 <span className="hidden xl:inline">{navGroups[0].title}</span>
                 <span className="xl:hidden lg:inline">Dash</span>
                 <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full"></div>
-              </Link>
-
+              </button>
               {/* Dropdown Groups */}
               {navGroups.slice(1).map((group) => (
                 <div key={group.title} className="relative" ref={desktopNavDropdownRef}>
@@ -197,15 +219,17 @@ const Navbar = () => {
                   {openDesktopDropdown === group.title && (
                     <div className="absolute top-full left-0 mt-2 w-52 p-2 bg-gray-900 border border-gray-700 rounded-lg shadow-xl shadow-black/30 transition-all duration-200 z-50 space-y-1">
                       {group.items.map((item) => (
-                        <Link
+                        <button
                           key={item.name}
-                          href={item.to}
-                          className="flex items-center space-x-3 px-4 py-2 text-sm text-white hover:text-yellow-400 hover:bg-gray-800 rounded-md transition-all duration-300"
-                          onClick={() => setOpenDesktopDropdown(null)}
+                          onClick={() => {
+                            alert("Navigate to: " + item.to)
+                            setOpenDesktopDropdown(null)
+                          }}
+                          className="flex items-center space-x-3 px-4 py-2 text-sm text-white hover:text-yellow-400 hover:bg-gray-800 rounded-md transition-all duration-300 w-full text-left"
                         >
                           <item.icon className="w-4 h-4" />
                           <span>{item.name}</span>
-                        </Link>
+                        </button>
                       ))}
                     </div>
                   )}
@@ -213,7 +237,6 @@ const Navbar = () => {
               ))}
             </div>
           )}
-
           {/* Right Side */}
           <div className="flex items-center space-x-2 sm:space-x-4">
             {/* Search */}
@@ -229,7 +252,6 @@ const Navbar = () => {
                 />
               </div>
             )}
-
             {/* Search Icon for md screens */}
             {isLoggedIn && (
               <div className="md:block lg:hidden">
@@ -238,7 +260,6 @@ const Navbar = () => {
                 </button>
               </div>
             )}
-
             {/* Notifications */}
             {isLoggedIn && (
               <button className="relative p-2 text-white hover:text-yellow-400 hover:bg-gray-800 rounded-lg transition-all duration-300">
@@ -248,7 +269,6 @@ const Navbar = () => {
                 </div>
               </button>
             )}
-
             {/* Profile or Auth */}
             <div className="relative" ref={profileDropdownRef}>
               {isLoggedIn ? (
@@ -271,20 +291,24 @@ const Navbar = () => {
                         <p className="text-white font-medium">Admin Panel</p>
                         <p className="text-gray-400 text-sm">admin@agrolink.com</p>
                       </div>
-                      <Link
-                        href="/profile"
-                        className="block px-4 py-2 text-sm text-white hover:text-yellow-400 hover:bg-gray-800 transition-all duration-300"
-                        onClick={() => setOpenDesktopDropdown(null)}
+                      <button
+                        onClick={() => {
+                          alert("Navigate to: /profile")
+                          setOpenDesktopDropdown(null)
+                        }}
+                        className="block w-full text-left px-4 py-2 text-sm text-white hover:text-yellow-400 hover:bg-gray-800 transition-all duration-300"
                       >
                         Profile Settings
-                      </Link>
-                      <Link
-                        href="/view-site"
-                        className="block px-4 py-2 text-sm text-white hover:text-yellow-400 hover:bg-gray-800 transition-all duration-300"
-                        onClick={() => setOpenDesktopDropdown(null)}
+                      </button>
+                      <button
+                        onClick={() => {
+                          alert("Navigate to: /view-site")
+                          setOpenDesktopDropdown(null)
+                        }}
+                        className="block w-full text-left px-4 py-2 text-sm text-white hover:text-yellow-400 hover:bg-gray-800 transition-all duration-300"
                       >
                         View Site
-                      </Link>
+                      </button>
                       <hr className="my-2 border-gray-700" />
                       <button
                         onClick={handleLogout}
@@ -297,36 +321,61 @@ const Navbar = () => {
                 </>
               ) : (
                 <div className="flex items-center space-x-2">
-                  <div className="relative">
-                    <input
-                      type="password"
-                      placeholder="Admin Code"
-                      value={adminCode}
-                      onChange={(e) => {
-                        setAdminCode(e.target.value)
-                        setLoginError("")
-                      }}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                          handleLogin()
-                        }
-                      }}
-                      className="pl-3 pr-2 py-1.5 bg-gray-800 border border-gray-700 rounded-lg text-sm w-32 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/50 transition-all duration-300"
-                    />
-                    {loginError && (
-                      <p className="absolute -bottom-5 left-0 text-red-400 text-xs w-full text-center">{loginError}</p>
-                    )}
-                  </div>
-                  <button
-                    onClick={handleLogin}
-                    className="flex items-center px-3 py-1.5 text-xs bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-medium rounded-lg hover:from-yellow-500 hover:to-yellow-700 transition-all duration-300 shadow-lg shadow-yellow-400/20"
-                  >
-                    <LogIn className="h-3 w-3 mr-1" /> Login
-                  </button>
+                  {!showPasskeyInput ? (
+                    <button
+                      onClick={handleLoginClick}
+                      className="flex items-center px-4 py-2 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-medium rounded-lg hover:from-yellow-500 hover:to-yellow-700 transition-all duration-300 shadow-lg shadow-yellow-400/20"
+                    >
+                      <LogIn className="h-4 w-4 mr-2" />
+                      <span className="text-sm">Login</span>
+                    </button>
+                  ) : (
+                    <div className="flex items-center space-x-2">
+                      <div className="relative">
+                        <div className="flex items-center">
+                          <Lock className="h-4 w-4 text-gray-400 absolute left-3 z-10" />
+                          <input
+                            ref={passkeyInputRef}
+                            type="password"
+                            placeholder="Enter passkey"
+                            value={adminCode}
+                            onChange={(e) => {
+                              setAdminCode(e.target.value)
+                              setLoginError("")
+                            }}
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter") {
+                                handleLogin()
+                              } else if (e.key === "Escape") {
+                                handleCancelLogin()
+                              }
+                            }}
+                            className="pl-10 pr-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm w-36 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/50 transition-all duration-300"
+                          />
+                        </div>
+                        {loginError && (
+                          <p className="absolute -bottom-6 left-0 text-red-400 text-xs w-full text-center whitespace-nowrap">
+                            {loginError}
+                          </p>
+                        )}
+                      </div>
+                      <button
+                        onClick={handleLogin}
+                        className="flex items-center px-3 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white font-medium rounded-lg hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg"
+                      >
+                        <span className="text-sm">Go</span>
+                      </button>
+                      <button
+                        onClick={handleCancelLogin}
+                        className="flex items-center px-3 py-2 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-all duration-300"
+                      >
+                        <X className="h-4 w-4" />
+                      </button>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
-
             {/* Mobile Toggle */}
             {isLoggedIn && (
               <button
@@ -340,12 +389,10 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-
       {/* Mobile Menu Overlay */}
       {isMenuOpen && isLoggedIn && (
         <div className="fixed inset-0 bg-black/60 z-40 lg:hidden" onClick={() => setIsMenuOpen(false)}></div>
       )}
-
       {/* Mobile Menu Content */}
       {isLoggedIn && (
         <div
@@ -412,15 +459,17 @@ const Navbar = () => {
                   >
                     <div className="ml-2 sm:ml-4 space-y-1">
                       {group.items.map((item) => (
-                        <Link
+                        <button
                           key={item.name}
-                          href={item.to}
-                          className="flex items-center space-x-2 sm:space-x-3 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium text-white hover:text-yellow-400 hover:bg-gray-800 transition-all duration-300"
-                          onClick={() => setIsMenuOpen(false)}
+                          onClick={() => {
+                            alert("Navigate to: " + item.to)
+                            setIsMenuOpen(false)
+                          }}
+                          className="flex items-center space-x-2 sm:space-x-3 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium text-white hover:text-yellow-400 hover:bg-gray-800 transition-all duration-300 w-full text-left"
                         >
                           <item.icon className="w-3 h-3 sm:w-4 sm:h-4" />
                           <span>{item.name}</span>
-                        </Link>
+                        </button>
                       ))}
                     </div>
                   </div>
@@ -436,6 +485,23 @@ const Navbar = () => {
                 Logout
               </button>
             </div>
+          </div>
+        </div>
+      )}
+      {/* Access Denied Overlay */}
+      {!isLoggedIn && !showPasskeyInput && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-30 flex items-center justify-center">
+          <div className="bg-gray-900 border border-gray-700 rounded-xl p-8 max-w-md mx-4 text-center">
+            <Lock className="h-16 w-16 mx-auto text-yellow-400 mb-4" />
+            <h2 className="text-2xl font-bold text-white mb-2">Access Restricted</h2>
+            <p className="text-gray-400 mb-6">Please login with your admin passkey to access the dashboard.</p>
+            <button
+              onClick={handleLoginClick}
+              className="w-full flex items-center justify-center px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-medium rounded-lg hover:from-yellow-500 hover:to-yellow-700 transition-all duration-300 shadow-lg shadow-yellow-400/20"
+            >
+              <LogIn className="h-5 w-5 mr-2" />
+              Login to Continue
+            </button>
           </div>
         </div>
       )}
