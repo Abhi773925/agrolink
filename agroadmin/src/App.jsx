@@ -8,17 +8,20 @@ import FarmerDashboard from "./components/FarmerDashboard";
 import FarmerProduct from "./components/FarmerProduct";
 import Product from "./components/Product";
 import AddToCart from "./components/AddToCart";
+import HeroSection from "./components/HeroSection";
+import Footer from "./components/Footer";
 
 const App = () => {
   return (
     <Router>
-      <div >
+      <div className="" >
         {/* Navbar shown on all pages */}
         <Navbar />
 
         {/* Main content */}
         <main className="">
           <Routes>
+            <Route path="/" element={<HeroSection/>}/>
             <Route path="/overview" element={<AdminDashboard />} />
             <Route path="/all-farmers" element={<FarmerDashboard />} />
             <Route path="/farmer-products" element={<FarmerProduct/>} />
@@ -27,6 +30,7 @@ const App = () => {
           </Routes>
         </main>
       </div>
+    
     </Router>
   );
 };
