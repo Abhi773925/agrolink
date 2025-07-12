@@ -21,7 +21,7 @@ export default function FarmerDashboard() {
     const fetchFarmers = async () => {
       try {
         // Simulating API response with added 'listedCrops' for demonstration
-        const response = await axios.get("http://localhost:5000/api/admin/farmer")
+        const response = await axios.get("https://agrolink-5ok6.onrender.com/api/admin/farmer")
         const fetchedFarmers = response.data.map((farmer) => ({
           ...farmer,
           // Add dummy listedCrops for demonstration if not present

@@ -23,7 +23,7 @@ export default function HeroSection() {
     const fetchStats = async () => {
       try {
         setLoading(true)
-        const response = await fetch("http://localhost:5000/api/admin/stats")
+        const response = await fetch("https://agrolink-5ok6.onrender.com/api/admin/stats")
         const data = await response.json()
         
         if (data.success) {

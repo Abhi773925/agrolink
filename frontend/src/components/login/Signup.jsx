@@ -58,7 +58,7 @@ const Signup = () => {
     setIsLoading(true)
 
     try {
-      const response = await axios.post("http://localhost:5000/api/users/createuser", formData)
+      const response = await axios.post("https://agrolink-5ok6.onrender.com/api/users/createuser", formData)
 
       // Success notification
       const successMsg = document.createElement("div")

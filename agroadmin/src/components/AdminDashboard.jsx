@@ -55,7 +55,7 @@ const AdminDashboard = () => {
         limit: "10", // Hardcoded limit for now, can be dynamic
         ...filters,
       })
-      const response = await fetch(`http://localhost:5000/api/admin/orders?${queryParams}`)
+      const response = await fetch(`https://agrolink-5ok6.onrender.com/api/admin/orders?${queryParams}`)
       const data = await response.json()
       if (data.success) {
         setOrders(data.orders)
@@ -70,7 +70,7 @@ const AdminDashboard = () => {
 
   const fetchStats = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/admin/stats")
+      const response = await fetch("https://agrolink-5ok6.onrender.com/api/admin/stats")
       const data = await response.json()
       if (data.success) {
         setStats(data.stats)
@@ -82,7 +82,7 @@ const AdminDashboard = () => {
 
   const handleUpdateOrder = async (orderId, updateData) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/admin/orders/${orderId}`, {
+      const response = await fetch(`https://agrolink-5ok6.onrender.com/api/admin/orders/${orderId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -102,7 +102,7 @@ const AdminDashboard = () => {
   const handleBulkUpdate = async (updateData) => {
     if (selectedOrders.length === 0) return
     try {
-      const response = await fetch("http://localhost:5000/api/admin/orders/bulk-update", {
+      const response = await fetch("https://agrolink-5ok6.onrender.com/api/admin/orders/bulk-update", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -124,7 +124,7 @@ const AdminDashboard = () => {
   const handleDeleteOrder = async (orderId) => {
     if (window.confirm("Are you sure you want to cancel this order?")) {
       try {
-        const response = await fetch(`http://localhost:5000/api/admin/orders/${orderId}`, {
+        const response = await fetch(`https://agrolink-5ok6.onrender.com/api/admin/orders/${orderId}`, {
           method: "DELETE",
         })
         if (response.ok) {

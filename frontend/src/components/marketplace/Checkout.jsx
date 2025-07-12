@@ -50,7 +50,7 @@ const Checkout = () => {
     const getItem = async () => {
       try {
         setFetchingItem(true);
-        const response = await fetch(`http://localhost:5000/api/users/checkout/${productId}`);
+        const response = await fetch(`https://agrolink-5ok6.onrender.com/api/users/checkout/${productId}`);
         
         if (!response.ok) {
           throw new Error('Failed to fetch product details');
@@ -120,7 +120,7 @@ const Checkout = () => {
       setError(""); // Clear any previous errors
       
       // Step 1: Create Razorpay order
-      const razorpayOrderResponse = await fetch('http://localhost:5000/api/users/create-razorpay-order', {
+      const razorpayOrderResponse = await fetch('https://agrolink-5ok6.onrender.com/api/users/create-razorpay-order', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -152,7 +152,7 @@ const Checkout = () => {
             console.log('Payment successful, processing order...', response);
             
             // Step 3: Place order with payment details
-            const finalOrderResponse = await fetch('http://localhost:5000/api/users/order', {
+            const finalOrderResponse = await fetch('https://agrolink-5ok6.onrender.com/api/users/order', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -233,7 +233,7 @@ const Checkout = () => {
       setLoading(true);
       setError("");
       
-      const response = await fetch('http://localhost:5000/api/users/order', {
+      const response = await fetch('https://agrolink-5ok6.onrender.com/api/users/order', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

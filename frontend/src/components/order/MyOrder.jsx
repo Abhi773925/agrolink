@@ -64,7 +64,7 @@ export default function MyOrders() {
   const fetchOrders = async () => {
     try {
       setLoading(true)
-      const response = await fetch(`http://localhost:5000/api/users/getorder/${userEmail}`)
+      const response = await fetch(`https://agrolink-5ok6.onrender.com/api/users/getorder/${userEmail}`)
       if (!response.ok) {
         throw new Error("Failed to fetch orders")
       }

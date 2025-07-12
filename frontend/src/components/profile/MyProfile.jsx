@@ -19,7 +19,7 @@ const MyProfile = () => {
     const storedUser = localStorage.getItem("user")
     const parsedUser = storedUser ? JSON.parse(storedUser) : null
     if (parsedUser?.email) {
-      fetch(`http://localhost:5000/api/users/profile?email=${parsedUser.email}`)
+      fetch(`https://agrolink-5ok6.onrender.com/api/users/profile?email=${parsedUser.email}`)
         .then((response) => response.json())
         .then((data) => {
           setUserData(data)
@@ -49,7 +49,7 @@ const MyProfile = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/users/update-profile", {
+      const response = await fetch("https://agrolink-5ok6.onrender.com/api/users/update-profile", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

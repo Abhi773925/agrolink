@@ -9,7 +9,7 @@ const Product = () => {
   const getProducts = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/users/products"
+        "https://agrolink-5ok6.onrender.com/api/users/products"
       );
       setProducts(response.data);
       console.log(response.data);

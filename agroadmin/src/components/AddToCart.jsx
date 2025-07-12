@@ -18,7 +18,7 @@ const AddToCart = () => {
   useEffect(() => {
     const fetchItem = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/users/cart/${id}`);
+        const res = await axios.get(`https://agrolink-5ok6.onrender.com/api/users/cart/${id}`);
         setItem(res.data);
       } catch (err) {
         setError("Failed to fetch product");

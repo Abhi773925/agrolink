@@ -26,7 +26,7 @@ const MyCrop = () => {
     try {
     //   const email = localStorage.getItem("email");
       const response = await axios.get(
-        `http://localhost:5000/api/users/mycrop?email=${encodeURIComponent(email)}`
+        `https://agrolink-5ok6.onrender.com/api/users/mycrop?email=${encodeURIComponent(email)}`
       );
       setCrop(response.data);
     } finally {
@@ -37,7 +37,7 @@ const MyCrop = () => {
   const handleDelete = async (item) => {
     try {
       await axios.delete(
-        `http://localhost:5000/api/users/deletecrop?item=${encodeURIComponent(
+        `https://agrolink-5ok6.onrender.com/api/users/deletecrop?item=${encodeURIComponent(
           item.name
         )}`
       );
@@ -63,7 +63,7 @@ const MyCrop = () => {
     e.preventDefault();
     try {
       await axios.put(
-        `http://localhost:5000/api/users/updateitem?listingId=${selectedItem._id}`,
+        `https://agrolink-5ok6.onrender.com/api/users/updateitem?listingId=${selectedItem._id}`,
         formData
       );
       setSelectedItem(null);

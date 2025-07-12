@@ -34,7 +34,7 @@ const Login = () => {
     setIsLoading(true)
 
     try {
-      const response = await axios.post("http://localhost:5000/api/users/login", formData)
+      const response = await axios.post("https://agrolink-5ok6.onrender.com/api/users/login", formData)
       localStorage.setItem("token", response.data.token)
       localStorage.setItem("user", JSON.stringify(response.data.user))
       localStorage.setItem("email", formData.email)

@@ -24,7 +24,7 @@ import {
   Loader2,
 } from "lucide-react";
 
-const socket = io("http://localhost:5000");
+const socket = io("https://agrolink-5ok6.onrender.com");
 
 const emojis = [
   "😀",
@@ -245,7 +245,7 @@ const ChatBox = () => {
       setIsLoading(true);
 
       // Fetch current user profile
-      fetch(`http://localhost:5000/api/users/profile?email=${parsedUser.email}`)
+      fetch(`https://agrolink-5ok6.onrender.com/api/users/profile?email=${parsedUser.email}`)
         .then((response) => response.json())
         .then((data) => {
           setUserData(data);
@@ -261,7 +261,7 @@ const ChatBox = () => {
         });
 
       // Fetch all farmers for the community
-      fetch("http://localhost:5000/api/users/profiles")
+      fetch("https://agrolink-5ok6.onrender.com/api/users/profiles")
         .then((response) => response.json())
         .then((farmers) => {
           setAllFarmers(farmers);
@@ -305,7 +305,7 @@ const ChatBox = () => {
     // Fetch chat messages
     const fetchMessages = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/messages");
+        const res = await axios.get("https://agrolink-5ok6.onrender.com/api/messages");
         setMessages(res.data);
         lastMessageCountRef.current = res.data.length;
       } catch (err) {
@@ -378,7 +378,7 @@ const ChatBox = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/messages",
+        "https://agrolink-5ok6.onrender.com/api/messages",
         formData
       );
       setMessages((prev) => [...prev, res.data]);
