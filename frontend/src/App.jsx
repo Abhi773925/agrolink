@@ -37,7 +37,6 @@ const App = () => {
               path="/"
               element={
                 <>
-                <Notifications/>
                   <HeroSection /> <FeaturesSection />
                     <HowItWorksSection/>
                   <StatsSection />
