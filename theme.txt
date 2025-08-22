@@ -1,38 +1,33 @@
-Looking at your AgroLinkNavbar component, here's the complete color theme breakdown:
+| Element         | Dark Mode |
+|-----------------|-----------|
+| Background      | #111827   |
+| Card            | #1F2937   |
+| Border          | #374151   |
+| Text Primary    | #FFFFFF   |
+| Text Secondary  | #D1D5DB   |
+| Green Primary   | #22C55E   |
+| Green Hover     | #16A34A   |
+| Yellow Accent   | #FACC15   |
 
-## Primary Colors
-- **Yellow/Gold Accent**: `yellow-400` and `yellow-600` - Used for the brand accent, active states, and call-to-action buttons
-- **Black/Dark Background**: `black/95` - Main navbar background with 95% opacity
 
-## Background Colors
-- **Primary Background**: `bg-black/95` with `backdrop-blur-md` - Semi-transparent black with blur effect
-- **Secondary Backgrounds**: 
-  - `bg-gray-800/50` - 50% opacity gray for hover states and input backgrounds
-  - `bg-gray-900/95` and `bg-gray-900/50` - For dropdown menus and mobile menu
 
-## Text Colors
-- **Primary Text**: `text-white` - Main brand text and input text
-- **Secondary Text**: `text-gray-300` - Default nav items and secondary text
-- **Accent Text**: `text-yellow-400` - Active states and hover effects
-- **Muted Text**: `text-gray-400` - Placeholder text and icons
-- **Error/Logout**: `text-red-400` and `text-red-300` - For logout buttons and error states
-- **Button Text**: `text-black` - Text on yellow gradient buttons
-
-## Border Colors
-- **Primary Borders**: `border-gray-800/50` and `border-gray-700/50` - Subtle borders with transparency
-- **Focus Borders**: `border-yellow-400/50` - Yellow accent for focused inputs
-
-## Gradient Colors
-- **Primary Gradient**: `from-yellow-400 to-yellow-600` - Used for CTA buttons and profile avatar
-- **Hover Gradient**: `from-yellow-500 to-yellow-700` - Darker version for hover states
-- **Active Indicator**: `from-yellow-400 to-yellow-600` - Bottom border for active nav items
-
-## Special Effects
-- **Shadows**: `shadow-yellow-400/20` - Yellow glow effects on buttons and active states
-- **Notification Badge**: `bg-red-500` - Red notification indicator
-- **Pulse Animation**: `bg-yellow-400` with `animate-pulse` - Animated logo accent
-
-## Focus States
-- **Ring Colors**: `ring-yellow-400/50` - Yellow focus rings for accessibility
-
-The overall theme creates a modern, dark agricultural platform with warm yellow accents that suggest growth, harvest, and prosperity - perfect for an agricultural marketplace.
+| Original Tailwind Class                             | Dark Mode Replacement (Inline)                  |
+| --------------------------------------------------- | ----------------------------------------------- |
+| `bg-gray-900` / `bg-gray-800`                       | `bg-[#1F2937]` (Card background)                |
+| `bg-yellow-400` / `bg-yellow-500` / `bg-yellow-600` | `bg-[#22C55E]` (Green Primary button)           |
+| `hover:bg-yellow-500` / `hover:bg-yellow-600`       | `hover:bg-[#16A34A]` (Green Hover button)       |
+| `text-gray-300` / `text-gray-400` / `text-gray-500` | `text-[#D1D5DB]` (Text Secondary)               |
+| `text-white`                                        | `text-[#FFFFFF]` (Text Primary)                 |
+| `border-gray-700` / `border-gray-700/50`            | `border-[#374151]` (Border)                     |
+| `hover:bg-gray-700` / `hover:bg-gray-800`           | `hover:bg-[#374151]` (Hover background)         |
+| `placeholder-gray-400`                              | `placeholder-[#D1D5DB]` (Input placeholder)     |
+| `shadow-yellow-400/20`                              | `shadow-[#22C55E]/20` (Green button shadow)     |
+| `shadow-yellow-400/10`                              | `shadow-[#FACC15]/10` (Dropdown shadow)         |
+| `focus:ring-yellow-400/50`                          | `focus:ring-[#22C55E]/50` (Focus ring)          |
+| `focus:border-yellow-400/50`                        | `focus:border-[#22C55E]/50` (Focus border)      |
+| `bg-yellow-400/10`                                  | `bg-[#22C55E]/10` (Slight green background)     |
+| `bg-gray-900/50`                                    | `bg-[#1F2937]/50` (Card with opacity 50%)       |
+| `bg-gray-900/80`                                    | `bg-[#1F2937]/80` (Card with opacity 80%)       |
+| `text-red-400`                                      | `text-[#F87171]` (Logout button)                |
+| `hover:text-red-300`                                | `hover:text-[#FCA5A5]` (Logout hover)           |
+| `shadow-black/20`                                   | `shadow-[#000000]/20` (Dropdown shadow opacity) |

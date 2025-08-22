@@ -24,7 +24,7 @@ const App = () => {
   return (
    <PageTransition>
      <Router>
-      <div className=" min-h-screen relative bg-gradient-to-br from-black via-gray-900 to-gray-800">
+      <div className=" min-h-screen relative ">
         {/* Fixed Navbar */}
         <div className="fixed top-0 left-0 right-0 z-50">
           <Navbar />

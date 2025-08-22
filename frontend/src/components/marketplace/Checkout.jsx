@@ -326,19 +326,19 @@ const Checkout = () => {
   const Toast = ({ message, type, onClose }) => (
     <div className={`fixed top-4 right-4 z-50000 p-4 rounded-lg shadow-lg border-l-4 backdrop-blur-md ${
       type === 'success' 
-        ? 'bg-gray-900/95 border-yellow-400 text-white' 
-        : 'bg-gray-900/95 border-red-400 text-white'
+        ? 'bg-[#111827]  border-[#374151] text-[#FFFFFF]' 
+        : 'bg-[#111827]  border-red-400 text-[#FFFFFF]'
     } animate-slide-in`}>
       <div className="flex items-center space-x-2">
         {type === 'success' ? (
-          <CheckCircle className="w-5 h-5 text-yellow-400" />
+          <CheckCircle className="w-5 h-5 text-[#FFFFFF]" />
         ) : (
-          <AlertCircle className="w-5 h-5 text-red-400" />
+          <AlertCircle className="w-5 h-5 text-[#F87171]" />
         )}
         <span className="font-medium">{message}</span>
         <button 
           onClick={onClose}
-          className="ml-2 text-gray-400 hover:text-white transition-colors"
+          className="ml-2 text-[#D1D5DB] hover:text-[#FFFFFF] transition-colors"
         >
           ×
         </button>
@@ -349,24 +349,24 @@ const Checkout = () => {
   // Success screen
   if (orderSuccess && orderDetails) {
     return (
-      <div className="min-h-screen bg-black/95 flex items-center justify-center p-4">
-        <div className="max-w-md w-full bg-gray-900/95 backdrop-blur-md rounded-2xl shadow-2xl border border-gray-800/50 p-8 text-center">
-          <div className="w-16 h-16 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg shadow-yellow-400/20">
-            <CheckCircle className="w-8 h-8 text-black" />
+      <div className="min-h-screen bg-[#111827] flex items-center justify-center p-4">
+        <div className="max-w-md w-full bg-[#111827]  backdrop-blur-md rounded-2xl shadow-2xl border border-[#374151] p-8 text-center">
+          <div className="w-16 h-16 bg-[#22C55E] rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg shadow-[#22C55E]/20">
+            <CheckCircle className="w-8 h-8 text-[#D1D5DB]" />
           </div>
-          <h2 className="text-2xl font-bold text-white mb-2">Order Placed Successfully!</h2>
-          <p className="text-gray-300 mb-6">Thank you for your purchase. Your order has been confirmed.</p>
+          <h2 className="text-2xl font-bold text-[#FFFFFF] mb-2">Order Placed Successfully!</h2>
+          <p className="text-[#D1D5DB] mb-6">Thank you for your purchase. Your order has been confirmed.</p>
           
-          <div className="bg-gray-800/50 backdrop-blur-md rounded-xl p-4 mb-6 text-left border border-gray-700/50">
-            <h3 className="font-semibold text-white mb-2">Order Details</h3>
-            <div className="space-y-1 text-sm text-gray-300">
-              <p><span className="font-medium text-yellow-400">Order ID:</span> {orderDetails.orderId}</p>
-              <p><span className="font-medium text-yellow-400">Product:</span> {orderDetails.productName}</p>
-              <p><span className="font-medium text-yellow-400">Quantity:</span> {orderDetails.quantity}</p>
-              <p><span className="font-medium text-yellow-400">Total Amount:</span> ₹{orderDetails.totalAmount}</p>
-              <p><span className="font-medium text-yellow-400">Payment Method:</span> {orderDetails.paymentMethod}</p>
-              <p><span className="font-medium text-yellow-400">Status:</span> 
-                <span className="ml-1 px-2 py-1 bg-yellow-400/20 text-yellow-400 rounded text-xs border border-yellow-400/30">
+          <div className="bg-[#374151 ] backdrop-blur-md rounded-xl p-4 mb-6 text-left border border-[#374151]/50">
+            <h3 className="font-semibold text-[#FFFFFF] mb-2">Order Details</h3>
+            <div className="space-y-1 text-sm text-[#D1D5DB]">
+              <p><span className="font-medium text-[#FFFFFF]">Order ID:</span> {orderDetails.orderId}</p>
+              <p><span className="font-medium text-[#FFFFFF]">Product:</span> {orderDetails.productName}</p>
+              <p><span className="font-medium text-[#FFFFFF]">Quantity:</span> {orderDetails.quantity}</p>
+              <p><span className="font-medium text-[#FFFFFF]">Total Amount:</span> ₹{orderDetails.totalAmount}</p>
+              <p><span className="font-medium text-[#FFFFFF]">Payment Method:</span> {orderDetails.paymentMethod}</p>
+              <p><span className="font-medium text-[#FFFFFF]">Status:</span> 
+                <span className="ml-1 px-2 py-1 bg-[#22C55E]/20 text-[#FFFFFF] rounded text-xs border border-[#374151]">
                   {orderDetails.orderStatus}
                 </span>
               </p>
@@ -375,7 +375,7 @@ const Checkout = () => {
           
           <button 
             onClick={() => window.location.href = '/'}
-            className="w-full bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-semibold py-3 px-6 rounded-xl hover:from-yellow-500 hover:to-yellow-700 transition-all duration-200 transform hover:scale-105 shadow-lg shadow-yellow-400/20"
+            className="w-full bg-[#22C55E] text-[#D1D5DB] font-semibold py-3 px-6 rounded-xl hover:bg-[#374151 transition-all duration-200 transform hover:scale-105 shadow-lg shadow-[#22C55E]/20"
           >
             Continue Shopping
           </button>
@@ -386,10 +386,10 @@ const Checkout = () => {
 
   // Helper function to get stock status
   const getStockStatus = (quantity) => {
-    if (quantity === 0) return { text: "Out of Stock", color: "text-red-400 bg-red-400/10 border-red-400/30", icon: "⚠️" };
-    if (quantity <= 5) return { text: `Only ${quantity} left`, color: "text-yellow-400 bg-yellow-400/10 border-yellow-400/30", icon: "⚡" };
-    if (quantity <= 10) return { text: `${quantity} in stock`, color: "text-yellow-400 bg-yellow-400/10 border-yellow-400/30", icon: "📦" };
-    return { text: `${quantity} in stock`, color: "text-yellow-400 bg-yellow-400/10 border-yellow-400/30", icon: "✅" };
+    if (quantity === 0) return { text: "Out of Stock", color: "text-[#F87171] bg-red-400/10 border-red-400/30", icon: "⚠️" };
+    if (quantity <= 5) return { text: `Only ${quantity} left`, color: "text-[#FFFFFF] bg-[#22C55E]/10 border-[#374151]", icon: "⚡" };
+    if (quantity <= 10) return { text: `${quantity} in stock`, color: "text-[#FFFFFF] bg-[#22C55E]/10 border-[#374151]", icon: "📦" };
+    return { text: `${quantity} in stock`, color: "text-[#FFFFFF] bg-[#22C55E]/10 border-[#374151]", icon: "✅" };
   };
 
   const totalPrice = item?.price * quantity || 0;
@@ -397,36 +397,36 @@ const Checkout = () => {
   const savings = Math.floor(totalPrice * 0.15);
 
   return (
-    <div className="min-h-screen bg-black/95 backdrop-blur-md">
+    <div className="min-h-screen bg-[#111827] backdrop-blur-md">
       {/* Toast Notification */}
       {toast && (
-        <Toast 
-          message={toast.message} 
-          type={toast.type} 
-          onClose={() => setToast(null)} 
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(null)}
         />
       )}
-      
+
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Product Summary - Left Column */}
           <div className="lg:col-span-2 space-y-6">
             {/* Product Card */}
-            <div className="bg-gray-900/95 backdrop-blur-md rounded-2xl shadow-2xl border border-gray-800/50 overflow-hidden">
+            <div className="bg-[#111827]  backdrop-blur-md rounded-2xl shadow-2xl border border-[#374151] overflow-hidden">
               <div className="p-6">
-                <h2 className="text-xl font-bold text-white mb-6 flex items-center">
-                  <Package className="w-5 h-5 mr-2 text-yellow-400" />
+                <h2 className="text-xl font-bold text-[#FFFFFF] mb-6 flex items-center">
+                  <Package className="w-5 h-5 mr-2 text-[#FFFFFF]" />
                   Order Summary
                 </h2>
-                
+
                 {fetchingItem ? (
                   <div className="animate-pulse">
                     <div className="flex space-x-4">
-                      <div className="w-24 h-24 bg-gray-800/50 rounded-xl"></div>
+                      <div className="w-24 h-24 bg-[#374151 ] rounded-xl"></div>
                       <div className="flex-1 space-y-3">
-                        <div className="h-6 bg-gray-800/50 rounded w-3/4"></div>
-                        <div className="h-4 bg-gray-800/50 rounded w-1/2"></div>
-                        <div className="h-6 bg-gray-800/50 rounded w-1/4"></div>
+                        <div className="h-6 bg-[#374151 ] rounded w-3/4"></div>
+                        <div className="h-4 bg-[#374151 ] rounded w-1/2"></div>
+                        <div className="h-6 bg-[#374151 ] rounded w-1/4"></div>
                       </div>
                     </div>
                   </div>
@@ -434,47 +434,69 @@ const Checkout = () => {
                   <div>
                     <div className="flex space-x-6 mb-6">
                       <div className="relative">
-                        <img 
-                          src={item.image || "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=400&h=300&fit=crop"} 
+                        <img
+                          src={
+                            item.image ||
+                            "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=400&h=300&fit=crop"
+                          }
                           alt={item.name}
-                          className="w-24 h-24 rounded-xl object-cover border-2 border-gray-700/50"
+                          className="w-24 h-24 rounded-xl object-cover border-2 border-[#374151]/50"
                           onError={(e) => {
-                            e.target.src = "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=400&h=300&fit=crop";
+                            e.target.src =
+                              "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=400&h=300&fit=crop";
                           }}
                         />
-                        <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center shadow-lg shadow-yellow-400/20">
-                          <Heart className="w-3 h-3 text-black" />
+                        <div className="absolute -top-2 -right-2 w-6 h-6 bg-[#374151] rounded-full flex items-center justify-center shadow-lg shadow-[#22C55E]/20">
+                          <Heart className="w-3 h-3 text-[#22C55E]" />
                         </div>
                       </div>
-                      
+
                       <div className="flex-1">
-                        <h3 className="font-bold text-lg text-white mb-1">{item.name}</h3>
-                        <p className="text-gray-300 text-sm mb-2">{item.description}</p>
-                        
+                        <h3 className="font-bold text-lg text-[#FFFFFF] mb-1">
+                          {item.name}
+                        </h3>
+                        <p className="text-[#D1D5DB] text-sm mb-2">
+                          {item.description}
+                        </p>
+
                         {/* Rating */}
                         <div className="flex items-center space-x-2 mb-3">
                           <div className="flex items-center space-x-1">
                             {[...Array(5)].map((_, i) => (
-                              <Star 
-                                key={i} 
+                              <Star
+                                key={i}
                                 className={`w-4 h-4 ${
-                                  i < Math.floor(4.8) ? 'text-yellow-400 fill-current' : 'text-gray-600'
-                                }`} 
+                                  i < Math.floor(4.8)
+                                    ? "text-[#FFFFFF] fill-current"
+                                    : "text-gray-600"
+                                }`}
                               />
                             ))}
                           </div>
-                          <span className="text-sm text-gray-400">(127 reviews)</span>
+                          <span className="text-sm text-[#D1D5DB]">
+                            (127 reviews)
+                          </span>
                         </div>
-                        
+
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-3">
-                            <span className="text-2xl font-bold text-yellow-400">₹{item.price}</span>
-                            <span className="text-sm text-gray-500 line-through">₹{Math.floor(item.price * 1.2)}</span>
+                            <span className="text-2xl font-bold text-[#FFFFFF]">
+                              ₹{item.price}
+                            </span>
+                            <span className="text-sm text-[#D1D5DB] line-through">
+                              ₹{Math.floor(item.price * 1.2)}
+                            </span>
                           </div>
-                          
+
                           {item.quantity !== undefined && (
-                            <div className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getStockStatus(item.quantity).color}`}>
-                              <span className="mr-1">{getStockStatus(item.quantity).icon}</span>
+                            <div
+                              className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${
+                                getStockStatus(item.quantity).color
+                              }`}
+                            >
+                              <span className="mr-1">
+                                {getStockStatus(item.quantity).icon}
+                              </span>
                               {getStockStatus(item.quantity).text}
                             </div>
                           )}
@@ -483,41 +505,51 @@ const Checkout = () => {
                     </div>
 
                     {/* Quantity Selector */}
-                    <div className="border-t border-gray-700/50 pt-6">
+                    <div className="border-t border-[#374151]/50 pt-6">
                       <div className="flex items-center justify-between">
                         <div>
-                          <label className="block text-sm font-medium text-gray-300 mb-2">
+                          <label className="block text-sm font-medium text-[#D1D5DB] mb-2">
                             Quantity
                           </label>
                           <div className="flex items-center space-x-3">
-                            <button 
-                              onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                            <button
+                              onClick={() =>
+                                setQuantity(Math.max(1, quantity - 1))
+                              }
                               disabled={quantity <= 1}
-                              className="w-10 h-10 rounded-full bg-gray-800/50 hover:bg-gray-700/50 text-gray-300 font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center border border-gray-700/50"
+                              className="w-10 h-10 rounded-full bg-[#374151 ] hover:bg-[#374151]/50 text-[#D1D5DB] font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center border border-[#374151]/50"
                             >
                               -
                             </button>
-                            <div className="w-16 h-10 bg-gray-800/50 rounded-lg flex items-center justify-center border border-gray-700/50">
-                              <span className="text-lg font-semibold text-white">{quantity}</span>
+                            <div className="w-16 h-10 bg-[#374151 ] rounded-lg flex items-center justify-center border border-[#374151]/50">
+                              <span className="text-lg font-semibold text-[#FFFFFF]">
+                                {quantity}
+                              </span>
                             </div>
-                            <button 
-                              onClick={() => setQuantity(Math.min(maxQuantity, quantity + 1))}
-                              disabled={quantity >= maxQuantity || maxQuantity === 0}
-                              className="w-10 h-10 rounded-full bg-gray-800/50 hover:bg-gray-700/50 text-gray-300 font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center border border-gray-700/50"
+                            <button
+                              onClick={() =>
+                                setQuantity(Math.min(maxQuantity, quantity + 1))
+                              }
+                              disabled={
+                                quantity >= maxQuantity || maxQuantity === 0
+                              }
+                              className="w-10 h-10 rounded-full bg-[#374151 ] hover:bg-[#374151]/50 text-[#D1D5DB] font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center border border-[#374151]/50"
                             >
                               +
                             </button>
                           </div>
                         </div>
-                        
+
                         <div className="text-right">
-                          <p className="text-sm text-gray-400">Subtotal</p>
-                          <p className="text-2xl font-bold text-white">₹{totalPrice}</p>
+                          <p className="text-sm text-[#D1D5DB]">Subtotal</p>
+                          <p className="text-2xl font-bold text-[#FFFFFF]">
+                            ₹{totalPrice}
+                          </p>
                         </div>
                       </div>
-                      
+
                       {maxQuantity > 0 && (
-                        <div className="flex items-center mt-3 text-sm text-gray-400">
+                        <div className="flex items-center mt-3 text-sm text-[#D1D5DB]">
                           <Info className="w-4 h-4 mr-1" />
                           <span>Maximum {maxQuantity} items available</span>
                         </div>
@@ -526,11 +558,13 @@ const Checkout = () => {
                   </div>
                 ) : (
                   <div className="text-center py-8">
-                    <AlertCircle className="w-12 h-12 text-red-400 mx-auto mb-4" />
-                    <p className="text-gray-400 mb-4">Failed to load product details</p>
-                    <button 
-                      onClick={() => window.location.reload()} 
-                      className="px-6 py-2 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black rounded-lg hover:from-yellow-500 hover:to-yellow-700 transition-all duration-200 font-semibold shadow-lg shadow-yellow-400/20"
+                    <AlertCircle className="w-12 h-12 text-[#F87171] mx-auto mb-4" />
+                    <p className="text-[#D1D5DB] mb-4">
+                      Failed to load product details
+                    </p>
+                    <button
+                      onClick={() => window.location.reload()}
+                      className="px-6 py-2 bg-[#22C55E] text-[#D1D5DB] rounded-lg hover:bg-[#374151 transition-all duration-200 font-semibold shadow-lg shadow-[#22C55E]/20"
                     >
                       Retry
                     </button>
@@ -540,29 +574,29 @@ const Checkout = () => {
             </div>
 
             {/* Delivery Form */}
-            <div className="bg-gray-900/95 backdrop-blur-md rounded-2xl shadow-2xl border border-gray-800/50 overflow-hidden">
+            <div className="bg-[#111827]  backdrop-blur-md rounded-2xl shadow-2xl border border-[#374151] overflow-hidden">
               <div className="p-6">
-                <h2 className="text-xl font-bold text-white mb-6 flex items-center">
-                  <MapPin className="w-5 h-5 mr-2 text-yellow-400" />
+                <h2 className="text-xl font-bold text-[#FFFFFF] mb-6 flex items-center">
+                  <MapPin className="w-5 h-5 mr-2 text-[#FFFFFF]" />
                   Delivery Information
                 </h2>
 
                 {error && (
                   <div className="flex items-center space-x-2 p-4 bg-red-400/10 border border-red-400/30 rounded-xl mb-6 backdrop-blur-md">
-                    <AlertCircle className="w-5 h-5 text-red-400" />
-                    <p className="text-red-400 font-medium">{error}</p>
+                    <AlertCircle className="w-5 h-5 text-[#F87171]" />
+                    <p className="text-[#F87171] font-medium">{error}</p>
                   </div>
                 )}
 
                 <div className="space-y-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-[#D1D5DB] mb-2">
                       Delivery Address *
                     </label>
                     <textarea
                       value={address}
                       onChange={(e) => setAddress(e.target.value)}
-                      className="w-full p-4 bg-gray-800/50 border border-gray-700/50 rounded-xl focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/50 transition-all resize-none text-white placeholder-gray-400 backdrop-blur-md"
+                      className="w-full p-4 bg-[#374151 ] border border-[#374151]/50 rounded-xl focus:ring-2 focus:ring-[#22C55E]/50 focus:border-[#22C55E]/50 transition-all resize-none text-[#FFFFFF] placeholder-[#D1D5DB] backdrop-blur-md"
                       placeholder="Enter your complete farming address..."
                       rows="3"
                       required
@@ -571,27 +605,29 @@ const Checkout = () => {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">
+                      <label className="block text-sm font-medium text-[#D1D5DB] mb-2">
                         PIN Code *
                       </label>
                       <input
                         value={pincode}
-                        onChange={(e) => setPincode(e.target.value.replace(/\D/g, ''))}
-                        className="w-full p-4 bg-gray-800/50 border border-gray-700/50 rounded-xl focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/50 transition-all text-white placeholder-gray-400 backdrop-blur-md"
+                        onChange={(e) =>
+                          setPincode(e.target.value.replace(/\D/g, ""))
+                        }
+                        className="w-full p-4 bg-[#374151 ] border border-[#374151]/50 rounded-xl focus:ring-2 focus:ring-[#22C55E]/50 focus:border-[#22C55E]/50 transition-all text-[#FFFFFF] placeholder-[#D1D5DB] backdrop-blur-md"
                         placeholder="Enter PIN code"
                         maxLength="6"
                         required
                       />
                       {locationLoading && pincode.length === 6 && (
-                        <div className="flex items-center mt-2 text-sm text-gray-400">
+                        <div className="flex items-center mt-2 text-sm text-[#D1D5DB]">
                           <div className="w-4 h-4 border-2 border-gray-600 border-t-yellow-400 rounded-full animate-spin mr-2"></div>
                           Verifying location...
                         </div>
                       )}
                       {locationDetails && !locationLoading && (
                         <div className="flex items-center space-x-1 mt-2">
-                          <CheckCircle className="w-4 h-4 text-yellow-400" />
-                          <p className="text-yellow-400 text-sm">
+                          <CheckCircle className="w-4 h-4 text-[#FFFFFF]" />
+                          <p className="text-[#FFFFFF] text-sm">
                             {locationDetails.city}, {locationDetails.state}
                           </p>
                         </div>
@@ -599,13 +635,15 @@ const Checkout = () => {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">
+                      <label className="block text-sm font-medium text-[#D1D5DB] mb-2">
                         Phone Number *
                       </label>
                       <input
                         value={phone}
-                        onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))}
-                        className="w-full p-4 bg-gray-800/50 border border-gray-700/50 rounded-xl focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/50 transition-all text-white placeholder-gray-400 backdrop-blur-md"
+                        onChange={(e) =>
+                          setPhone(e.target.value.replace(/\D/g, ""))
+                        }
+                        className="w-full p-4 bg-[#374151 ] border border-[#374151]/50 rounded-xl focus:ring-2 focus:ring-[#22C55E]/50 focus:border-[#22C55E]/50 transition-all text-[#FFFFFF] placeholder-[#D1D5DB] backdrop-blur-md"
                         placeholder="Enter 10-digit phone number"
                         maxLength="10"
                         required
@@ -617,18 +655,29 @@ const Checkout = () => {
             </div>
 
             {/* Payment Method */}
-            <div className="bg-gray-900/95 backdrop-blur-md rounded-2xl shadow-2xl border border-gray-800/50 overflow-hidden">
+            <div className="bg-[#111827]  backdrop-blur-md rounded-2xl shadow-2xl border border-[#374151] overflow-hidden">
               <div className="p-6">
-                <h2 className="text-xl font-bold text-white mb-6 flex items-center">
-                  <CreditCard className="w-5 h-5 mr-2 text-yellow-400" />
+                <h2 className="text-xl font-bold text-[#FFFFFF] mb-6 flex items-center">
+                  <CreditCard className="w-5 h-5 mr-2 text-[#FFFFFF]" />
                   Payment Method
                 </h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {[
-                    { value: "COD", label: "Cash on Delivery", icon: Truck, color: "yellow", desc: "Pay when you receive" },
-                    { value: "UPI", label: "UPI Payment", icon: CreditCard, color: "yellow", desc: "Instant & secure" },
-                   
+                    {
+                      value: "COD",
+                      label: "Cash on Delivery",
+                      icon: Truck,
+                      color: "yellow",
+                      desc: "Pay when you receive",
+                    },
+                    {
+                      value: "UPI",
+                      label: "UPI Payment",
+                      icon: CreditCard,
+                      color: "yellow",
+                      desc: "Instant & secure",
+                    },
                   ].map((method) => (
                     <label key={method.value} className="cursor-pointer group">
                       <input
@@ -639,21 +688,31 @@ const Checkout = () => {
                         onChange={(e) => setPaymentMethod(e.target.value)}
                         className="sr-only"
                       />
-                      <div className={`p-4 border-2 rounded-xl transition-all duration-200 backdrop-blur-md ${
-                        paymentMethod === method.value 
-                          ? 'border-yellow-400 bg-yellow-400/10 shadow-lg shadow-yellow-400/20' 
-                          : 'border-gray-700/50 bg-gray-800/50 hover:border-gray-600/50 hover:bg-gray-700/50'
-                      }`}>
+                      <div
+                        className={`p-4 border-2 rounded-xl transition-all duration-200 backdrop-blur-md ${
+                          paymentMethod === method.value
+                            ? "border-[#374151] bg-[#22C55E]/10 shadow-lg shadow-[#22C55E]/20"
+                            : "border-[#374151]/50 bg-[#374151 ] hover:border-gray-600/50 hover:bg-[#374151]/50"
+                        }`}
+                      >
                         <div className="flex items-center space-x-3">
-                          <method.icon className={`w-5 h-5 ${
-                            paymentMethod === method.value ? 'text-yellow-400' : 'text-gray-400'
-                          }`} />
+                          <method.icon
+                            className={`w-5 h-5 ${
+                              paymentMethod === method.value
+                                ? "text-[#FFFFFF]"
+                                : "text-[#D1D5DB]"
+                            }`}
+                          />
                           <div className="flex-1">
-                            <p className="font-medium text-white">{method.label}</p>
-                            <p className="text-sm text-gray-400">{method.desc}</p>
+                            <p className="font-medium text-[#FFFFFF]">
+                              {method.label}
+                            </p>
+                            <p className="text-sm text-[#D1D5DB]">
+                              {method.desc}
+                            </p>
                           </div>
                           {paymentMethod === method.value && (
-                            <CheckCircle className="w-5 h-5 text-yellow-400" />
+                            <CheckCircle className="w-5 h-5 text-[#FFFFFF]" />
                           )}
                         </div>
                       </div>
@@ -663,76 +722,96 @@ const Checkout = () => {
               </div>
             </div>
           </div>
-       {/* Order Summary - Right Column */}
-<div className="lg:col-span-1">
-  <div className="bg-gray-900/95 backdrop-blur-md rounded-2xl shadow-lg border border-gray-800/50 sticky top-24">
-    <div className="p-6">
-      <h3 className="text-lg font-bold text-white mb-6">Order Summary</h3>
-      
-      <div className="space-y-4 mb-6">
-        <div className="flex justify-between text-sm">
-          <span className="text-gray-300">Subtotal</span>
-          <span className="font-medium text-white">₹{totalPrice}</span>
-        </div>
-        <div className="flex justify-between text-sm">
-          <span className="text-gray-300">Delivery</span>
-          <span className="font-medium text-yellow-400">Free</span>
-        </div>
-        <div className="flex justify-between text-sm">
-          <span className="text-gray-300">You Save</span>
-          <span className="font-medium text-yellow-400">₹{savings}</span>
-        </div>
-        <div className="border-t border-gray-700/50 pt-4">
-          <div className="flex justify-between">
-            <span className="text-lg font-bold text-white">Total</span>
-            <span className="text-lg font-bold text-white">₹{totalPrice}</span>
+          {/* Order Summary - Right Column */}
+          <div className="lg:col-span-1">
+            <div className="bg-[#111827]  backdrop-blur-md rounded-2xl shadow-lg border border-[#374151] sticky top-24">
+              <div className="p-6">
+                <h3 className="text-lg font-bold text-[#FFFFFF] mb-6">
+                  Order Summary
+                </h3>
+
+                <div className="space-y-4 mb-6">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-[#D1D5DB]">Subtotal</span>
+                    <span className="font-medium text-[#FFFFFF]">
+                      ₹{totalPrice}
+                    </span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-[#D1D5DB]">Delivery</span>
+                    <span className="font-medium text-[#FFFFFF]">Free</span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-[#D1D5DB]">You Save</span>
+                    <span className="font-medium text-[#FFFFFF]">
+                      ₹{savings}
+                    </span>
+                  </div>
+                  <div className="border-t border-[#374151]/50 pt-4">
+                    <div className="flex justify-between">
+                      <span className="text-lg font-bold text-[#FFFFFF]">
+                        Total
+                      </span>
+                      <span className="text-lg font-bold text-[#FFFFFF]">
+                        ₹{totalPrice}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Delivery Info */}
+                <div className="bg-[#374151 ] rounded-xl p-4 mb-6 border border-[#374151]/50">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <Clock className="w-4 h-4 text-[#FFFFFF]" />
+                    <span className="text-sm font-medium text-[#FFFFFF]">
+                      Expected Delivery
+                    </span>
+                  </div>
+                  <p className="text-sm text-[#D1D5DB]">3-5 business days</p>
+                </div>
+
+                {/* Place Order Button */}
+                <button
+                  onClick={handleOrder}
+                  disabled={
+                    loading ||
+                    !item ||
+                    item.quantity === 0 ||
+                    !address ||
+                    !phone ||
+                    !pincode
+                  }
+                  className="w-full bg-[#22C55E] text-[#FFFFFF] font-bold py-4 px-6 rounded-xl transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg shadow-[#22C55E]/20"
+                >
+                  {loading ? (
+                    <div className="flex items-center justify-center space-x-2">
+                      <div className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
+                      <span>Processing...</span>
+                    </div>
+                  ) : item?.quantity === 0 ? (
+                    <div className="flex items-center justify-center space-x-2">
+                      <AlertCircle className="w-5 h-5" />
+                      <span>Out of Stock</span>
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-center space-x-2">
+                      <Package className="w-5 h-5" />
+                      <span>
+                        {paymentMethod === "COD" ? "Place Order" : "Pay Now"} •
+                        ₹{totalPrice}
+                      </span>
+                    </div>
+                  )}
+                </button>
+
+                {/* Security Badge */}
+                <div className="flex items-center justify-center space-x-2 mt-4 text-sm text-[#D1D5DB]">
+                  <Shield className="w-4 h-4" />
+                  <span>Secure & encrypted checkout</span>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      
-      {/* Delivery Info */}
-      <div className="bg-gray-800/50 rounded-xl p-4 mb-6 border border-gray-700/50">
-        <div className="flex items-center space-x-2 mb-2">
-          <Clock className="w-4 h-4 text-yellow-400" />
-          <span className="text-sm font-medium text-yellow-400">Expected Delivery</span>
-        </div>
-        <p className="text-sm text-gray-300">3-5 business days</p>
-      </div>
-      
-      {/* Place Order Button */}
-      <button
-        onClick={handleOrder}
-        disabled={loading || !item || item.quantity === 0 || !address || !phone || !pincode}
-        className="w-full bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-bold py-4 px-6 rounded-xl hover:from-yellow-500 hover:to-yellow-700 transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg shadow-yellow-400/20"
-      >
-        {loading ? (
-          <div className="flex items-center justify-center space-x-2">
-            <div className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
-            <span>Processing...</span>
-          </div>
-        ) : item?.quantity === 0 ? (
-          <div className="flex items-center justify-center space-x-2">
-            <AlertCircle className="w-5 h-5" />
-            <span>Out of Stock</span>
-          </div>
-        ) : (
-          <div className="flex items-center justify-center space-x-2">
-            <Package className="w-5 h-5" />
-            <span>
-              {paymentMethod === 'COD' ? 'Place Order' : 'Pay Now'} • ₹{totalPrice}
-            </span>
-          </div>
-        )}
-      </button>
-      
-      {/* Security Badge */}
-      <div className="flex items-center justify-center space-x-2 mt-4 text-sm text-gray-400">
-        <Shield className="w-4 h-4" />
-        <span>Secure & encrypted checkout</span>
-      </div>
-    </div>
-  </div>
-</div>
         </div>
       </div>
     </div>

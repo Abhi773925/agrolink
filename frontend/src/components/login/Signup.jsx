@@ -18,7 +18,7 @@ import {
   ShoppingCart,
   Wheat,
 } from "lucide-react"
-import logo from "../../assets/agro.png";
+
 const Signup = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -47,10 +47,7 @@ const Signup = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }))
+    setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
   const handleSubmit = async (e) => {
@@ -58,22 +55,23 @@ const Signup = () => {
     setIsLoading(true)
 
     try {
-      const response = await axios.post("https://agrolink-5ok6.onrender.com/api/users/createuser", formData)
+      const response = await axios.post(
+        "https://agrolink-5ok6.onrender.com/api/users/createuser",
+        formData
+      )
 
-      // Success notification
       const successMsg = document.createElement("div")
       successMsg.className =
-        "fixed top-4 right-4 bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-white px-6 py-3 rounded-xl shadow-lg z-50 flex items-center gap-2 backdrop-blur-sm border border-green-400/20 font-bold animate-slide-in"
+        "fixed top-4 right-4 bg-gradient-to-r from-[#22C55E] to-[#16A34A] text-white px-6 py-3 rounded-xl shadow-lg z-50 flex items-center gap-2 backdrop-blur-sm border border-[#22C55E]/20 font-bold animate-slide-in"
       successMsg.innerHTML = `
         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
         </svg>
         ${response.data.message || "Account created successfully!"}
       `
       document.body.appendChild(successMsg)
       setTimeout(() => document.body.removeChild(successMsg), 4000)
 
-      // Reset form
       setFormData({
         name: "",
         email: "",
@@ -87,7 +85,7 @@ const Signup = () => {
         "fixed top-4 right-4 bg-gradient-to-r from-red-500 to-red-600 text-white px-6 py-3 rounded-xl shadow-lg z-50 flex items-center gap-2 backdrop-blur-sm border border-red-500/20 font-bold animate-slide-in"
       errorMsg.innerHTML = `
         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-          <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd"></path>
+          <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
         </svg>
         ${error.response?.data?.message || "Signup failed. Please try again."}
       `
@@ -99,9 +97,9 @@ const Signup = () => {
   }
 
   const getPasswordStrengthColor = () => {
-    if (passwordStrength <= 1) return "from-red-400 to-red-600"
-    if (passwordStrength <= 3) return "from-yellow-400 to-yellow-600"
-    return "from-green-400 to-green-600"
+    if (passwordStrength <= 1) return "from-red-500 to-red-600"
+    if (passwordStrength <= 3) return "from-yellow-400 to-yellow-500"
+    return "from-[#22C55E] to-[#16A34A]"
   }
 
   const getPasswordStrengthText = () => {
@@ -117,105 +115,41 @@ const Signup = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 flex items-center justify-center px-4 py-6 relative overflow-hidden">
-      {/* Simple Clean Background */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Subtle Gradient Orbs */}
-        <div className="absolute top-1/4 left-1/6 w-80 h-80 bg-gradient-to-r from-green-400/10 to-green-600/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/6 w-64 h-64 bg-gradient-to-r from-yellow-400/8 to-yellow-600/8 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-blue-400/6 to-blue-600/6 rounded-full blur-3xl"></div>
-
-        {/* Simple Grid Pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div
-            className="w-full h-full"
-            style={{
-              backgroundImage: `
-                linear-gradient(rgba(34, 197, 94, 0.2) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(34, 197, 94, 0.2) 1px, transparent 1px)
-              `,
-              backgroundSize: "60px 60px",
-            }}
-          ></div>
-        </div>
-
-        {/* Few Floating Elements */}
-        <div className="absolute top-1/6 right-1/4 w-8 h-8 bg-gradient-to-r from-green-400/20 to-green-600/20 rounded-full backdrop-blur-sm"></div>
-        <div className="absolute bottom-1/6 left-1/4 w-6 h-6 bg-gradient-to-r from-yellow-400/25 to-yellow-600/25 rounded-full backdrop-blur-sm"></div>
-        <div className="absolute top-2/3 right-1/3 w-7 h-7 bg-gradient-to-r from-blue-400/20 to-blue-600/20 rounded-full backdrop-blur-sm"></div>
-      </div>
-
-      {/* Main Signup Container - Made Smaller */}
-      <div className="relative z-10 w-full max-w-4xl bg-gradient-to-br from-gray-900/90 via-gray-800/80 to-black/90 rounded-2xl overflow-hidden shadow-2xl border border-green-400/20 backdrop-blur-xl">
+    <div className="min-h-screen bg-[#111827] flex items-center justify-center px-4 py-6 relative overflow-hidden">
+      {/* Main Signup Container */}
+      <div className="relative z-10 w-full max-w-4xl bg-[#1F2937] rounded-2xl overflow-hidden shadow-2xl border border-[#374151] backdrop-blur-xl">
         <div className="grid md:grid-cols-5">
-          {/* Left side: Compact Illustration Section */}
-          <div className="hidden md:flex md:col-span-2 items-center justify-center bg-gradient-to-tr from-green-400/10 via-transparent to-yellow-400/10 p-6 relative">
-            {/* Simple Background Elements */}
-            <div className="absolute inset-0 opacity-15">
-              <div className="absolute top-6 left-6 w-8 h-8 bg-gradient-to-r from-green-400 to-green-600 rounded-full"></div>
-              <div className="absolute top-16 right-8 w-6 h-6 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full"></div>
-              <div className="absolute bottom-12 left-8 w-4 h-4 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full"></div>
-              <div className="absolute bottom-6 right-6 w-10 h-10 bg-gradient-to-r from-green-400 to-green-600 rounded-full"></div>
-            </div>
-
-            {/* Compact Illustration */}
-            <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-r  from-green-400/20 to-yellow-400/20 rounded-full blur-xl"></div>
-              <img
-                src="https://i.pinimg.com/1200x/77/bc/4b/77bc4b6f2c255d037357ddca2b0d9f2d.jpg"
-                alt="Signup Illustration"
-                className="relative w-full max-w-xs transition-transform duration-300 group-hover:scale-105 drop-shadow-lg rounded-full"
-              />
-
-              {/* Corner Icons - Smaller */}
-              <div className="absolute -top-4 -left-4 w-8 h-8 bg-gradient-to-r from-green-400 to-green-600 rounded-lg flex items-center justify-center shadow-lg">
-                <UserCheck className="w-4 h-4 text-white" />
-              </div>
-              <div className="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-lg flex items-center justify-center shadow-lg">
-                <Shield className="w-4 h-4 text-black" />
-              </div>
-              <div className="absolute -bottom-4 -left-4 w-8 h-8 bg-gradient-to-r from-blue-400 to-blue-600 rounded-lg flex items-center justify-center shadow-lg">
-                <Sparkles className="w-4 h-4 text-white" />
-              </div>
-            </div>
-
-            {/* Compact Welcome Text */}
-            <div className="absolute bottom-4 left-4 right-4 text-center">
-              <h3 className="text-lg font-bold text-white mb-1">
-                <span className="bg-gradient-to-r from-green-400 to-yellow-400 bg-clip-text text-transparent">
-                  Join AgroLink
-                </span>
-              </h3>
-              <p className="text-gray-300 text-sm">Connect with farmers worldwide</p>
-            </div>
+          {/* Left Illustration */}
+          <div className="hidden md:flex md:col-span-2 items-center justify-center bg-[#1F2937]/50 p-6 relative">
+            <img
+              src="https://i.pinimg.com/1200x/77/bc/4b/77bc4b6f2c255d037357ddca2b0d9f2d.jpg"
+              alt="Signup Illustration"
+              className="relative w-full max-w-xs rounded-full shadow-lg"
+            />
           </div>
 
-          {/* Right side: Compact Form Section */}
-          <div className="md:col-span-3 p-6 md:p-8 flex flex-col justify-center text-white">
-            {/* Compact Form Header */}
+          {/* Right Form */}
+          <div className="md:col-span-3 p-6 md:p-8 flex flex-col justify-center text-[#FFFFFF]">
             <div className="text-center mb-6">
-              <div className="inline-block bg-gradient-to-r from-green-400/20 to-green-600/20 text-green-400 border border-green-400/30 px-3 py-1.5 rounded-full text-xs font-bold mb-3 backdrop-blur-sm">
+              <div className="inline-block bg-[#1F2937]/20 text-[#22C55E] border border-[#374151] px-3 py-1.5 rounded-full text-xs font-bold mb-3 backdrop-blur-sm">
                 <UserCheck className="inline w-3 h-3 mr-1" />
                 Create Account
               </div>
-              <h2 className="text-2xl font-bold text-white mb-1">
-                <span className="bg-gradient-to-r from-green-400 to-yellow-400 bg-clip-text text-transparent">
-                  Start Your Journey
-                </span>
+              <h2 className="text-2xl font-bold text-[#FFFFFF] mb-1">
+                <span className="text-[#FACC15]">Start Your Journey</span>
               </h2>
-              <p className="text-gray-400 text-sm">Join our agricultural community</p>
+              <p className="text-[#D1D5DB] text-sm">Join our agricultural community</p>
             </div>
 
-            {/* Compact Form */}
             <form onSubmit={handleSubmit} className="space-y-4">
-              {/* Full Name Field - Compact */}
+              {/* Name */}
               <div className="group">
-                <label className="block text-xs font-bold text-green-400 mb-1.5 flex items-center gap-1.5">
+                <label className="block text-xs font-bold text-[#22C55E] mb-1.5 flex items-center gap-1.5">
                   <User className="w-3 h-3" />
                   Full Name
                 </label>
-                <div className="flex items-center border border-gray-700/50 bg-gradient-to-r from-gray-800/50 to-gray-700/50 rounded-lg px-3 py-2.5 focus-within:ring-2 focus-within:ring-green-400/50 focus-within:border-green-400/50 transition-all duration-300 backdrop-blur-sm">
-                  <User className="text-green-400 mr-2.5" size={16} />
+                <div className="flex items-center border border-[#374151] bg-[#1F2937]/50 rounded-lg px-3 py-2.5 focus-within:ring-2 focus-within:ring-[#22C55E]/50 transition-all duration-300">
+                  <User className="text-[#22C55E] mr-2.5" size={16} />
                   <input
                     type="text"
                     name="name"
@@ -223,19 +157,19 @@ const Signup = () => {
                     onChange={handleChange}
                     placeholder="Enter your full name"
                     required
-                    className="w-full bg-transparent text-white placeholder-gray-400 focus:outline-none text-sm font-medium"
+                    className="w-full bg-transparent text-[#FFFFFF] placeholder-[#D1D5DB] focus:outline-none text-sm font-medium"
                   />
                 </div>
               </div>
 
-              {/* Email Field - Compact */}
+              {/* Email */}
               <div className="group">
-                <label className="block text-xs font-bold text-green-400 mb-1.5 flex items-center gap-1.5">
+                <label className="block text-xs font-bold text-[#22C55E] mb-1.5 flex items-center gap-1.5">
                   <Mail className="w-3 h-3" />
                   Email Address
                 </label>
-                <div className="flex items-center border border-gray-700/50 bg-gradient-to-r from-gray-800/50 to-gray-700/50 rounded-lg px-3 py-2.5 focus-within:ring-2 focus-within:ring-green-400/50 focus-within:border-green-400/50 transition-all duration-300 backdrop-blur-sm">
-                  <Mail className="text-green-400 mr-2.5" size={16} />
+                <div className="flex items-center border border-[#374151] bg-[#1F2937]/50 rounded-lg px-3 py-2.5 focus-within:ring-2 focus-within:ring-[#22C55E]/50 transition-all duration-300">
+                  <Mail className="text-[#22C55E] mr-2.5" size={16} />
                   <input
                     type="email"
                     name="email"
@@ -243,36 +177,36 @@ const Signup = () => {
                     onChange={handleChange}
                     placeholder="Enter your email address"
                     required
-                    className="w-full bg-transparent text-white placeholder-gray-400 focus:outline-none text-sm font-medium"
+                    className="w-full bg-transparent text-[#FFFFFF] placeholder-[#D1D5DB] focus:outline-none text-sm font-medium"
                   />
                 </div>
               </div>
 
-              {/* Role Field - Compact */}
+              {/* Role */}
               <div className="group">
-                <label className="block text-xs font-bold text-green-400 mb-1.5 flex items-center gap-1.5">
+                <label className="block text-xs font-bold text-[#22C55E] mb-1.5 flex items-center gap-1.5">
                   <Briefcase className="w-3 h-3" />
                   Your Role
                 </label>
-                <div className="flex items-center border border-gray-700/50 bg-gradient-to-r from-gray-800/50 to-gray-700/50 rounded-lg px-3 py-2.5 focus-within:ring-2 focus-within:ring-green-400/50 focus-within:border-green-400/50 transition-all duration-300 backdrop-blur-sm">
-                  <Briefcase className="text-green-400 mr-2.5" size={16} />
+                <div className="flex items-center border border-[#374151] bg-[#1F2937]/50 rounded-lg px-3 py-2.5 focus-within:ring-2 focus-within:ring-[#22C55E]/50 transition-all duration-300">
+                  <Briefcase className="text-[#22C55E] mr-2.5" size={16} />
                   <select
                     name="role"
                     value={formData.role}
                     onChange={handleChange}
                     required
-                    className="w-full bg-transparent text-white focus:outline-none text-sm font-medium"
+                    className="w-full bg-transparent text-[#FFFFFF] focus:outline-none text-sm font-medium"
                   >
-                    <option value="" className="bg-gray-800 text-gray-400">
+                    <option value="" className="bg-[#1F2937] text-[#D1D5DB]">
                       -- Select Your Role --
                     </option>
-                    <option value="Farmer" className="bg-gray-800 text-white">
+                    <option value="Farmer" className="bg-[#1F2937] text-[#FFFFFF]">
                       🌾 Farmer
                     </option>
-                    <option value="Seller" className="bg-gray-800 text-white">
+                    <option value="Seller" className="bg-[#1F2937] text-[#FFFFFF]">
                       🛒 Seller
                     </option>
-                    <option value="Buyer" className="bg-gray-800 text-white">
+                    <option value="Buyer" className="bg-[#1F2937] text-[#FFFFFF]">
                       👥 Buyer
                     </option>
                   </select>
@@ -280,21 +214,21 @@ const Signup = () => {
                     <div className="ml-2">
                       {(() => {
                         const IconComponent = roleIcons[formData.role]
-                        return <IconComponent className="w-4 h-4 text-yellow-400" />
+                        return <IconComponent className="w-4 h-4 text-[#FFFFFF]" />
                       })()}
                     </div>
                   )}
                 </div>
               </div>
 
-              {/* Phone Field - Compact */}
+              {/* Phone */}
               <div className="group">
-                <label className="block text-xs font-bold text-green-400 mb-1.5 flex items-center gap-1.5">
+                <label className="block text-xs font-bold text-[#22C55E] mb-1.5 flex items-center gap-1.5">
                   <Phone className="w-3 h-3" />
                   Phone Number
                 </label>
-                <div className="flex items-center border border-gray-700/50 bg-gradient-to-r from-gray-800/50 to-gray-700/50 rounded-lg px-3 py-2.5 focus-within:ring-2 focus-within:ring-green-400/50 focus-within:border-green-400/50 transition-all duration-300 backdrop-blur-sm">
-                  <Phone className="text-green-400 mr-2.5" size={16} />
+                <div className="flex items-center border border-[#374151] bg-[#1F2937]/50 rounded-lg px-3 py-2.5 focus-within:ring-2 focus-within:ring-[#22C55E]/50 transition-all duration-300">
+                  <Phone className="text-[#22C55E] mr-2.5" size={16} />
                   <input
                     type="tel"
                     name="phone"
@@ -302,19 +236,19 @@ const Signup = () => {
                     onChange={handleChange}
                     placeholder="Enter your phone number"
                     required
-                    className="w-full bg-transparent text-white placeholder-gray-400 focus:outline-none text-sm font-medium"
+                    className="w-full bg-transparent text-[#FFFFFF] placeholder-[#D1D5DB] focus:outline-none text-sm font-medium"
                   />
                 </div>
               </div>
 
-              {/* Password Field - Compact */}
+              {/* Password */}
               <div className="group">
-                <label className="block text-xs font-bold text-green-400 mb-1.5 flex items-center gap-1.5">
+                <label className="block text-xs font-bold text-[#22C55E] mb-1.5 flex items-center gap-1.5">
                   <Lock className="w-3 h-3" />
                   Password
                 </label>
-                <div className="flex items-center border border-gray-700/50 bg-gradient-to-r from-gray-800/50 to-gray-700/50 rounded-lg px-3 py-2.5 focus-within:ring-2 focus-within:ring-green-400/50 focus-within:border-green-400/50 transition-all duration-300 backdrop-blur-sm">
-                  <Lock className="text-green-400 mr-2.5" size={16} />
+                <div className="flex items-center border border-[#374151] bg-[#1F2937]/50 rounded-lg px-3 py-2.5 focus-within:ring-2 focus-within:ring-[#22C55E]/50 transition-all duration-300">
+                  <Lock className="text-[#22C55E] mr-2.5" size={16} />
                   <input
                     type={showPassword ? "text" : "password"}
                     name="password"
@@ -322,29 +256,33 @@ const Signup = () => {
                     onChange={handleChange}
                     placeholder="Create a secure password"
                     required
-                    className="w-full bg-transparent text-white placeholder-gray-400 focus:outline-none text-sm font-medium"
+                    className="w-full bg-transparent text-[#FFFFFF] placeholder-[#D1D5DB] focus:outline-none text-sm font-medium"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="text-gray-400 hover:text-green-400 transition-colors duration-300 ml-2"
+                    className="text-[#D1D5DB] hover:text-[#22C55E] transition-colors duration-300 ml-2"
                   >
                     {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                   </button>
                 </div>
-
-                {/* Password Strength Indicator - Compact */}
                 {formData.password && (
                   <div className="mt-1.5">
                     <div className="flex items-center gap-2">
-                      <div className="flex-1 h-1.5 bg-gray-700 rounded-full overflow-hidden">
+                      <div className="flex-1 h-1.5 bg-[#374151] rounded-full overflow-hidden">
                         <div
                           className={`h-full bg-gradient-to-r ${getPasswordStrengthColor()} transition-all duration-300`}
                           style={{ width: `${(passwordStrength / 5) * 100}%` }}
                         />
                       </div>
                       <span
-                        className={`text-xs font-bold ${passwordStrength <= 1 ? "text-red-400" : passwordStrength <= 3 ? "text-yellow-400" : "text-green-400"}`}
+                        className={`text-xs font-bold ${
+                          passwordStrength <= 1
+                            ? "text-red-500"
+                            : passwordStrength <= 3
+                            ? "text-yellow-400"
+                            : "text-[#22C55E]"
+                        }`}
                       >
                         {getPasswordStrengthText()}
                       </span>
@@ -353,59 +291,63 @@ const Signup = () => {
                 )}
               </div>
 
-              {/* Compact Submit Button */}
+              {/* Submit Button */}
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:from-green-500 hover:to-green-700 text-white font-bold py-2.5 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-green-400/30 group relative overflow-hidden disabled:opacity-70 disabled:cursor-not-allowed text-sm"
+                className="w-full bg-gradient-to-r from-[#22C55E] via-[#22C55E] to-[#16A34A] hover:from-[#16A34A] hover:to-[#22C55E] text-white font-bold py-2.5 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-[#22C55E]/30 disabled:opacity-70 disabled:cursor-not-allowed text-sm flex items-center justify-center gap-2"
               >
-                <span className="relative z-10 flex items-center justify-center gap-2">
-                  {isLoading ? (
-                    <>
-                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      Creating Account...
-                    </>
-                  ) : (
-                    <>
-                      <UserCheck className="w-4 h-4" />
-                      Create My Account
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-                    </>
-                  )}
-                </span>
+                {isLoading ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    Creating Account...
+                  </>
+                ) : (
+                  <>
+                    <UserCheck className="w-4 h-4" />
+                    Create My Account
+                    <ArrowRight className="w-4 h-4 ml-1" />
+                  </>
+                )}
               </button>
 
-              {/* Compact Login Link */}
+              {/* Login Link */}
               <div className="text-center pt-2">
-                <p className="text-gray-400 text-sm">
+                <p className="text-[#D1D5DB] text-sm">
                   Already have an account?{" "}
                   <a
                     href="/login"
-                    className="text-green-400 hover:text-green-300 font-bold hover:underline transition-colors duration-300"
+                    className="text-[#22C55E] hover:text-[#16A34A] font-bold hover:underline transition-colors duration-300"
                   >
                     Sign In
                   </a>
                 </p>
               </div>
-            </form>
 
-            {/* Compact Security Badge */}
-            <div className="mt-4 flex items-center justify-center gap-2 text-gray-400 text-xs">
-              <Shield className="w-3 h-3 text-green-400" />
-              <span>Your data is protected with enterprise-grade security</span>
-            </div>
+              {/* Security Badge */}
+              <div className="mt-4 flex items-center justify-center gap-2 text-[#D1D5DB] text-xs">
+                <Shield className="w-3 h-3 text-[#22C55E]" />
+                <span>Your data is protected with enterprise-grade security</span>
+              </div>
+            </form>
           </div>
         </div>
       </div>
 
       <style jsx>{`
         @keyframes slide-in {
-          from { transform: translateX(100%); opacity: 0; }
-          to { transform: translateX(0); opacity: 1; }
+          from {
+            transform: translateX(100%);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(0);
+            opacity: 1;
+          }
         }
 
-        .animate-slide-in { 
-          animation: slide-in 0.5s ease-out; 
+        .animate-slide-in {
+          animation: slide-in 0.5s ease-out;
         }
       `}</style>
     </div>

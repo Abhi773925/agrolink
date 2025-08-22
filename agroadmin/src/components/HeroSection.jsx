@@ -61,7 +61,7 @@ export default function HeroSection() {
       title: "Total Orders", 
       value: loading ? "..." : stats.totalOrders?.toLocaleString() || "0", 
       icon: ShoppingCart, 
-      color: "text-yellow-400",
+      color: "text-[#FFFFFF]",
       change: "+15% from last month"
     },
     { 
@@ -89,11 +89,11 @@ export default function HeroSection() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-black text-white flex flex-col">
-        <section className="relative overflow-hidden bg-black py-12 md:py-20 text-white flex-1">
+      <div className="min-h-screen bg-[#111827] text-[#FFFFFF] flex flex-col">
+        <section className="relative overflow-hidden bg-[#111827] py-12 md:py-20 text-[#FFFFFF] flex-1">
           {/* Animated Grid Background */}
           <div className="absolute inset-0 z-0">
-            <div className="absolute inset-0 bg-black"></div>
+            <div className="absolute inset-0 bg-[#111827]"></div>
             <div 
               className="absolute inset-0 opacity-20"
               style={{
@@ -127,15 +127,15 @@ export default function HeroSection() {
           
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
-              <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4 bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-yellow-600">
+              <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4 bg-clip-text text-transparent bg-[#22C55E]">
                 Welcome to AgroLink Admin Panel
               </h1>
-              <p className="text-lg text-red-400 mb-8">
+              <p className="text-lg text-[#F87171] mb-8">
                 {error}
               </p>
               <button 
                 onClick={() => window.location.reload()}
-                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-black bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 transition-all duration-300"
+                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-[#D1D5DB] bg-[#22C55E] hover:bg-[#374151 transition-all duration-300"
               >
                 Retry
               </button>
@@ -144,16 +144,16 @@ export default function HeroSection() {
         </section>
         
         {/* Footer */}
-        <footer className="bg-gray-900/90 backdrop-blur-sm border-t border-gray-800/50 py-8">
+        <footer className="bg-[#111827] backdrop-blur-sm border-t border-[#374151] py-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
               <div className="flex justify-center items-center space-x-2 mb-4">
-                <div className="w-8 h-8 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center">
-                  <Package className="w-4 h-4 text-black" />
+                <div className="w-8 h-8 bg-[#22C55E] rounded-full flex items-center justify-center">
+                  <Package className="w-4 h-4 text-[#D1D5DB]" />
                 </div>
-                <span className="text-xl font-bold text-white">AgroLink Admin</span>
+                <span className="text-xl font-bold text-[#FFFFFF]">AgroLink Admin</span>
               </div>
-              <p className="text-gray-400 text-sm">
+              <p className="text-[#D1D5DB] text-sm">
                 © 2025 AgroLink. All rights reserved. Empowering farmers through technology.
               </p>
             </div>
@@ -164,8 +164,8 @@ export default function HeroSection() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col">
-      <section className="relative overflow-hidden bg-black py-12 md:py-20 text-white flex-1">
+    <div className="min-h-screen bg-[#111827] text-[#FFFFFF] flex flex-col">
+      <section className="relative overflow-hidden bg-[#111827] py-12 md:py-20 text-[#FFFFFF] flex-1">
         {/* Animated Grid Background */}
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-black to-gray-900"></div>
@@ -211,7 +211,7 @@ export default function HeroSection() {
           
           {/* Glowing Dots */}
           <div className="absolute inset-0">
-            <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-yellow-400 rounded-full animate-pulse opacity-60"></div>
+            <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-[#22C55E] rounded-full animate-pulse opacity-60"></div>
             <div className="absolute top-1/3 right-1/3 w-1 h-1 bg-green-400 rounded-full animate-pulse opacity-40" style={{animationDelay: '1s'}}></div>
             <div className="absolute bottom-1/4 left-1/3 w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse opacity-50" style={{animationDelay: '2s'}}></div>
             <div className="absolute bottom-1/3 right-1/4 w-1 h-1 bg-orange-400 rounded-full animate-pulse opacity-30" style={{animationDelay: '3s'}}></div>
@@ -231,15 +231,15 @@ export default function HeroSection() {
         {/* Content */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4 bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-yellow-600 drop-shadow-lg">
+            <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4 bg-clip-text text-transparent bg-[#22C55E] drop-shadow-lg">
               Welcome to AgroLink Admin Panel
             </h1>
-            <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto drop-shadow-md">
+            <p className="text-lg md:text-xl text-[#D1D5DB] max-w-3xl mx-auto drop-shadow-md">
               Manage your agricultural marketplace with ease. Get real-time insights and control over your operations.
             </p>
             {loading && (
               <div className="mt-4 flex justify-center">
-                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-yellow-400"></div>
+                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-[#374151]"></div>
               </div>
             )}
           </div>
@@ -248,24 +248,24 @@ export default function HeroSection() {
             {heroStats.map((stat, index) => (
               <div
                 key={index}
-                className={`bg-gray-900/80 backdrop-blur-sm border border-gray-800/50 rounded-lg p-6 text-white shadow-xl shadow-black/30 transform hover:scale-105 transition-all duration-300 hover:bg-gray-900/90 hover:border-gray-700/50 ${
+                className={`bg-[#1F2937]/80 backdrop-blur-sm border border-[#374151] rounded-lg p-6 text-[#FFFFFF] shadow-xl shadow-black/30 transform hover:scale-105 transition-all duration-300 hover:bg-[#111827] hover:border-[#374151]/50 ${
                   loading ? 'animate-pulse' : ''
                 }`}
               >
                 <div className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <h3 className="text-sm font-medium text-gray-400">{stat.title}</h3>
+                  <h3 className="text-sm font-medium text-[#D1D5DB]">{stat.title}</h3>
                   <stat.icon className={`h-5 w-5 ${stat.color} drop-shadow-md`} />
                 </div>
                 <div className="text-2xl font-bold">
                   {loading ? (
-                    <div className="h-8 bg-gray-800 rounded w-20 animate-pulse"></div>
+                    <div className="h-8 bg-[#1F2937] rounded w-20 animate-pulse"></div>
                   ) : (
                     stat.value
                   )}
                 </div>
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-[#D1D5DB] mt-1">
                   {loading ? (
-                    <div className="h-3 bg-gray-800 rounded w-24 animate-pulse"></div>
+                    <div className="h-3 bg-[#1F2937] rounded w-24 animate-pulse"></div>
                   ) : (
                     stat.change
                   )}
@@ -277,28 +277,28 @@ export default function HeroSection() {
           {/* Additional Quick Stats */}
           {!loading && (
             <div className="mt-8 grid grid-cols-1 md:grid-cols-4 gap-4 text-center">
-              <div className="bg-gray-900/60 backdrop-blur-sm border border-gray-800/40 rounded-lg p-4 hover:bg-gray-900/70 transition-all duration-300">
-                <div className="text-sm text-gray-400">Pending Orders</div>
-                <div className="text-xl font-semibold text-yellow-400">
+              <div className="bg-[#1F2937]/60 backdrop-blur-sm border border-gray-800/40 rounded-lg p-4 hover:bg-[#1F2937]/70 transition-all duration-300">
+                <div className="text-sm text-[#D1D5DB]">Pending Orders</div>
+                <div className="text-xl font-semibold text-[#FFFFFF]">
                   {stats.pendingOrders || 0}
                 </div>
               </div>
-              <div className="bg-gray-900/60 backdrop-blur-sm border border-gray-800/40 rounded-lg p-4 hover:bg-gray-900/70 transition-all duration-300">
-                <div className="text-sm text-gray-400">Shipped Orders</div>
+              <div className="bg-[#1F2937]/60 backdrop-blur-sm border border-gray-800/40 rounded-lg p-4 hover:bg-[#1F2937]/70 transition-all duration-300">
+                <div className="text-sm text-[#D1D5DB]">Shipped Orders</div>
                 <div className="text-xl font-semibold text-purple-400">
                   {stats.shippedOrders || 0}
                 </div>
               </div>
-              <div className="bg-gray-900/60 backdrop-blur-sm border border-gray-800/40 rounded-lg p-4 hover:bg-gray-900/70 transition-all duration-300">
-                <div className="text-sm text-gray-400">Success Rate</div>
+              <div className="bg-[#1F2937]/60 backdrop-blur-sm border border-gray-800/40 rounded-lg p-4 hover:bg-[#1F2937]/70 transition-all duration-300">
+                <div className="text-sm text-[#D1D5DB]">Success Rate</div>
                 <div className="text-xl font-semibold text-green-400">
                   {stats.totalOrders > 0 
                     ? Math.round((stats.deliveredOrders / stats.totalOrders) * 100) 
                     : 0}%
                 </div>
               </div>
-              <div className="bg-gray-900/60 backdrop-blur-sm border border-gray-800/40 rounded-lg p-4 hover:bg-gray-900/70 transition-all duration-300">
-                <div className="text-sm text-gray-400">Avg. Order Value</div>
+              <div className="bg-[#1F2937]/60 backdrop-blur-sm border border-gray-800/40 rounded-lg p-4 hover:bg-[#1F2937]/70 transition-all duration-300">
+                <div className="text-sm text-[#D1D5DB]">Avg. Order Value</div>
                 <div className="text-xl font-semibold text-blue-400">
                   {formatCurrency(stats.totalOrders > 0 ? stats.totalRevenue / stats.totalOrders : 0)}
                 </div>
@@ -309,13 +309,13 @@ export default function HeroSection() {
           <div className="mt-12 text-center">
             <Link
               to="/all-farmers"
-              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-black bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 transition-all duration-300 transform hover:-translate-y-1 mr-4 shadow-lg hover:shadow-xl"
+              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-[#D1D5DB] bg-[#22C55E] hover:bg-[#374151 transition-all duration-300 transform hover:-translate-y-1 mr-4 shadow-lg hover:shadow-xl"
             >
               Browse Farmers
             </Link>
             <Link
               to="/overview"
-              className="inline-flex items-center px-6 py-3 border border-yellow-400 text-base font-medium rounded-md shadow-sm text-yellow-400 bg-transparent hover:bg-yellow-400/10 transition-all duration-300 backdrop-blur-sm mr-4"
+              className="inline-flex items-center px-6 py-3 border border-[#374151] text-base font-medium rounded-md shadow-sm text-[#FFFFFF] bg-transparent hover:bg-[#22C55E]/10 transition-all duration-300 backdrop-blur-sm mr-4"
             >
               View Dashboard
             </Link>

@@ -47,13 +47,13 @@ const App = () => {
   if (isLoading) {
     // You can render a global loading spinner or skeleton here
     return (
-      <div className="flex items-center justify-center min-h-screen bg-black text-white">Loading application...</div>
+      <div className="flex items-center justify-center min-h-screen  text-[#FFFFFF]">Loading application...</div>
     )
   }
 
   return (
     <Router>
-      <div className="bg-black  flex flex-col">
+      <div className=" flex flex-col">
         {/* Navbar shown on all pages */}
         <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
 
@@ -75,7 +75,7 @@ const App = () => {
           // when isLoggedIn is false and showPasskeyInput is false.
           // We keep the main content empty or show a generic message if not logged in
           // and the Navbar's overlay isn't active.
-          <div className="flex-1 flex items-center justify-center text-white">
+          <div className="flex-1 flex items-center justify-center text-[#FFFFFF]">
             {/* Content will be shown via Navbar's access restricted overlay */}
           </div>
         )}

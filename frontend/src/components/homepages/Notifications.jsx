@@ -25,7 +25,7 @@ const Notifications = () => {
               <Clock className="text-blue-600" size={14} />
             </div>
             <div className="flex items-center gap-1 sm:gap-2">
-              <span className="bg-blue-600 text-white text-xs font-semibold px-2 py-1 rounded-full">
+              <span className="bg-blue-600 text-[#FFFFFF] text-xs font-semibold px-2 py-1 rounded-full">
                 Beta
               </span>
               <span className="text-gray-800 text-xs font-semibold sm:text-sm">
@@ -37,7 +37,7 @@ const Notifications = () => {
           {/* Share Feedback Button */}
           <button
             onClick={handleFeedbackClick}
-            className="bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-semibold px-3 py-1.5 sm:px-4 sm:py-2 rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-yellow-400/20 flex items-center gap-1 sm:gap-2 text-xs sm:text-sm whitespace-nowrap"
+            className="bg-[#22C55E] hover:bg-[#374151 text-[#D1D5DB] font-semibold px-3 py-1.5 sm:px-4 sm:py-2 rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-[#22C55E]/20 flex items-center gap-1 sm:gap-2 text-xs sm:text-sm whitespace-nowrap"
           >
             <span className="hidden sm:inline">Share Feedback</span>
             <span className="sm:hidden">Feedback</span>
@@ -48,7 +48,7 @@ const Notifications = () => {
           {/* Dismiss Button
           <button
             onClick={() => setDismissed(true)}
-            className="text-gray-400 hover:text-gray-600 transition-colors"
+            className="text-[#D1D5DB] hover:text-gray-600 transition-colors"
           >
             <X size={16} />
           </button> */}

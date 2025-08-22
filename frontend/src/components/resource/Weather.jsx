@@ -461,30 +461,30 @@ const Weather = () => {
     // You can use the OpenWeather icon codes or create custom logic
     switch (condition.toLowerCase()) {
       case "clear":
-        return <Sun className="h-8 w-8 text-yellow-400" />
+        return <Sun className="h-8 w-8 text-[#FFFFFF]" />
       case "clouds":
-        return <Cloud className="h-8 w-8 text-gray-300" />
+        return <Cloud className="h-8 w-8 text-[#D1D5DB]" />
       case "rain":
         return <CloudRain className="h-8 w-8 text-blue-400" />
       case "snow":
         return <CloudSnow className="h-8 w-8 text-blue-200" />
       default:
-        return <Sun className="h-8 w-8 text-yellow-400" />
+        return <Sun className="h-8 w-8 text-[#FFFFFF]" />
     }
   }
 
   const getUVLevel = (uvIndex) => {
     if (uvIndex <= 2) return { level: "Low", color: "text-green-400" }
-    if (uvIndex <= 5) return { level: "Moderate", color: "text-yellow-400" }
+    if (uvIndex <= 5) return { level: "Moderate", color: "text-[#FFFFFF]" }
     if (uvIndex <= 7) return { level: "High", color: "text-orange-400" }
-    if (uvIndex <= 10) return { level: "Very High", color: "text-red-400" }
+    if (uvIndex <= 10) return { level: "Very High", color: "text-[#F87171]" }
     return { level: "Extreme", color: "text-purple-400" }
   }
 
   const getAQILevel = (aqi) => {
     const levels = ["Good", "Fair", "Moderate", "Poor", "Very Poor"]
-    const colors = ["text-green-400", "text-yellow-400", "text-orange-400", "text-red-400", "text-purple-400"]
-    return { level: levels[aqi - 1] || "Unknown", color: colors[aqi - 1] || "text-gray-400" }
+    const colors = ["text-green-400", "text-[#FFFFFF]", "text-orange-400", "text-[#F87171]", "text-purple-400"]
+    return { level: levels[aqi - 1] || "Unknown", color: colors[aqi - 1] || "text-[#D1D5DB]" }
   }
 
   // Initial load with auto-location
@@ -499,11 +499,11 @@ const Weather = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black flex items-center justify-center">
+      <div className="min-h-screen bg-[#111827] flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-16 h-16 text-yellow-400 animate-spin mx-auto mb-4" />
-          <p className="text-yellow-400 font-medium text-lg">Loading weather data...</p>
-          <p className="text-gray-400 text-sm mt-2">Fetching real-time data from OpenWeatherMap</p>
+          <Loader2 className="w-16 h-16 text-[#FFFFFF] animate-spin mx-auto mb-4" />
+          <p className="text-[#FFFFFF] font-medium text-lg">Loading weather data...</p>
+          <p className="text-[#D1D5DB] text-sm mt-2">Fetching real-time data from OpenWeatherMap</p>
         </div>
       </div>
     )
@@ -511,15 +511,15 @@ const Weather = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black flex items-center justify-center">
-        <div className="text-center bg-gradient-to-br from-gray-900/95 via-gray-800/90 to-gray-900/95 backdrop-blur-xl border border-gray-700/30 rounded-2xl p-8">
-          <AlertTriangle className="w-16 h-16 text-red-400 mx-auto mb-4" />
-          <h2 className="text-xl font-bold text-white mb-2">Weather Data Error</h2>
-          <p className="text-red-400 mb-4">{error}</p>
-          <p className="text-gray-400 text-sm mb-6">Please check your API key or try a different location</p>
+      <div className="min-h-screen bg-[#111827] flex items-center justify-center">
+        <div className="text-center bg-[#1F2937] backdrop-blur-xl border border-[#374151]/30 rounded-2xl p-8">
+          <AlertTriangle className="w-16 h-16 text-[#F87171] mx-auto mb-4" />
+          <h2 className="text-xl font-bold text-[#FFFFFF] mb-2">Weather Data Error</h2>
+          <p className="text-[#F87171] mb-4">{error}</p>
+          <p className="text-[#D1D5DB] text-sm mb-6">Please check your API key or try a different location</p>
           <button
             onClick={() => fetchWeatherData()}
-            className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black px-6 py-3 rounded-xl font-bold transition-all duration-300"
+            className="bg-gradient-to-rbg-[#111827] hover:bg-[#374151 text-[#D1D5DB] px-6 py-3 rounded-xl font-bold transition-all duration-300"
           >
             Try Again
           </button>
@@ -529,20 +529,20 @@ const Weather = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black p-4">
+    <div className="min-h-screen bg-[#111827] p-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="bg-gradient-to-br from-gray-900/95 via-gray-800/90 to-gray-900/95 backdrop-blur-xl border border-gray-700/30 rounded-2xl shadow-2xl p-6 mb-6">
+        <div className="bg-[#1F2937] backdrop-blur-xl border border-[#374151]/30 rounded-2xl shadow-2xl p-6 mb-6">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-white mb-2 flex items-center gap-3">🌾 AgroWeather Dashboard</h1>
-              <div className="flex items-center gap-2 text-gray-300">
-                <MapPin className="h-4 w-4 text-yellow-400" />
+              <h1 className="text-3xl font-bold text-[#FFFFFF] mb-2 flex items-center gap-3">🌾 AgroWeather Dashboard</h1>
+              <div className="flex items-center gap-2 text-[#D1D5DB]">
+                <MapPin className="h-4 w-4 text-[#FFFFFF]" />
                 <span className="font-medium">{location}</span>
                 {locationPermission === "granted" && (
                   <span className="text-green-400 text-xs bg-green-400/10 px-2 py-1 rounded-full">📍 Auto-located</span>
                 )}
-                <span className="text-gray-500">•</span>
+                <span className="text-[#D1D5DB]">•</span>
                 <span className="text-sm">Last updated: {lastUpdated.toLocaleTimeString()}</span>
               </div>
             </div>
@@ -555,11 +555,11 @@ const Weather = () => {
                   value={searchLocation}
                   onChange={(e) => setSearchLocation(e.target.value)}
                   placeholder="Enter city name..."
-                  className="bg-gradient-to-r from-gray-800/50 to-gray-700/50 backdrop-blur-sm text-white border border-gray-600/30 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400/50 placeholder-gray-400 text-sm"
+                  className="bg-gradient-to-r from-gray-800/50 to-gray-700/50 backdrop-blur-sm text-[#FFFFFF] border border-gray-600/30 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#22C55E]/50 placeholder-[#D1D5DB] text-sm"
                 />
                 <button
                   type="submit"
-                  className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-4 py-2 rounded-xl font-bold transition-all duration-300 flex items-center gap-2"
+                  className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-[#FFFFFF] px-4 py-2 rounded-xl font-bold transition-all duration-300 flex items-center gap-2"
                 >
                   <Search className="h-4 w-4" />
                 </button>
@@ -569,7 +569,7 @@ const Weather = () => {
               <button
                 onClick={getCurrentLocation}
                 disabled={isGettingLocation}
-                className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-4 py-2 rounded-xl font-bold transition-all duration-300 flex items-center gap-2 disabled:opacity-50"
+                className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-[#FFFFFF] px-4 py-2 rounded-xl font-bold transition-all duration-300 flex items-center gap-2 disabled:opacity-50"
                 title="Get current location weather"
               >
                 {isGettingLocation ? <Loader2 className="h-4 w-4 animate-spin" /> : <MapPin className="h-4 w-4" />}
@@ -578,7 +578,7 @@ const Weather = () => {
 
               <button
                 onClick={() => fetchWeatherData()}
-                className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black px-6 py-2 rounded-xl font-bold transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-yellow-400/30"
+                className="bg-gradient-to-rbg-[#111827] hover:bg-[#374151 text-[#D1D5DB] px-6 py-2 rounded-xl font-bold transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-yellow-400/30"
               >
                 <RefreshCw className="h-4 w-4" />
                 Refresh
@@ -604,13 +604,13 @@ const Weather = () => {
                 <AlertTriangle
                   className={`h-5 w-5 ${
                     alert.priority === "high"
-                      ? "text-red-400"
+                      ? "text-[#F87171]"
                       : alert.priority === "medium"
-                        ? "text-yellow-400"
+                        ? "text-[#FFFFFF]"
                         : "text-blue-400"
                   }`}
                 />
-                <span className="text-white font-medium">{alert.message}</span>
+                <span className="text-[#FFFFFF] font-medium">{alert.message}</span>
               </div>
             ))}
           </div>
@@ -619,9 +619,9 @@ const Weather = () => {
         {/* Main Weather Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
           {/* Current Weather - Large Card */}
-          <div className="lg:col-span-2 bg-gradient-to-br from-gray-900/95 via-gray-800/90 to-gray-900/95 backdrop-blur-xl border border-gray-700/30 rounded-2xl shadow-2xl p-6">
+          <div className="lg:col-span-2 bg-[#1F2937] backdrop-blur-xl border border-[#374151]/30 rounded-2xl shadow-2xl p-6">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-yellow-400">Current Weather</h2>
+              <h2 className="text-xl font-bold text-[#FFFFFF]">Current Weather</h2>
               <div className="flex items-center gap-2">
                 {getWeatherIcon(weatherData.current.condition, weatherData.current.icon)}
               </div>
@@ -629,9 +629,9 @@ const Weather = () => {
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               <div className="text-center">
-                <div className="text-4xl font-bold text-white mb-2">{weatherData.current.temperature}°C</div>
-                <div className="text-gray-300 text-sm capitalize">{weatherData.current.description}</div>
-                <div className="text-gray-400 text-xs mt-1">Feels like {weatherData.current.feelsLike}°C</div>
+                <div className="text-4xl font-bold text-[#FFFFFF] mb-2">{weatherData.current.temperature}°C</div>
+                <div className="text-[#D1D5DB] text-sm capitalize">{weatherData.current.description}</div>
+                <div className="text-[#D1D5DB] text-xs mt-1">Feels like {weatherData.current.feelsLike}°C</div>
               </div>
 
               <div className="bg-gradient-to-br from-blue-900/30 to-blue-800/30 rounded-xl p-4 border border-blue-500/20">
@@ -639,8 +639,8 @@ const Weather = () => {
                   <Droplets className="h-5 w-5 text-blue-400" />
                   <span className="text-blue-400 font-medium">Humidity</span>
                 </div>
-                <div className="text-2xl font-bold text-white">{weatherData.current.humidity}%</div>
-                <div className="text-xs text-gray-400 mt-1">Dew Point: {weatherData.current.dewPoint}°C</div>
+                <div className="text-2xl font-bold text-[#FFFFFF]">{weatherData.current.humidity}%</div>
+                <div className="text-xs text-[#D1D5DB] mt-1">Dew Point: {weatherData.current.dewPoint}°C</div>
               </div>
 
               <div className="bg-gradient-to-br from-green-900/30 to-green-800/30 rounded-xl p-4 border border-green-500/20">
@@ -648,8 +648,8 @@ const Weather = () => {
                   <Wind className="h-5 w-5 text-green-400" />
                   <span className="text-green-400 font-medium">Wind</span>
                 </div>
-                <div className="text-2xl font-bold text-white">{weatherData.current.windSpeed} km/h</div>
-                <div className="text-xs text-gray-400 mt-1">Direction: {weatherData.current.windDirection}</div>
+                <div className="text-2xl font-bold text-[#FFFFFF]">{weatherData.current.windSpeed} km/h</div>
+                <div className="text-xs text-[#D1D5DB] mt-1">Direction: {weatherData.current.windDirection}</div>
               </div>
 
               <div className="bg-gradient-to-br from-purple-900/30 to-purple-800/30 rounded-xl p-4 border border-purple-500/20">
@@ -657,7 +657,7 @@ const Weather = () => {
                   <Sun className="h-5 w-5 text-purple-400" />
                   <span className="text-purple-400 font-medium">UV Index</span>
                 </div>
-                <div className="text-2xl font-bold text-white">{weatherData.current.uvIndex}</div>
+                <div className="text-2xl font-bold text-[#FFFFFF]">{weatherData.current.uvIndex}</div>
                 <div className={`text-xs mt-1 ${getUVLevel(weatherData.current.uvIndex).color}`}>
                   {getUVLevel(weatherData.current.uvIndex).level}
                 </div>
@@ -666,8 +666,8 @@ const Weather = () => {
           </div>
 
           {/* Soil Conditions */}
-          <div className="bg-gradient-to-br from-gray-900/95 via-gray-800/90 to-gray-900/95 backdrop-blur-xl border border-gray-700/30 rounded-2xl shadow-2xl p-6">
-            <h2 className="text-xl font-bold text-yellow-400 mb-6 flex items-center gap-2">
+          <div className="bg-[#1F2937] backdrop-blur-xl border border-[#374151]/30 rounded-2xl shadow-2xl p-6">
+            <h2 className="text-xl font-bold text-[#FFFFFF] mb-6 flex items-center gap-2">
               <Sprout className="h-5 w-5" />
               Soil & Air Quality
             </h2>
@@ -678,7 +678,7 @@ const Weather = () => {
                   <span className="text-orange-400 font-medium">Soil Temp</span>
                   <Thermometer className="h-4 w-4 text-orange-400" />
                 </div>
-                <div className="text-xl font-bold text-white">{weatherData.soil.temperature}°C</div>
+                <div className="text-xl font-bold text-[#FFFFFF]">{weatherData.soil.temperature}°C</div>
               </div>
 
               <div className="bg-gradient-to-r from-blue-900/30 to-blue-800/30 rounded-xl p-4 border border-blue-500/20">
@@ -686,7 +686,7 @@ const Weather = () => {
                   <span className="text-blue-400 font-medium">Soil Moisture</span>
                   <Droplets className="h-4 w-4 text-blue-400" />
                 </div>
-                <div className="text-xl font-bold text-white">{weatherData.soil.moisture}%</div>
+                <div className="text-xl font-bold text-[#FFFFFF]">{weatherData.soil.moisture}%</div>
               </div>
 
               <div className="bg-gradient-to-r from-green-900/30 to-green-800/30 rounded-xl p-4 border border-green-500/20">
@@ -694,7 +694,7 @@ const Weather = () => {
                   <span className="text-green-400 font-medium">Air Quality</span>
                   <Activity className="h-4 w-4 text-green-400" />
                 </div>
-                <div className="text-xl font-bold text-white">AQI {weatherData.airQuality.aqi}</div>
+                <div className="text-xl font-bold text-[#FFFFFF]">AQI {weatherData.airQuality.aqi}</div>
                 <div className={`text-xs mt-1 ${getAQILevel(weatherData.airQuality.aqi).color}`}>
                   {getAQILevel(weatherData.airQuality.aqi).level}
                 </div>
@@ -702,10 +702,10 @@ const Weather = () => {
 
               <div className="bg-gradient-to-r from-yellow-900/30 to-yellow-800/30 rounded-xl p-4 border border-yellow-500/20">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-yellow-400 font-medium">Cloud Cover</span>
-                  <Cloud className="h-4 w-4 text-yellow-400" />
+                  <span className="text-[#FFFFFF] font-medium">Cloud Cover</span>
+                  <Cloud className="h-4 w-4 text-[#FFFFFF]" />
                 </div>
-                <div className="text-xl font-bold text-white">{weatherData.current.cloudCover}%</div>
+                <div className="text-xl font-bold text-[#FFFFFF]">{weatherData.current.cloudCover}%</div>
               </div>
             </div>
           </div>
@@ -713,47 +713,47 @@ const Weather = () => {
 
         {/* Additional Weather Details */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-          <div className="bg-gradient-to-br from-gray-900/95 via-gray-800/90 to-gray-900/95 backdrop-blur-xl border border-gray-700/30 rounded-xl shadow-xl p-4">
+          <div className="bg-[#1F2937] backdrop-blur-xl border border-[#374151]/30 rounded-xl shadow-xl p-4">
             <div className="flex items-center gap-2 mb-3">
-              <Gauge className="h-5 w-5 text-yellow-400" />
-              <span className="text-yellow-400 font-medium">Pressure</span>
+              <Gauge className="h-5 w-5 text-[#FFFFFF]" />
+              <span className="text-[#FFFFFF] font-medium">Pressure</span>
             </div>
-            <div className="text-2xl font-bold text-white">{weatherData.current.pressure}</div>
-            <div className="text-xs text-gray-400">hPa</div>
+            <div className="text-2xl font-bold text-[#FFFFFF]">{weatherData.current.pressure}</div>
+            <div className="text-xs text-[#D1D5DB]">hPa</div>
           </div>
 
-          <div className="bg-gradient-to-br from-gray-900/95 via-gray-800/90 to-gray-900/95 backdrop-blur-xl border border-gray-700/30 rounded-xl shadow-xl p-4">
+          <div className="bg-[#1F2937] backdrop-blur-xl border border-[#374151]/30 rounded-xl shadow-xl p-4">
             <div className="flex items-center gap-2 mb-3">
               <Eye className="h-5 w-5 text-blue-400" />
               <span className="text-blue-400 font-medium">Visibility</span>
             </div>
-            <div className="text-2xl font-bold text-white">{weatherData.current.visibility}</div>
-            <div className="text-xs text-gray-400">km</div>
+            <div className="text-2xl font-bold text-[#FFFFFF]">{weatherData.current.visibility}</div>
+            <div className="text-xs text-[#D1D5DB]">km</div>
           </div>
 
-          <div className="bg-gradient-to-br from-gray-900/95 via-gray-800/90 to-gray-900/95 backdrop-blur-xl border border-gray-700/30 rounded-xl shadow-xl p-4">
+          <div className="bg-[#1F2937] backdrop-blur-xl border border-[#374151]/30 rounded-xl shadow-xl p-4">
             <div className="flex items-center gap-2 mb-3">
               <Sunrise className="h-5 w-5 text-orange-400" />
               <span className="text-orange-400 font-medium">Sunrise</span>
             </div>
-            <div className="text-2xl font-bold text-white">{weatherData.sun.sunrise}</div>
-            <div className="text-xs text-gray-400">AM</div>
+            <div className="text-2xl font-bold text-[#FFFFFF]">{weatherData.sun.sunrise}</div>
+            <div className="text-xs text-[#D1D5DB]">AM</div>
           </div>
 
-          <div className="bg-gradient-to-br from-gray-900/95 via-gray-800/90 to-gray-900/95 backdrop-blur-xl border border-gray-700/30 rounded-xl shadow-xl p-4">
+          <div className="bg-[#1F2937] backdrop-blur-xl border border-[#374151]/30 rounded-xl shadow-xl p-4">
             <div className="flex items-center gap-2 mb-3">
-              <Sunset className="h-5 w-5 text-red-400" />
-              <span className="text-red-400 font-medium">Sunset</span>
+              <Sunset className="h-5 w-5 text-[#F87171]" />
+              <span className="text-[#F87171] font-medium">Sunset</span>
             </div>
-            <div className="text-2xl font-bold text-white">{weatherData.sun.sunset}</div>
-            <div className="text-xs text-gray-400">PM</div>
+            <div className="text-2xl font-bold text-[#FFFFFF]">{weatherData.sun.sunset}</div>
+            <div className="text-xs text-[#D1D5DB]">PM</div>
           </div>
         </div>
 
         {/* 5-Day Forecast */}
         {forecastData && (
-          <div className="bg-gradient-to-br from-gray-900/95 via-gray-800/90 to-gray-900/95 backdrop-blur-xl border border-gray-700/30 rounded-2xl shadow-2xl p-6">
-            <h2 className="text-xl font-bold text-yellow-400 mb-6 flex items-center gap-2">
+          <div className="bg-[#1F2937] backdrop-blur-xl border border-[#374151]/30 rounded-2xl shadow-2xl p-6">
+            <h2 className="text-xl font-bold text-[#FFFFFF] mb-6 flex items-center gap-2">
               <Calendar className="h-5 w-5" />
               5-Day Forecast
             </h2>
@@ -764,24 +764,24 @@ const Weather = () => {
                   key={index}
                   className="bg-gradient-to-br from-gray-800/50 to-gray-700/50 backdrop-blur-sm border border-gray-600/30 rounded-xl p-4 text-center hover:scale-105 transition-all duration-300"
                 >
-                  <div className="font-bold text-white mb-2">{day.day}</div>
+                  <div className="font-bold text-[#FFFFFF] mb-2">{day.day}</div>
                   <div className="flex justify-center mb-3">{getWeatherIcon(day.condition)}</div>
-                  <div className="text-sm text-gray-300 mb-2">{day.condition}</div>
+                  <div className="text-sm text-[#D1D5DB] mb-2">{day.condition}</div>
                   <div className="flex items-center justify-between text-sm mb-2">
                     <div className="flex items-center gap-1">
-                      <TrendingUp className="h-3 w-3 text-red-400" />
-                      <span className="text-white font-bold">{day.high}°</span>
+                      <TrendingUp className="h-3 w-3 text-[#F87171]" />
+                      <span className="text-[#FFFFFF] font-bold">{day.high}°</span>
                     </div>
                     <div className="flex items-center gap-1">
                       <TrendingDown className="h-3 w-3 text-blue-400" />
-                      <span className="text-gray-400">{day.low}°</span>
+                      <span className="text-[#D1D5DB]">{day.low}°</span>
                     </div>
                   </div>
                   <div className="text-xs text-blue-400 mb-1">
                     <Droplets className="h-3 w-3 inline mr-1" />
                     Rain: {day.rain}%
                   </div>
-                  <div className="text-xs text-gray-400">Humidity: {day.humidity}%</div>
+                  <div className="text-xs text-[#D1D5DB]">Humidity: {day.humidity}%</div>
                 </div>
               ))}
             </div>

@@ -74,65 +74,65 @@ const MyCrop = () => {
   };
 
   return (
-    <div className="flex flex-col items-center min-h-screen pt-6 bg-black/95">
+    <div className="flex flex-col items-center min-h-screen pt-6 bg-[#111827]">
 
       {/* Modal */}
       {selectedItem && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-gray-900/95 backdrop-blur-md border border-gray-800/50 p-6 rounded-2xl w-full max-w-md space-y-4 shadow-xl">
-            <h2 className="text-2xl font-bold mb-2 text-yellow-400">Manage {selectedItem.name}</h2>
+        <div className="fixed inset-0 bg-[#111827]/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-[#111827]  backdrop-blur-md border border-[#374151] p-6 rounded-2xl w-full max-w-md space-y-4 shadow-xl">
+            <h2 className="text-2xl font-bold mb-2 text-[#FFFFFF]">Manage {selectedItem.name}</h2>
             <form onSubmit={handleUpdate} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium mb-1 text-gray-300">Name</label>
+                <label className="block text-sm font-medium mb-1 text-[#D1D5DB]">Name</label>
                 <input
                   type="text"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full bg-gray-800/50 border border-gray-700/50 text-white p-2 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/50"
+                  className="w-full bg-[#374151 ] border border-[#374151]/50 text-[#FFFFFF] p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#22C55E]/50 focus:border-[#22C55E]/50"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1 text-gray-300">Region</label>
+                <label className="block text-sm font-medium mb-1 text-[#D1D5DB]">Region</label>
                 <input
                   type="text"
                   value={formData.region}
                   onChange={(e) => setFormData({ ...formData, region: e.target.value })}
-                  className="w-full bg-gray-800/50 border border-gray-700/50 text-white p-2 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/50"
+                  className="w-full bg-[#374151 ] border border-[#374151]/50 text-[#FFFFFF] p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#22C55E]/50 focus:border-[#22C55E]/50"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1 text-gray-300">Price</label>
+                <label className="block text-sm font-medium mb-1 text-[#D1D5DB]">Price</label>
                 <input
                   type="number"
                   value={formData.price}
                   onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                  className="w-full bg-gray-800/50 border border-gray-700/50 text-white p-2 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/50"
+                  className="w-full bg-[#374151 ] border border-[#374151]/50 text-[#FFFFFF] p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#22C55E]/50 focus:border-[#22C55E]/50"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1 text-gray-300">Quantity</label>
+                <label className="block text-sm font-medium mb-1 text-[#D1D5DB]">Quantity</label>
                 <input
                   type="number"
                   value={formData.quantity}
                   onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
-                  className="w-full bg-gray-800/50 border border-gray-700/50 text-white p-2 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/50"
+                  className="w-full bg-[#374151 ] border border-[#374151]/50 text-[#FFFFFF] p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#22C55E]/50 focus:border-[#22C55E]/50"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1 text-gray-300">Description</label>
+                <label className="block text-sm font-medium mb-1 text-[#D1D5DB]">Description</label>
                 <textarea
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="w-full bg-gray-800/50 border border-gray-700/50 text-white p-2 rounded resize-none focus:outline-none focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/50"
+                  className="w-full bg-[#374151 ] border border-[#374151]/50 text-[#FFFFFF] p-2 rounded resize-none focus:outline-none focus:ring-2 focus:ring-[#22C55E]/50 focus:border-[#22C55E]/50"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1 text-gray-300">Image URL</label>
+                <label className="block text-sm font-medium mb-1 text-[#D1D5DB]">Image URL</label>
                 <input
                   type="text"
                   value={formData.image}
                   onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                  className="w-full bg-gray-800/50 border border-gray-700/50 text-white p-2 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/50"
+                  className="w-full bg-[#374151 ] border border-[#374151]/50 text-[#FFFFFF] p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#22C55E]/50 focus:border-[#22C55E]/50"
                 />
               </div>
 
@@ -140,13 +140,13 @@ const MyCrop = () => {
                 <button
                   type="button"
                   onClick={() => setSelectedItem(null)}
-                  className="bg-gray-800/50 text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-700/50 border border-gray-700/50"
+                  className="bg-[#374151 ] text-[#D1D5DB] px-4 py-2 rounded-lg hover:bg-[#374151]/50 border border-[#374151]/50"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-bold px-4 py-2 rounded-lg hover:from-yellow-500 hover:to-yellow-700 shadow-lg shadow-yellow-400/20"
+                  className="bg-[#22C55E] text-[#D1D5DB] font-bold px-4 py-2 rounded-lg hover:bg-[#374151 shadow-lg shadow-[#22C55E]/20"
                 >
                   Save
                 </button>
@@ -158,35 +158,35 @@ const MyCrop = () => {
 
       {/* Crops list */}
       {loading ? (
-        <div className="text-center mt-10 text-yellow-400">Loading crops...</div>
+        <div className="text-center mt-10 text-[#FFFFFF]">Loading crops...</div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 w-full max-w-7xl p-4">
           {crop.length === 0 ? (
-            <p className="col-span-full text-center text-gray-400">No crops available</p>
+            <p className="col-span-full text-center text-[#D1D5DB]">No crops available</p>
           ) : (
             crop.map((item, index) => (
               <div
                 key={index}
-                className="rounded-2xl bg-gray-900/95 backdrop-blur-md border border-gray-800/50 shadow-md p-4 flex flex-col items-center hover:shadow-lg hover:shadow-yellow-400/10 transition-all duration-200"
+                className="rounded-2xl bg-[#111827]  backdrop-blur-md border border-[#374151] shadow-md p-4 flex flex-col items-center hover:shadow-lg hover:shadow-[#FACC15]/10 transition-all duration-200"
               >
                 <img
                   src={item.image || "https://via.placeholder.com/150"}
                   alt={item.name}
-                  className="w-40 h-40 object-cover rounded-xl mb-3 border border-gray-700/50"
+                  className="w-40 h-40 object-cover rounded-xl mb-3 border border-[#374151]/50"
                 />
-                <h2 className="text-lg font-bold text-yellow-400">{item.name}</h2>
-                <p className="text-sm text-gray-300 text-center mb-2">{item.description}</p>
-                <p className="text-xl font-semibold text-white mb-4">₹{item.price}</p>
+                <h2 className="text-lg font-bold text-[#FFFFFF]">{item.name}</h2>
+                <p className="text-sm text-[#D1D5DB] text-center mb-2">{item.description}</p>
+                <p className="text-xl font-semibold text-[#FFFFFF] mb-4">₹{item.price}</p>
                 <div className="flex space-x-3">
                   <button
                     onClick={() => handleDelete(item)}
-                    className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-bold px-4 py-2 rounded-xl hover:from-yellow-500 hover:to-yellow-700 shadow-lg shadow-yellow-400/20"
+                    className="bg-[#22C55E] text-[#D1D5DB] font-bold px-4 py-2 rounded-xl hover:bg-[#374151 shadow-lg shadow-[#22C55E]/20"
                   >
                     Delete
                   </button>
                   <button
                     onClick={() => handleManage(item)}
-                    className="border-2 border-yellow-400/50 text-yellow-400 px-4 py-2 rounded-xl hover:bg-yellow-400/10 hover:border-yellow-400"
+                    className="border-2 border-[#374151]/50 text-[#FFFFFF] px-4 py-2 rounded-xl hover:bg-[#22C55E]/10 hover:border-[#374151]"
                   >
                     Manage
                   </button>

@@ -28,40 +28,40 @@ const Product = () => {
   }, []);
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-black/95">
+    <div className="flex justify-center items-center min-h-screen bg-[#111827]">
       <div className="min-h-screen p-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
           {products.map((item, index) => (
             <div
               key={index}
-              className="bg-gray-900/95 backdrop-blur-md border border-gray-800/50 rounded-3xl shadow-lg p-4 flex flex-col justify-center items-center hover:shadow-xl hover:shadow-yellow-400/10 transition-all duration-200"
+              className="bg-[#111827]  backdrop-blur-md border border-[#374151] rounded-3xl shadow-lg p-4 flex flex-col justify-center items-center hover:shadow-xl hover:shadow-[#FACC15]/10 transition-all duration-200"
             >
               <img
                 src={item.image || "https://via.placeholder.com/150"}
                 alt={item.name}
-                className="w-40 h-40 object-cover rounded-lg mb-3 border border-gray-700/50"
+                className="w-40 h-40 object-cover rounded-lg mb-3 border border-[#374151]/50"
               />
-              <h2 className="text-lg font-bold text-yellow-400 text-center">
+              <h2 className="text-lg font-bold text-[#FFFFFF] text-center">
                 {item.name}
               </h2>
-              <p className="text-sm text-gray-300 text-center mb-2">
+              <p className="text-sm text-[#D1D5DB] text-center mb-2">
                 {item.description || "No description provided"}
               </p>
-              <p className="text-xl font-semibold text-white mb-4">
+              <p className="text-xl font-semibold text-[#FFFFFF] mb-4">
                 ₹{item.price}
               </p>
               {item.quantity >= 1 ? (
                 <button
                   onClick={() => handleAddToCart(item)}
                   
-                  className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-bold px-4 py-2 rounded-3xl w-fit hover:from-yellow-500 hover:to-yellow-700 transition-all duration-200 shadow-lg shadow-yellow-400/20"
+                  className="bg-[#22C55E] text-[#D1D5DB] font-bold px-4 py-2 rounded-3xl w-fit hover:bg-[#374151 transition-all duration-200 shadow-lg shadow-[#22C55E]/20"
                 >
                 Admin != Stock
                 </button>
               ) : (
                 <button
                   disabled
-                  className="bg-gray-700/50 text-gray-400 font-semibold px-4 py-2 rounded-3xl w-fit cursor-not-allowed border border-gray-600/50"
+                  className="bg-[#111827] text-[#D1D5DB] font-semibold px-4 py-2 rounded-3xl w-fit cursor-not-allowed border border-gray-600/50"
                 >
                   Item not Available
                 </button>

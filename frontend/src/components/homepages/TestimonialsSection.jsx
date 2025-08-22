@@ -69,138 +69,64 @@ const TestimonialsSection = () => {
     }
   }, [isAutoPlaying, testimonials.length])
 
-  const nextTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length)
-  }
-
-  const prevTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length)
-  }
-
+  const nextTestimonial = () => setCurrentTestimonial((prev) => (prev + 1) % testimonials.length)
+  const prevTestimonial = () => setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length)
   const currentData = testimonials[currentTestimonial]
 
   return (
-    <section className="relative bg-gradient-to-br from-gray-900 via-black to-gray-800 py-20 overflow-hidden">
-      {/* Animated Background */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Testimonial Wave Pattern */}
-        <svg
-          className="absolute inset-0 w-full h-full opacity-25"
-          viewBox="0 0 1200 600"
-          preserveAspectRatio="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M0,300 Q300,100 600,300 T1200,300 L1200,600 L0,600 Z"
-            fill="url(#testimonialWave1)"
-            className="animate-testimonial-wave-1"
-          />
-          <path
-            d="M0,350 Q200,150 400,350 T800,350 Q1000,150 1200,350 L1200,600 L0,600 Z"
-            fill="url(#testimonialWave2)"
-            className="animate-testimonial-wave-2"
-          />
-
-          <defs>
-            <linearGradient id="testimonialWave1" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="rgba(250, 204, 21, 0.2)" />
-              <stop offset="100%" stopColor="rgba(250, 204, 21, 0.05)" />
-            </linearGradient>
-            <linearGradient id="testimonialWave2" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="rgba(250, 204, 21, 0.15)" />
-              <stop offset="100%" stopColor="rgba(250, 204, 21, 0.03)" />
-            </linearGradient>
-          </defs>
-        </svg>
-
-        {/* Floating Quote Marks */}
-        <div className="absolute inset-0">
-          {[...Array(12)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute animate-testimonial-float opacity-10"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 8}s`,
-                animationDuration: `${6 + Math.random() * 4}s`,
-              }}
-            >
-              <Quote className="w-6 h-6 text-yellow-400" />
-            </div>
-          ))}
-        </div>
-
-        {/* Glow Effects */}
-        <div className="absolute top-1/4 left-1/3 w-96 h-96 bg-gradient-radial from-yellow-400/10 to-transparent rounded-full animate-testimonial-glow blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/3 w-80 h-80 bg-gradient-radial from-yellow-400/8 to-transparent rounded-full animate-testimonial-glow-delayed blur-3xl"></div>
-      </div>
-
-      <div className="relative container mx-auto px-4 z-10">
-        {/* Section Header */}
-        <div className="text-center mb-16 animate-fade-in-up">
-          <div className="inline-block bg-gradient-to-r from-yellow-400/20 to-yellow-600/20 text-yellow-400 border border-yellow-400/30 px-6 py-3 rounded-full text-sm font-semibold mb-6 backdrop-blur-sm">
+    <section className="bg-[#111827] py-20">
+      <div className="container mx-auto px-4">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <div className="inline-block bg-[#1F2937] text-[#FFFFFF] border border-[#374151] px-6 py-3 rounded-full text-sm font-semibold mb-6">
             💬 Customer Stories
           </div>
-          <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
-            <span className="bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">
-              What Our Community Says
-            </span>
+          <h2 className="text-4xl lg:text-5xl font-bold text-[#FFFFFF] mb-6">
+            What Our Community Says
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-[#D1D5DB] max-w-3xl mx-auto leading-relaxed">
             Real stories from farmers and customers who have transformed their agricultural journey with AgroLink
           </p>
         </div>
 
-        {/* Main Testimonial */}
-        <div className="max-w-4xl mx-auto mb-12">
-          <div className="bg-gradient-to-br from-gray-800/50 via-gray-900/50 to-black/50 backdrop-blur-xl border border-gray-700/30 rounded-3xl p-8 lg:p-12 relative overflow-hidden group">
-            {/* Background Glow */}
-            <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/5 to-yellow-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-            {/* Quote Icon */}
-            <div className="absolute top-6 left-6 w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center shadow-lg">
-              <Quote className="w-6 h-6 text-black" />
+        {/* Testimonial Card */}
+        <div className="max-w-4xl mx-auto mb-12 bg-[#1F2937] border border-[#374151] rounded-3xl p-8 lg:p-12">
+          <div className="pt-8">
+            {/* Rating */}
+            <div className="flex items-center gap-1 mb-6">
+              {[...Array(currentData.rating)].map((_, i) => (
+                <Star key={i} className="w-5 h-5 text-[#FACC15] fill-current" />
+              ))}
             </div>
 
-            {/* Content */}
-            <div className="relative pt-8">
-              {/* Rating */}
-              <div className="flex items-center gap-1 mb-6">
-                {[...Array(currentData.rating)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                ))}
+            {/* Testimonial Text */}
+            <blockquote className="text-xl lg:text-2xl text-[#FFFFFF] leading-relaxed mb-8 font-medium">
+              "{currentData.text}"
+            </blockquote>
+
+            {/* Highlight */}
+            <div className="inline-block bg-[#22C55E] text-[#FFFFFF] px-4 py-2 rounded-full text-sm font-semibold mb-8">
+              ✨ {currentData.highlight}
+            </div>
+
+            {/* Author */}
+            <div className="flex items-center gap-4">
+              <div className="relative">
+                <img
+                  src={currentData.image || "/placeholder.svg"}
+                  alt={currentData.name}
+                  className="w-16 h-16 rounded-full border-2 border-[#FACC15]"
+                />
+                {currentData.verified && (
+                  <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-[#22C55E] rounded-full flex items-center justify-center">
+                    <Verified className="w-3 h-3 text-[#FFFFFF]" />
+                  </div>
+                )}
               </div>
-
-              {/* Testimonial Text */}
-              <blockquote className="text-xl lg:text-2xl text-white leading-relaxed mb-8 font-medium">
-                "{currentData.text}"
-              </blockquote>
-
-              {/* Highlight Badge */}
-              <div className="inline-block bg-gradient-to-r from-yellow-400/20 to-yellow-600/20 text-yellow-400 border border-yellow-400/30 px-4 py-2 rounded-full text-sm font-semibold mb-8 backdrop-blur-sm">
-                ✨ {currentData.highlight}
-              </div>
-
-              {/* Author Info */}
-              <div className="flex items-center gap-4">
-                <div className="relative">
-                  <img
-                    src={currentData.image || "/placeholder.svg"}
-                    alt={currentData.name}
-                    className="w-16 h-16 rounded-full border-2 border-yellow-400/50 shadow-lg"
-                  />
-                  {currentData.verified && (
-                    <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center">
-                      <Verified className="w-3 h-3 text-white" />
-                    </div>
-                  )}
-                </div>
-                <div>
-                  <h4 className="text-white font-bold text-lg">{currentData.name}</h4>
-                  <p className="text-yellow-400 font-medium">{currentData.role}</p>
-                  <p className="text-gray-400 text-sm">{currentData.location}</p>
-                </div>
+              <div>
+                <h4 className="text-[#FFFFFF] font-bold text-lg">{currentData.name}</h4>
+                <p className="text-[#FFFFFF] font-medium">{currentData.role}</p>
+                <p className="text-[#D1D5DB] text-sm">{currentData.location}</p>
               </div>
             </div>
           </div>
@@ -210,21 +136,19 @@ const TestimonialsSection = () => {
         <div className="flex items-center justify-center gap-6 mb-12">
           <button
             onClick={prevTestimonial}
-            className="w-12 h-12 bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm border border-gray-700/50 rounded-full flex items-center justify-center text-yellow-400 hover:text-yellow-300 hover:border-yellow-400/50 transition-all duration-300 hover:scale-110"
+            className="w-12 h-12 bg-[#1F2937] border border-[#374151] rounded-full flex items-center justify-center text-[#FFFFFF]"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
 
-          {/* Dots Indicator */}
+          {/* Dots */}
           <div className="flex gap-2">
             {testimonials.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentTestimonial(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === currentTestimonial
-                    ? "bg-gradient-to-r from-yellow-400 to-yellow-600 scale-125"
-                    : "bg-gray-600 hover:bg-gray-500"
+                className={`w-3 h-3 rounded-full ${
+                  index === currentTestimonial ? "bg-[#FACC15]" : "bg-gray-600"
                 }`}
               />
             ))}
@@ -232,7 +156,7 @@ const TestimonialsSection = () => {
 
           <button
             onClick={nextTestimonial}
-            className="w-12 h-12 bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm border border-gray-700/50 rounded-full flex items-center justify-center text-yellow-400 hover:text-yellow-300 hover:border-yellow-400/50 transition-all duration-300 hover:scale-110"
+            className="w-12 h-12 bg-[#1F2937] border border-[#374151] rounded-full flex items-center justify-center text-[#FFFFFF]"
           >
             <ChevronRight className="w-6 h-6" />
           </button>
@@ -242,55 +166,16 @@ const TestimonialsSection = () => {
         <div className="text-center">
           <button
             onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-            className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
+            className={`px-6 py-3 rounded-xl font-medium border ${
               isAutoPlaying
-                ? "bg-gradient-to-r from-yellow-400/20 to-yellow-600/20 text-yellow-400 border border-yellow-400/30"
-                : "bg-gray-800/50 text-gray-400 border border-gray-700/50"
-            } backdrop-blur-sm hover:scale-105`}
+                ? "bg-[#FACC15] text-[#111827] border-[#FACC15]"
+                : "bg-[#374151] text-[#D1D5DB] border-[#374151]"
+            }`}
           >
             {isAutoPlaying ? "⏸️ Pause Auto-play" : "▶️ Resume Auto-play"}
           </button>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes testimonial-wave-1 {
-          0%, 100% { transform: translateX(0) scaleY(1); }
-          50% { transform: translateX(-25px) scaleY(1.1); }
-        }
-
-        @keyframes testimonial-wave-2 {
-          0%, 100% { transform: translateX(0) scaleY(1); }
-          50% { transform: translateX(35px) scaleY(0.9); }
-        }
-
-        @keyframes testimonial-float {
-          0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.1; }
-          50% { transform: translateY(-15px) rotate(180deg); opacity: 0.3; }
-        }
-
-        @keyframes testimonial-glow {
-          0%, 100% { opacity: 0.1; transform: scale(1); }
-          50% { opacity: 0.2; transform: scale(1.1); }
-        }
-
-        @keyframes testimonial-glow-delayed {
-          0%, 100% { opacity: 0.08; transform: scale(1); }
-          50% { opacity: 0.18; transform: scale(1.05); }
-        }
-
-        @keyframes fade-in-up {
-          from { opacity: 0; transform: translateY(30px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-
-        .animate-testimonial-wave-1 { animation: testimonial-wave-1 14s ease-in-out infinite; }
-        .animate-testimonial-wave-2 { animation: testimonial-wave-2 10s ease-in-out infinite reverse; }
-        .animate-testimonial-float { animation: testimonial-float 8s ease-in-out infinite; }
-        .animate-testimonial-glow { animation: testimonial-glow 7s ease-in-out infinite; }
-        .animate-testimonial-glow-delayed { animation: testimonial-glow-delayed 9s ease-in-out infinite; }
-        .animate-fade-in-up { animation: fade-in-up 0.8s ease-out forwards; }
-      `}</style>
     </section>
   )
 }

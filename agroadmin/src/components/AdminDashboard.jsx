@@ -138,15 +138,15 @@ const AdminDashboard = () => {
 
   const getStatusColor = (status) => {
     const colors = {
-      Processing: "bg-yellow-400/20 text-yellow-400",
-      Shipped: "bg-yellow-400/20 text-yellow-400", // Changed from blue
-      Delivered: "bg-yellow-400/20 text-yellow-400", // Changed from green
-      Cancelled: "bg-red-400/20 text-red-400",
-      Paid: "bg-yellow-400/20 text-yellow-400", // Changed from green
-      Pending: "bg-yellow-400/20 text-yellow-400",
-      Failed: "bg-red-400/20 text-red-400",
+      Processing: "bg-[#22C55E]/20 text-[#FFFFFF]",
+      Shipped: "bg-[#22C55E]/20 text-[#FFFFFF]", // Changed from blue
+      Delivered: "bg-[#22C55E]/20 text-[#FFFFFF]", // Changed from green
+      Cancelled: "bg-red-400/20 text-[#F87171]",
+      Paid: "bg-[#22C55E]/20 text-[#FFFFFF]", // Changed from green
+      Pending: "bg-[#22C55E]/20 text-[#FFFFFF]",
+      Failed: "bg-red-400/20 text-[#F87171]",
     }
-    return colors[status] || "bg-gray-800/50 text-gray-300" // Changed from gray-700
+    return colors[status] || "bg-[#374151 ] text-[#D1D5DB]" // Changed from gray-700
   }
 
   const getStatusIcon = (status) => {
@@ -175,14 +175,14 @@ const AdminDashboard = () => {
   }
 
   const StatsCard = ({ title, value, icon: Icon, color }) => (
-    <div className="bg-gray-800/50 p-6 rounded-lg shadow-md border border-gray-800/50">
+    <div className="bg-[#374151 ] p-6 rounded-lg shadow-md border border-[#374151]">
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-sm font-medium text-gray-400">{title}</p>
-          <p className="text-2xl font-semibold text-white">{value}</p>
+          <p className="text-sm font-medium text-[#D1D5DB]">{title}</p>
+          <p className="text-2xl font-semibold text-[#FFFFFF]">{value}</p>
         </div>
         <div className={`p-3 rounded-full ${color}`}>
-          <Icon className="w-6 h-6 text-white" />
+          <Icon className="w-6 h-6 text-[#FFFFFF]" />
         </div>
       </div>
     </div>
@@ -205,22 +205,22 @@ const AdminDashboard = () => {
     }
 
     return (
-      <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4">
-        <div className="bg-gray-900/95 rounded-lg p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto border border-gray-700/50 shadow-xl">
+      <div className="fixed inset-0 bg-[#111827] bg-opacity-70 flex items-center justify-center z-50 p-4">
+        <div className="bg-[#111827]  rounded-lg p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto border border-[#374151]/50 shadow-xl">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold text-white">Update Order</h2>
-            <button onClick={onClose} className="text-gray-400 hover:text-white">
+            <h2 className="text-xl font-semibold text-[#FFFFFF]">Update Order</h2>
+            <button onClick={onClose} className="text-[#D1D5DB] hover:text-[#FFFFFF]">
               <XCircle className="w-6 h-6" />
             </button>
           </div>
           <div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">Order Status</label>
+                <label className="block text-sm font-medium text-[#D1D5DB] mb-1">Order Status</label>
                 <select
                   value={formData.orderStatus}
                   onChange={(e) => setFormData({ ...formData, orderStatus: e.target.value })}
-                  className="w-full p-2 border border-gray-700/50 bg-gray-800/50 text-white rounded-md focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/50"
+                  className="w-full p-2 border border-[#374151]/50 bg-[#374151 ] text-[#FFFFFF] rounded-md focus:ring-2 focus:ring-[#22C55E]/50 focus:border-[#22C55E]/50"
                 >
                   <option value="">Select Status</option>
                   <option value="Processing">Processing</option>
@@ -230,11 +230,11 @@ const AdminDashboard = () => {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">Payment Status</label>
+                <label className="block text-sm font-medium text-[#D1D5DB] mb-1">Payment Status</label>
                 <select
                   value={formData.paymentStatus}
                   onChange={(e) => setFormData({ ...formData, paymentStatus: e.target.value })}
-                  className="w-full p-2 border border-gray-700/50 bg-gray-800/50 text-white rounded-md focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/50"
+                  className="w-full p-2 border border-[#374151]/50 bg-[#374151 ] text-[#FFFFFF] rounded-md focus:ring-2 focus:ring-[#22C55E]/50 focus:border-[#22C55E]/50"
                 >
                   <option value="">Select Payment Status</option>
                   <option value="Pending">Pending</option>
@@ -243,21 +243,21 @@ const AdminDashboard = () => {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">Tracking Number</label>
+                <label className="block text-sm font-medium text-[#D1D5DB] mb-1">Tracking Number</label>
                 <input
                   type="text"
                   value={formData.trackingNumber}
                   onChange={(e) => setFormData({ ...formData, trackingNumber: e.target.value })}
-                  className="w-full p-2 border border-gray-700/50 bg-gray-800/50 text-white rounded-md focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/50"
+                  className="w-full p-2 border border-[#374151]/50 bg-[#374151 ] text-[#FFFFFF] rounded-md focus:ring-2 focus:ring-[#22C55E]/50 focus:border-[#22C55E]/50"
                   placeholder="Enter tracking number"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">Shipping Carrier</label>
+                <label className="block text-sm font-medium text-[#D1D5DB] mb-1">Shipping Carrier</label>
                 <select
                   value={formData.shippingCarrier}
                   onChange={(e) => setFormData({ ...formData, shippingCarrier: e.target.value })}
-                  className="w-full p-2 border border-gray-700/50 bg-gray-800/50 text-white rounded-md focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/50"
+                  className="w-full p-2 border border-[#374151]/50 bg-[#374151 ] text-[#FFFFFF] rounded-md focus:ring-2 focus:ring-[#22C55E]/50 focus:border-[#22C55E]/50"
                 >
                   <option value="">Select Carrier</option>
                   <option value="FedEx">FedEx</option>
@@ -269,21 +269,21 @@ const AdminDashboard = () => {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">Estimated Delivery Date</label>
+                <label className="block text-sm font-medium text-[#D1D5DB] mb-1">Estimated Delivery Date</label>
                 <input
                   type="date"
                   value={formData.estimatedDeliveryDate}
                   onChange={(e) => setFormData({ ...formData, estimatedDeliveryDate: e.target.value })}
-                  className="w-full p-2 border border-gray-700/50 bg-gray-800/50 text-white rounded-md focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/50"
+                  className="w-full p-2 border border-[#374151]/50 bg-[#374151 ] text-[#FFFFFF] rounded-md focus:ring-2 focus:ring-[#22C55E]/50 focus:border-[#22C55E]/50"
                 />
               </div>
               <div className="col-span-1 sm:col-span-2">
-                <label className="block text-sm font-medium text-gray-300 mb-1">Notes</label>
+                <label className="block text-sm font-medium text-[#D1D5DB] mb-1">Notes</label>
                 <textarea
                   value={formData.notes}
                   onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                   rows={3}
-                  className="w-full p-2 border border-gray-700/50 bg-gray-800/50 text-white rounded-md focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/50"
+                  className="w-full p-2 border border-[#374151]/50 bg-[#374151 ] text-[#FFFFFF] rounded-md focus:ring-2 focus:ring-[#22C55E]/50 focus:border-[#22C55E]/50"
                   placeholder="Add any notes or special instructions"
                 />
               </div>
@@ -292,14 +292,14 @@ const AdminDashboard = () => {
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2 text-gray-300 hover:text-white rounded-md transition-colors duration-200"
+                className="px-4 py-2 text-[#D1D5DB] hover:text-[#FFFFFF] rounded-md transition-colors duration-200"
               >
                 Cancel
               </button>
               <button
                 type="button"
                 onClick={handleSubmit}
-                className="px-4 py-2 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-medium rounded-md hover:from-yellow-500 hover:to-yellow-700 transition-all duration-300 shadow-lg shadow-yellow-400/20"
+                className="px-4 py-2 bg-[#22C55E] text-[#D1D5DB] font-medium rounded-md hover:bg-[#374151 transition-all duration-300 shadow-lg shadow-[#22C55E]/20"
               >
                 Update Order
               </button>
@@ -312,19 +312,19 @@ const AdminDashboard = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-black/95">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-400"></div>
+      <div className="flex items-center justify-center min-h-screen bg-[#111827]">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#374151]"></div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-black/95 text-white">
+    <div className="min-h-screen bg-[#111827] text-[#FFFFFF]">
       <div className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-white">Order Management</h1>
-          <p className="text-gray-400 mt-1">Manage and track all customer orders</p>
+          <h1 className="text-3xl font-bold text-[#FFFFFF]">Order Management</h1>
+          <p className="text-[#D1D5DB] mt-1">Manage and track all customer orders</p>
         </div>
 
         {/* Stats Grid */}
@@ -333,46 +333,46 @@ const AdminDashboard = () => {
             title="Total Orders"
             value={stats.totalOrders || 0}
             icon={ShoppingCart}
-            color="bg-yellow-600" // Changed to yellow
+            color="bg-[#22C55E]" // Changed to yellow
           />
           <StatsCard
             title="Total Revenue"
             value={formatCurrency(stats.totalRevenue || 0)}
             icon={DollarSign}
-            color="bg-yellow-600" // Changed to yellow
+            color="bg-[#22C55E]" // Changed to yellow
           />
           <StatsCard
             title="Pending Orders"
             value={stats.pendingOrders || 0}
             icon={Clock}
-            color="bg-yellow-600" // Already yellow
+            color="bg-[#22C55E]" // Already yellow
           />
           <StatsCard
             title="Delivered Orders"
             value={stats.deliveredOrders || 0}
             icon={CheckCircle}
-            color="bg-yellow-600" // Changed to yellow
+            color="bg-[#22C55E]" // Changed to yellow
           />
         </div>
 
         {/* Filters and Actions */}
-        <div className="bg-gray-800/50 p-6 rounded-lg shadow-md border border-gray-800/50">
+        <div className="bg-[#374151 ] p-6 rounded-lg shadow-md border border-[#374151]">
           <div className="flex flex-wrap gap-4 items-center justify-between">
             <div className="flex flex-wrap gap-4 items-center">
               <div className="relative w-full sm:w-auto">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#D1D5DB] w-4 h-4" />
                 <input
                   type="text"
                   placeholder="Search orders..."
                   value={filters.search}
                   onChange={(e) => setFilters({ ...filters, search: e.target.value })}
-                  className="pl-10 pr-4 py-2 border border-gray-700/50 bg-gray-900/50 rounded-md focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/50 w-full sm:w-64 text-white placeholder-gray-400"
+                  className="pl-10 pr-4 py-2 border border-[#374151]/50 bg-[#1F2937]/50 rounded-md focus:ring-2 focus:ring-[#22C55E]/50 focus:border-[#22C55E]/50 w-full sm:w-64 text-[#FFFFFF] placeholder-[#D1D5DB]"
                 />
               </div>
               <select
                 value={filters.status}
                 onChange={(e) => setFilters({ ...filters, status: e.target.value })}
-                className="px-4 py-2 border border-gray-700/50 bg-gray-900/50 text-white rounded-md focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/50"
+                className="px-4 py-2 border border-[#374151]/50 bg-[#1F2937]/50 text-[#FFFFFF] rounded-md focus:ring-2 focus:ring-[#22C55E]/50 focus:border-[#22C55E]/50"
               >
                 <option value="">All Status</option>
                 <option value="Processing">Processing</option>
@@ -383,7 +383,7 @@ const AdminDashboard = () => {
               <select
                 value={filters.paymentStatus}
                 onChange={(e) => setFilters({ ...filters, paymentStatus: e.target.value })}
-                className="px-4 py-2 border border-gray-700/50 bg-gray-900/50 text-white rounded-md focus:ring-2 focus:ring-yellow-400/50 focus:border-yellow-400/50"
+                className="px-4 py-2 border border-[#374151]/50 bg-[#1F2937]/50 text-[#FFFFFF] rounded-md focus:ring-2 focus:ring-[#22C55E]/50 focus:border-[#22C55E]/50"
               >
                 <option value="">All Payment Status</option>
                 <option value="Pending">Pending</option>
@@ -396,19 +396,19 @@ const AdminDashboard = () => {
                 <div className="flex gap-2">
                   <button
                     onClick={() => handleBulkUpdate({ orderStatus: "Shipped" })}
-                    className="px-4 py-2 bg-yellow-600 text-black font-medium rounded-md hover:bg-yellow-700 transition-all duration-300 shadow-lg shadow-yellow-400/20"
+                    className="px-4 py-2 bg-[#22C55E] text-[#D1D5DB] font-medium rounded-md hover:bg-yellow-700 transition-all duration-300 shadow-lg shadow-[#22C55E]/20"
                   >
                     Mark as Shipped
                   </button>
                   <button
                     onClick={() => handleBulkUpdate({ orderStatus: "Delivered" })}
-                    className="px-4 py-2 bg-yellow-600 text-black font-medium rounded-md hover:bg-yellow-700 transition-all duration-300 shadow-lg shadow-yellow-400/20"
+                    className="px-4 py-2 bg-[#22C55E] text-[#D1D5DB] font-medium rounded-md hover:bg-yellow-700 transition-all duration-300 shadow-lg shadow-[#22C55E]/20"
                   >
                     Mark as Delivered
                   </button>
                 </div>
               )}
-              <button className="px-4 py-2 bg-gray-800/50 text-white rounded-md hover:bg-gray-900/50 flex items-center gap-2 transition-colors duration-200">
+              <button className="px-4 py-2 bg-[#374151 ] text-[#FFFFFF] rounded-md hover:bg-[#1F2937]/50 flex items-center gap-2 transition-colors duration-200">
                 <Download className="w-4 h-4" />
                 Export
               </button>
@@ -417,10 +417,10 @@ const AdminDashboard = () => {
         </div>
 
         {/* Orders Table */}
-        <div className="bg-gray-800/50 rounded-lg shadow-md border border-gray-800/50 overflow-hidden">
+        <div className="bg-[#374151 ] rounded-lg shadow-md border border-[#374151] overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-900/95">
+              <thead className="bg-[#111827] ">
                 <tr>
                   <th className="w-4 p-4">
                     <input
@@ -433,22 +433,22 @@ const AdminDashboard = () => {
                           setSelectedOrders([])
                         }
                       }}
-                      className="w-4 h-4 text-yellow-400 rounded bg-gray-800/50 border-gray-700/50 focus:ring-yellow-400/50"
+                      className="w-4 h-4 text-[#FFFFFF] rounded bg-[#374151 ] border-[#374151]/50 focus:ring-[#22C55E]/50"
                     />
                   </th>
-                  <th className="text-left p-4 font-medium text-white">Order ID</th>
-                  <th className="text-left p-4 font-medium text-white">Customer</th>
-                  <th className="text-left p-4 font-medium text-white">Product</th>
-                  <th className="text-left p-4 font-medium text-white">Amount</th>
-                  <th className="text-left p-4 font-medium text-white">Status</th>
-                  <th className="text-left p-4 font-medium text-white">Payment</th>
-                  <th className="text-left p-4 font-medium text-white">Date</th>
-                  <th className="text-left p-4 font-medium text-white">Actions</th>
+                  <th className="text-left p-4 font-medium text-[#FFFFFF]">Order ID</th>
+                  <th className="text-left p-4 font-medium text-[#FFFFFF]">Customer</th>
+                  <th className="text-left p-4 font-medium text-[#FFFFFF]">Product</th>
+                  <th className="text-left p-4 font-medium text-[#FFFFFF]">Amount</th>
+                  <th className="text-left p-4 font-medium text-[#FFFFFF]">Status</th>
+                  <th className="text-left p-4 font-medium text-[#FFFFFF]">Payment</th>
+                  <th className="text-left p-4 font-medium text-[#FFFFFF]">Date</th>
+                  <th className="text-left p-4 font-medium text-[#FFFFFF]">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-700/50">
                 {orders.map((order) => (
-                  <tr key={order._id} className="hover:bg-gray-800/50 transition-colors duration-150">
+                  <tr key={order._id} className="hover:bg-[#374151 ] transition-colors duration-150">
                     <td className="p-4">
                       <input
                         type="checkbox"
@@ -460,14 +460,14 @@ const AdminDashboard = () => {
                             setSelectedOrders(selectedOrders.filter((id) => id !== order._id))
                           }
                         }}
-                        className="w-4 h-4 text-yellow-400 rounded bg-gray-800/50 border-gray-700/50 focus:ring-yellow-400/50"
+                        className="w-4 h-4 text-[#FFFFFF] rounded bg-[#374151 ] border-[#374151]/50 focus:ring-[#22C55E]/50"
                       />
                     </td>
-                    <td className="p-4 font-mono text-sm text-gray-300">#{order._id.slice(-8)}</td>
+                    <td className="p-4 font-mono text-sm text-[#D1D5DB]">#{order._id.slice(-8)}</td>
                     <td className="p-4">
                       <div>
-                        <p className="font-medium text-white">{order.userEmail}</p>
-                        <p className="text-sm text-gray-400">{order.phone}</p>
+                        <p className="font-medium text-[#FFFFFF]">{order.userEmail}</p>
+                        <p className="text-sm text-[#D1D5DB]">{order.phone}</p>
                       </div>
                     </td>
                     <td className="p-4">
@@ -480,12 +480,12 @@ const AdminDashboard = () => {
                           />
                         )}
                         <div>
-                          <p className="font-medium text-white">{order.product?.name}</p>
-                          <p className="text-sm text-gray-400">Qty: {order.quantity}</p>
+                          <p className="font-medium text-[#FFFFFF]">{order.product?.name}</p>
+                          <p className="text-sm text-[#D1D5DB]">Qty: {order.quantity}</p>
                         </div>
                       </div>
                     </td>
-                    <td className="p-4 font-medium text-white">{formatCurrency(order.orderPrice)}</td>
+                    <td className="p-4 font-medium text-[#FFFFFF]">{formatCurrency(order.orderPrice)}</td>
                     <td className="p-4">
                       <span
                         className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(order.orderStatus)}`}
@@ -501,7 +501,7 @@ const AdminDashboard = () => {
                         {order.paymentStatus}
                       </span>
                     </td>
-                    <td className="p-4 text-sm text-gray-400">{formatDate(order.orderDate)}</td>
+                    <td className="p-4 text-sm text-[#D1D5DB]">{formatDate(order.orderDate)}</td>
                     <td className="p-4">
                       <div className="flex items-center gap-2">
                         <button
@@ -509,14 +509,14 @@ const AdminDashboard = () => {
                             setSelectedOrder(order)
                             setShowOrderModal(true)
                           }}
-                          className="p-1 text-yellow-400 hover:text-yellow-300 transition-colors duration-200"
+                          className="p-1 text-[#FFFFFF] hover:text-[#D1D5DB] transition-colors duration-200"
                           title="Edit order"
                         >
                           <Edit className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => handleDeleteOrder(order._id)}
-                          className="p-1 text-red-400 hover:text-red-300 transition-colors duration-200"
+                          className="p-1 text-[#F87171] hover:text-[#FCA5A5] transition-colors duration-200"
                           title="Cancel order"
                         >
                           <Trash2 className="w-4 h-4" />
@@ -529,9 +529,9 @@ const AdminDashboard = () => {
             </table>
           </div>
           {/* Pagination */}
-          <div className="px-6 py-4 border-t border-gray-700/50">
+          <div className="px-6 py-4 border-t border-[#374151]/50">
             <div className="flex items-center justify-between">
-              <div className="text-sm text-gray-400">
+              <div className="text-sm text-[#D1D5DB]">
                 Showing {(pagination.currentPage - 1) * pagination.limit + 1} to{" "}
                 {Math.min(pagination.currentPage * pagination.limit, pagination.totalOrders)} of{" "}
                 {pagination.totalOrders} orders
@@ -540,17 +540,17 @@ const AdminDashboard = () => {
                 <button
                   onClick={() => setCurrentPage(currentPage - 1)}
                   disabled={!pagination.hasPrev}
-                  className="p-2 text-gray-400 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+                  className="p-2 text-[#D1D5DB] hover:text-[#FFFFFF] disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
                 >
                   <ChevronLeft className="w-4 h-4" />
                 </button>
-                <span className="px-3 py-1 text-sm font-medium text-white">
+                <span className="px-3 py-1 text-sm font-medium text-[#FFFFFF]">
                   {pagination.currentPage} of {pagination.totalPages}
                 </span>
                 <button
                   onClick={() => setCurrentPage(currentPage + 1)}
                   disabled={!pagination.hasNext}
-                  className="p-2 text-gray-400 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+                  className="p-2 text-[#D1D5DB] hover:text-[#FFFFFF] disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
                 >
                   <ChevronRight className="w-4 h-4" />
                 </button>

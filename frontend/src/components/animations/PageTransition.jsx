@@ -16,7 +16,7 @@ export default function PageTransition({ children }) {
   
   if (isLoading) {
     return (
-      <div className="fixed inset-0 z-50 bg-black flex items-center justify-center">
+      <div className="fixed inset-0 z-50 bg-[#111827] flex items-center justify-center">
         {/* Sexy logo */}
         <div className="text-center">
           <div className="flex flex-col items-center justify-center mb-8">

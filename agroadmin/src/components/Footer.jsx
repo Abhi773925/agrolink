@@ -79,18 +79,18 @@ const Footer= () => {
     { icon: Twitter, href: "https://twitter.com/agrolink", color: "hover:text-sky-400" },
     { icon: Instagram, href: "https://instagram.com/agrolink", color: "hover:text-pink-400" },
     { icon: Linkedin, href: "https://linkedin.com/company/agrolink", color: "hover:text-blue-500" },
-    { icon: Youtube, href: "https://youtube.com/agrolink", color: "hover:text-red-400" },
+    { icon: Youtube, href: "https://youtube.com/agrolink", color: "hover:text-[#F87171]" },
   ]
 
   const achievements = [
     { icon: Users, text: "15K+ Farmers", color: "text-blue-400" },
     { icon: Globe, text: "500+ Cities", color: "text-green-400" },
-    { icon: Award, text: "98% Satisfaction", color: "text-yellow-400" },
+    { icon: Award, text: "98% Satisfaction", color: "text-[#FFFFFF]" },
     { icon: Shield, text: "100% Secure", color: "text-purple-400" },
   ]
 
   return (
-    <footer className="relative bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white overflow-hidden">
+    <footer className="relative bg-gradient-to-br from-gray-900 via-black to-gray-800 text-[#FFFFFF] overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Subtle Grid Pattern */}
@@ -120,7 +120,7 @@ const Footer= () => {
       {/* Main Footer Content */}
       <div className="relative z-10">
         {/* Top Section */}
-        <div className="border-b border-gray-700/30 py-12">
+        <div className="border-b border-[#374151]/30 py-12">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
               {/* Brand Section */}
@@ -136,7 +136,7 @@ const Footer= () => {
                     </span>
                   </h3>
                 </div>
-                <p className="text-gray-300 text-lg font-medium max-w-md mx-auto lg:mx-0">
+                <p className="text-[#D1D5DB] text-lg font-medium max-w-md mx-auto lg:mx-0">
                   Connecting farmers with the future of agriculture through technology and innovation.
                 </p>
               </div>
@@ -149,27 +149,27 @@ const Footer= () => {
                     className="text-center p-4 bg-gradient-to-br from-gray-800/50 to-gray-700/50 rounded-xl border border-gray-600/30 backdrop-blur-sm hover:scale-105 transition-transform duration-300"
                   >
                     <achievement.icon className={`w-6 h-6 ${achievement.color} mx-auto mb-2`} />
-                    <p className="text-white font-bold text-sm">{achievement.text}</p>
+                    <p className="text-[#FFFFFF] font-bold text-sm">{achievement.text}</p>
                   </div>
                 ))}
               </div>
 
               {/* Newsletter */}
               <div className="text-center lg:text-right">
-                <h4 className="text-xl font-bold text-white mb-3">Stay Updated</h4>
-                <p className="text-gray-300 mb-4 text-sm">Get the latest agricultural news and updates</p>
+                <h4 className="text-xl font-bold text-[#FFFFFF] mb-3">Stay Updated</h4>
+                <p className="text-[#D1D5DB] mb-4 text-sm">Get the latest agricultural news and updates</p>
                 <form onSubmit={handleNewsletterSubmit} className="flex max-w-sm mx-auto lg:ml-auto lg:mr-0">
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email"
-                    className="flex-1 bg-gradient-to-r from-gray-800/50 to-gray-700/50 border border-gray-600/30 rounded-l-lg px-4 py-2.5 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-400/50 backdrop-blur-sm text-sm"
+                    className="flex-1 bg-gradient-to-r from-gray-800/50 to-gray-700/50 border border-gray-600/30 rounded-l-lg px-4 py-2.5 text-[#FFFFFF] placeholder-[#D1D5DB] focus:outline-none focus:ring-2 focus:ring-green-400/50 backdrop-blur-sm text-sm"
                     required
                   />
                   <button
                     type="submit"
-                    className="bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 text-white px-4 py-2.5 rounded-r-lg transition-all duration-300 hover:scale-105 shadow-lg"
+                    className="bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 text-[#FFFFFF] px-4 py-2.5 rounded-r-lg transition-all duration-300 hover:scale-105 shadow-lg"
                   >
                     <Send className="w-4 h-4" />
                   </button>
@@ -195,7 +195,7 @@ const Footer= () => {
                     <li key={index}>
                       <a
                         href={link.href}
-                        className="text-gray-300 hover:text-green-400 transition-colors duration-300 text-sm font-medium hover:underline"
+                        className="text-[#D1D5DB] hover:text-green-400 transition-colors duration-300 text-sm font-medium hover:underline"
                       >
                         {link.name}
                       </a>
@@ -206,7 +206,7 @@ const Footer= () => {
 
               {/* Services Links */}
               <div>
-                <h5 className="text-lg font-bold text-yellow-400 mb-4 flex items-center gap-2">
+                <h5 className="text-lg font-bold text-[#FFFFFF] mb-4 flex items-center gap-2">
                   <Wheat className="w-4 h-4" />
                   Services
                 </h5>
@@ -215,7 +215,7 @@ const Footer= () => {
                     <li key={index}>
                       <a
                         href={link.href}
-                        className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 text-sm font-medium hover:underline"
+                        className="text-[#D1D5DB] hover:text-[#FFFFFF] transition-colors duration-300 text-sm font-medium hover:underline"
                       >
                         {link.name}
                       </a>
@@ -235,7 +235,7 @@ const Footer= () => {
                     <li key={index}>
                       <a
                         href={link.href}
-                        className="text-gray-300 hover:text-blue-400 transition-colors duration-300 text-sm font-medium hover:underline"
+                        className="text-[#D1D5DB] hover:text-blue-400 transition-colors duration-300 text-sm font-medium hover:underline"
                       >
                         {link.name}
                       </a>
@@ -255,7 +255,7 @@ const Footer= () => {
                     <li key={index}>
                       <a
                         href={link.href}
-                        className="text-gray-300 hover:text-purple-400 transition-colors duration-300 text-sm font-medium hover:underline"
+                        className="text-[#D1D5DB] hover:text-purple-400 transition-colors duration-300 text-sm font-medium hover:underline"
                       >
                         {link.name}
                       </a>
@@ -268,19 +268,19 @@ const Footer= () => {
         </div>
 
         {/* Contact Section */}
-        <div className="border-t border-gray-700/30 py-8">
+        <div className="border-t border-[#374151]/30 py-8">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left">
               {/* Email */}
               <div className="flex items-center justify-center md:justify-start gap-3">
                 <div className="w-10 h-10 bg-gradient-to-r from-green-400 to-green-600 rounded-lg flex items-center justify-center">
-                  <Mail className="w-5 h-5 text-white" />
+                  <Mail className="w-5 h-5 text-[#FFFFFF]" />
                 </div>
                 <div>
-                  <p className="text-gray-400 text-xs font-medium">Email Us</p>
+                  <p className="text-[#D1D5DB] text-xs font-medium">Email Us</p>
                   <a
                     href="mailto:support@agrolink.com"
-                    className="text-white font-bold hover:text-green-400 transition-colors duration-300"
+                    className="text-[#FFFFFF] font-bold hover:text-green-400 transition-colors duration-300"
                   >
                     rockabhisheksingh778189@gmail.com
                   </a>
@@ -289,14 +289,14 @@ const Footer= () => {
 
               {/* Phone */}
               <div className="flex items-center justify-center md:justify-start gap-3">
-                <div className="w-10 h-10 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-lg flex items-center justify-center">
-                  <Phone className="w-5 h-5 text-black" />
+                <div className="w-10 h-10 bg-[#22C55E] rounded-lg flex items-center justify-center">
+                  <Phone className="w-5 h-5 text-[#D1D5DB]" />
                 </div>
                 <div>
-                  <p className="text-gray-400 text-xs font-medium">Call Us</p>
+                  <p className="text-[#D1D5DB] text-xs font-medium">Call Us</p>
                   <a
                     href="tel:+1234567890"
-                    className="text-white font-bold hover:text-yellow-400 transition-colors duration-300"
+                    className="text-[#FFFFFF] font-bold hover:text-[#FFFFFF] transition-colors duration-300"
                   >
                     +91 7739254874
                   </a>
@@ -306,11 +306,11 @@ const Footer= () => {
               {/* Address */}
               <div className="flex items-center justify-center md:justify-start gap-3">
                 <div className="w-10 h-10 bg-gradient-to-r from-blue-400 to-blue-600 rounded-lg flex items-center justify-center">
-                  <MapPin className="w-5 h-5 text-white" />
+                  <MapPin className="w-5 h-5 text-[#FFFFFF]" />
                 </div>
                 <div>
-                  <p className="text-gray-400 text-xs font-medium">Visit Us</p>
-                  <p className="text-white font-bold">Chapra,Bihar, India</p>
+                  <p className="text-[#D1D5DB] text-xs font-medium">Visit Us</p>
+                  <p className="text-[#FFFFFF] font-bold">Chapra,Bihar, India</p>
                 </div>
               </div>
             </div>
@@ -318,13 +318,13 @@ const Footer= () => {
         </div>
 
         {/* Bottom Section */}
-        <div className="border-t border-gray-700/30 py-6">
+        <div className="border-t border-[#374151]/30 py-6">
           <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               {/* Copyright */}
-              <div className="flex items-center gap-2 text-gray-400 text-sm">
+              <div className="flex items-center gap-2 text-[#D1D5DB] text-sm">
                 <span>© 2025 AgroLink. Made with</span>
-                <Heart className="w-4 h-4 text-red-400" />
+                <Heart className="w-4 h-4 text-[#F87171]" />
                 <span>for farmers worldwide.</span>
               </div>
 
@@ -336,7 +336,7 @@ const Footer= () => {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`w-10 h-10 bg-gradient-to-br from-gray-800/50 to-gray-700/50 rounded-lg flex items-center justify-center text-gray-400 ${social.color} transition-all duration-300 hover:scale-110 hover:shadow-lg border border-gray-600/30 backdrop-blur-sm`}
+                    className={`w-10 h-10 bg-gradient-to-br from-gray-800/50 to-gray-700/50 rounded-lg flex items-center justify-center text-[#D1D5DB] ${social.color} transition-all duration-300 hover:scale-110 hover:shadow-lg border border-gray-600/30 backdrop-blur-sm`}
                   >
                     <social.icon className="w-5 h-5" />
                   </a>
@@ -346,7 +346,7 @@ const Footer= () => {
               {/* Back to Top */}
               <button
                 onClick={scrollToTop}
-                className="w-10 h-10 bg-gradient-to-r from-green-400 to-green-600 rounded-lg flex items-center justify-center text-white hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-green-400/30"
+                className="w-10 h-10 bg-gradient-to-r from-green-400 to-green-600 rounded-lg flex items-center justify-center text-[#FFFFFF] hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-green-400/30"
                 title="Back to top"
               >
                 <ArrowUp className="w-5 h-5" />
