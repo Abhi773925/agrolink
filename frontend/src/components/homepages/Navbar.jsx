@@ -51,7 +51,7 @@ const AgroLinkNavbar = () => {
           {/* Logo */}
           <div className="flex items-center space-x-3">
             <div className="relative cursor-pointer" onClick={go}>
-              <img className="h-13" src={logo} />
+              <img className="h-13 mix-blend-color-dodge " src={logo} />
             </div>
           </div>
 
