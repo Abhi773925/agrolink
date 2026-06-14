@@ -1,7 +1,4 @@
-"use client"
-
-import { useState } from "react"
-import { Package, User, Hash, DollarSign, MapPin, FileText, ImageIcon, Upload } from "lucide-react"
+import { useState } from "react";
 
 const Listing = () => {
   const [formData, setFormData] = useState({
@@ -14,36 +11,28 @@ const Listing = () => {
     description: "",
     image: "",
   })
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [message, setMessage] = useState(null);
 
   const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData({ ...formData, [name]: value })
-  }
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setIsSubmitting(true)
+    e.preventDefault();
+    setIsSubmitting(true);
+    setMessage(null);
     try {
       const response = await fetch("https://agrolink-5ok6.onrender.com/api/users/listing", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       })
-      const data = await response.json()
-      if (!response.ok) throw new Error(data.message)
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message);
 
-      const successMsg = document.createElement("div")
-      successMsg.className =
-        "fixed top-4 right-4 bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-[#D1D5DB] px-6 py-3 rounded-xl shadow-lg shadow-green-500/30 z-50 flex items-center gap-2 backdrop-blur-sm border border-[#374151]/20 font-bold"
-      successMsg.innerHTML = `
-        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
-        </svg>
-        Listing created successfully!
-      `
-      document.body.appendChild(successMsg)
-      setTimeout(() => document.body.removeChild(successMsg), 4000)
+      setMessage({ type: "success", text: "Listing created successfully." });
       setFormData({
         listingId: "",
         email: "",
@@ -53,158 +42,90 @@ const Listing = () => {
         region: "",
         description: "",
         image: "",
-      })
+      });
     } catch (error) {
-      const errorMsg = document.createElement("div")
-      errorMsg.className =
-        "fixed top-4 right-4 bg-gradient-to-r from-red-500 to-red-600 text-[#FFFFFF] px-6 py-3 rounded-xl shadow-lg shadow-red-500/30 z-50 flex items-center gap-2 backdrop-blur-sm border border-red-500/20 font-bold"
-      errorMsg.innerHTML = `
-        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-          <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd"></path>
-        </svg>
-        ${error.message || "Failed to create listing"}
-      `
-      document.body.appendChild(errorMsg)
-      setTimeout(() => document.body.removeChild(errorMsg), 4000)
+      setMessage({ type: "error", text: error.message || "Failed to create listing." });
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   return (
-    <div className="min-h-screen bg-[#111827] backdrop-blur-md px-4 py-8">
-      <div className="max-w-5xl mx-auto">
-        <div className="bg-[#1F2937] backdrop-blur-xl border border-[#374151]/30 rounded-2xl shadow-2xl overflow-hidden">
-          {/* Header */}
-          <div className="bg-gradient-to-r from-green-400 via-green-500 to-green-600 p-6">
-            <h3 className="text-xl font-bold text-[#FFFFFF] flex items-center gap-2">
-              <Package className="h-6 w-6" />
-              Create Product Listing
-            </h3>
-            <p className="text-[#FFFFFF] text-sm font-medium">Provide details about your agricultural product</p>
-          </div>
-
-          {/* Form Content */}
-          <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6 bg-gradient-to-b from-gray-900/50 via-gray-800/40 to-gray-900/50">
-            {[{
-                label: "Listing ID",
-                name: "listingId",
-                icon: Hash,
-                type: "number",
-                placeholder: "Unique ID",
-              },{
-                label: "Email Address",
-                name: "email",
-                icon: User,
-                type: "email",
-                placeholder: "example@mail.com",
-              },{
-                label: "Region",
-                name: "region",
-                icon: MapPin,
-                type: "text",
-                placeholder: "Enter region",
-              },{
-                label: "Product Name",
-                name: "name",
-                icon: Package,
-                type: "text",
-                placeholder: "e.g. Basmati Rice",
-              },{
-                label: "Quantity (kg/tons)",
-                name: "quantity",
-                icon: Hash,
-                type: "number",
-                placeholder: "Enter quantity",
-              },{
-                label: "Price per Unit (₹)",
-                name: "price",
-                icon: DollarSign,
-                type: "number",
-                placeholder: "Enter price",
-                step: "0.01",
-              },{
-                label: "Image URL",
-                name: "image",
-                icon: ImageIcon,
-                type: "url",
-                placeholder: "https://example.com/image.jpg",
-              }].map(({ label, name, icon: Icon, ...rest }) => (
-              <div key={name} className="space-y-2">
-                <label className="text-sm font-medium text-[#FFFFFF] flex items-center gap-2">
-                  <Icon className="h-4 w-4 text-[#FFFFFF]" />
-                  {label}
-                </label>
-                <input
-                  {...rest}
-                  name={name}
-                  value={formData[name]}
-                  onChange={handleChange}
-                  className="w-full bg-gradient-to-r from-gray-800/50 to-gray-700/50 backdrop-blur-sm text-[#FFFFFF] border border-gray-600/30 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#22C55E]/50 focus:border-[#22C55E]/50 transition-all duration-300 placeholder-[#D1D5DB] font-medium"
-                  required
-                />
-              </div>
-            ))}
-
-            {/* Description */}
-            <div className="md:col-span-2 space-y-2">
-              <label className="text-sm font-medium text-[#FFFFFF] flex items-center gap-2">
-                <FileText className="h-4 w-4" />
-                Product Description
+    <section className="bg-gray-50 px-4 py-10 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-4xl rounded-xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
+        <header className="mb-6">
+          <h1 className="text-2xl font-semibold text-gray-900">Create listing</h1>
+          <p className="mt-1 text-sm text-gray-600">Add crop details for buyers in the marketplace.</p>
+        </header>
+        {message && (
+          <p
+            className={`mb-4 rounded-lg border px-3 py-2 text-sm ${
+              message.type === "success"
+                ? "border-green-200 bg-green-50 text-green-700"
+                : "border-red-200 bg-red-50 text-red-700"
+            }`}
+          >
+            {message.text}
+          </p>
+        )}
+        <form onSubmit={handleSubmit} className="grid gap-4 sm:grid-cols-2">
+          {[
+            ["Listing ID", "listingId", "number", "Unique ID"],
+            ["Email", "email", "email", "example@mail.com"],
+            ["Product Name", "name", "text", "e.g. Basmati Rice"],
+            ["Region", "region", "text", "e.g. Bihar"],
+            ["Quantity", "quantity", "number", "Available quantity"],
+            ["Price", "price", "number", "Price per unit"],
+            ["Image URL", "image", "url", "https://example.com/image.jpg"],
+          ].map(([label, name, type, placeholder]) => (
+            <div key={name} className={name === "image" ? "sm:col-span-2" : ""}>
+              <label htmlFor={name} className="mb-1 block text-sm font-medium text-gray-700">
+                {label}
               </label>
-              <textarea
-                name="description"
-                value={formData.description}
+              <input
+                id={name}
+                name={name}
+                type={type}
+                value={formData[name]}
                 onChange={handleChange}
-                rows={4}
-                placeholder="Describe your product in detail..."
-                className="w-full bg-gradient-to-r from-gray-800/50 to-gray-700/50 backdrop-blur-sm text-[#FFFFFF] border border-gray-600/30 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#22C55E]/50 focus:border-[#22C55E]/50 transition-all duration-300 resize-none placeholder-[#D1D5DB] font-medium"
                 required
+                className="h-11 w-full rounded-lg border border-gray-300 px-3 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+                placeholder={placeholder}
               />
             </div>
-
-            {/* Image Preview */}
-            {formData.image && (
-              <div className="md:col-span-2 mt-4">
-                <h5 className="text-sm text-[#FFFFFF] mb-3 font-medium flex items-center gap-2">
-                  <ImageIcon className="h-4 w-4" />
-                  Image Preview
-                </h5>
-                <div className="relative inline-block">
-                  <img
-                    src={formData.image || "/placeholder.svg"}
-                    alt="Preview"
-                    className="w-32 h-32 object-cover rounded-xl border border-gray-600/30 shadow-lg shadow-green-500/30"
-                    onError={(e) => (e.target.style.display = "none")}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-xl"></div>
-                </div>
-              </div>
-            )}
-
-            {/* Action Buttons */}
-            <div className="md:col-span-2 mt-6 flex flex-col sm:flex-row gap-4">
-              <button
-                type="button"
-                onClick={handleSubmit}
-                disabled={isSubmitting}
-                className="flex-1 bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:from-green-500 hover:to-green-700 text-[#D1D5DB] font-bold py-3 px-6 rounded-xl shadow-lg shadow-green-500/40 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed hover:scale-[1.02] hover:shadow-green-500/50"
-              >
-                {isSubmitting ? (
-                  <>
-                    <div className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
-                    Creating Listing...
-                  </>
-                ) : (
-                  <>
-                    <Upload className="h-5 w-5" />
-                    Create Listing
-                  </>
-                )}
-              </button>
-              <button
-                type="button"
-                onClick={() => setFormData({
+          ))}
+          <div className="sm:col-span-2">
+            <label htmlFor="description" className="mb-1 block text-sm font-medium text-gray-700">
+              Description
+            </label>
+            <textarea
+              id="description"
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              rows={4}
+              required
+              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+              placeholder="Describe crop quality, harvesting details, and packaging."
+            />
+          </div>
+          {formData.image && (
+            <div className="sm:col-span-2">
+              <img src={formData.image} alt="Preview" className="h-32 w-32 rounded-lg border border-gray-200 object-cover" onError={(e) => (e.target.style.display = "none")} />
+            </div>
+          )}
+          <div className="sm:col-span-2 flex flex-col gap-3 sm:flex-row">
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="inline-flex h-11 items-center justify-center rounded-lg bg-green-700 px-5 text-sm font-medium text-white hover:bg-green-800 disabled:cursor-not-allowed disabled:opacity-70"
+            >
+              {isSubmitting ? "Creating..." : "Create Listing"}
+            </button>
+            <button
+              type="button"
+              onClick={() =>
+                setFormData({
                   listingId: "",
                   email: "",
                   name: "",
@@ -213,16 +134,16 @@ const Listing = () => {
                   region: "",
                   description: "",
                   image: "",
-                })}
-                className="sm:w-auto bg-gradient-to-r from-gray-800/90 via-gray-700/80 to-gray-800/90 hover:from-gray-700/90 hover:to-gray-600/80 text-[#FFFFFF] font-bold py-3 px-6 rounded-xl transition-all duration-300 border border-gray-600/30 hover:scale-[1.02] hover:shadow-lg"
-              >
-                Clear Form
-              </button>
-            </div>
+                })
+              }
+              className="inline-flex h-11 items-center justify-center rounded-lg border border-gray-300 bg-white px-5 text-sm font-medium text-gray-700 hover:bg-gray-50"
+            >
+              Clear
+            </button>
           </div>
-        </div>
+        </form>
       </div>
-    </div>
+    </section>
   )
 }
 

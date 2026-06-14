@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
-import axios from "axios"
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 const AddToCart = () => {
   const { id } = useParams()
@@ -27,18 +27,15 @@ const AddToCart = () => {
     fetchItem()
   }, [id])
 
-  if (error)
-    return <p className="text-red-500 text-center mt-4">{error}</p>
-  if (!item)
-    return <p className="text-center text-[#FFFFFF] mt-4">Loading...</p>
+  if (error) return <p className="mt-8 text-center text-red-500">{error}</p>;
+  if (!item) return <p className="mt-8 text-center text-gray-600">Loading...</p>;
 
   return (
-    <div className="min-h-screen bg-[#111827] py-10 px-4 text-[#FFFFFF]">
-      <div className="max-w-5xl mx-auto">
-        {/* Back Button */}
+    <section className="bg-gray-50 px-4 py-10 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-6xl">
         <button
           onClick={() => navigate(-1)}
-          className="mb-6 flex items-center text-[#FFFFFF] hover:scale-110 transition-colors"
+          className="mb-6 inline-flex items-center rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
         >
           <svg
             className="w-5 h-5 mr-2"
@@ -53,95 +50,79 @@ const AddToCart = () => {
               d="M15 19l-7-7 7-7"
             />
           </svg>
-          Back to Products
+          Back to marketplace
         </button>
 
-        <div className="bg-[#1F2937]/80 backdrop-blur-lg border border-[#374151] rounded-3xl shadow-2xl overflow-hidden">
+        <article className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
           <div className="md:flex">
-            {/* Image */}
-            <div className="md:w-1/2 bg-gradient-to-br  p-6 flex items-center justify-center">
+            <div className="md:w-1/2 p-6">
               <div className="relative">
                 <img
                   src={item.image || "https://via.placeholder.com/400"}
                   alt={item.name}
-                  className="w-72 h-72 md:w-80 md:h-80 object-cover rounded-2xl border-2 border-[#374151] "
+                  className="h-80 w-full rounded-xl border border-gray-200 object-cover"
                 />
                 {item.quantity < 5 && item.quantity > 0 && (
-                  <div className="absolute top-3 right-3 bg-red-600 text-[#FFFFFF] px-3 py-1 rounded-full text-sm font-semibold shadow-lg">
+                  <div className="absolute right-3 top-3 rounded-full bg-amber-500 px-3 py-1 text-xs font-medium text-white">
                     Only {item.quantity} left!
                   </div>
                 )}
                 {item.quantity === 0 && (
-                  <div className="absolute inset-0 bg-[#111827] bg-opacity-60 rounded-2xl flex items-center justify-center">
-                    <span className="text-[#FFFFFF] font-bold text-xl">
-                      Out of Stock
-                    </span>
+                  <div className="absolute inset-0 flex items-center justify-center rounded-xl bg-gray-900/50">
+                    <span className="text-sm font-semibold text-white">Out of Stock</span>
                   </div>
                 )}
               </div>
             </div>
 
-            {/* Details */}
-            <div className="md:w-1/2 p-8 flex flex-col justify-between">
+            <div className="md:w-1/2 p-8">
               <div>
-                <h1 className="text-4xl font-extrabold text-[#FFFFFF] mb-4">
-                  {item.name}
-                </h1>
-                <p className="text-[#D1D5DB] mb-6">{item.description}</p>
+                <h1 className="text-2xl font-semibold text-gray-900">{item.name}</h1>
+                <p className="mt-3 text-sm leading-6 text-gray-600">{item.description}</p>
 
-                <div className="text-3xl font-bold text-[#22C55E] mb-4">
+                <div className="mt-4 text-2xl font-semibold text-gray-900">
                   ₹{item.price}
-                  <span className="text-[#D1D5DB] text-base ml-2">/unit</span>
+                  <span className="ml-1 text-sm text-gray-500">/ unit</span>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                  <div className="bg-[#22C55E]/10 border border-[#374151] rounded-lg p-4">
-                    <p className="text-[#D1D5DB] text-sm">Quantity</p>
-                    <p className="text-lg font-bold text-[#D1D5DB]">
-                      {item.quantity}
-                    </p>
+                <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
+                  <div className="rounded-lg border border-gray-200 bg-gray-50 p-3">
+                    <p className="text-gray-500">Quantity</p>
+                    <p className="mt-1 font-medium text-gray-900">{item.quantity}</p>
                   </div>
-                  <div className="bg-[#22C55E]/10 border border-[#374151] rounded-lg p-4">
-                    <p className="text-[#D1D5DB] text-sm">Region</p>
-                    <p className="text-lg font-bold text-[#D1D5DB]">
-                      {item.region}
-                    </p>
+                  <div className="rounded-lg border border-gray-200 bg-gray-50 p-3">
+                    <p className="text-gray-500">Region</p>
+                    <p className="mt-1 font-medium text-gray-900">{item.region}</p>
                   </div>
                 </div>
               </div>
-              {/* Buy Now */}
-              <div className="mt-4">
+
+              <div className="mt-6">
                 {item.quantity >= 1 ? (
                   <button
                     onClick={() => handleCheckout(item)}
-                    className="w-full bg-gradient-to-r from-[#22C55E] to-[#16A34A] hover:from-[#16A34A] hover:to-[#15803D] text-[#111827] font-bold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg shadow-green-500/30"
+                    className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-green-700 px-4 text-sm font-medium text-white hover:bg-green-800"
                   >
-                    Buy Now - ₹{item.price}
+                    Proceed to Checkout
                   </button>
                 ) : (
                   <button
                     disabled
-                    className="w-full bg-gray-700 text-[#FFFFFF] font-bold py-3 px-6 rounded-xl cursor-not-allowed"
+                    className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-gray-300 px-4 text-sm font-medium text-gray-700"
                   >
                     Out of Stock
                   </button>
                 )}
               </div>
 
-              {/* Assurance */}
-              <div className="mt-6 bg-[#22C55E]/5 border border-yellow-500/20 p-4 rounded-xl text-sm">
-                <p className="font-medium text-[#D1D5DB]">
-                  ✅ Quality Guarantee
-                </p>
-                <p className="text-[#D1D5DB]">
-                  Sourced directly from verified farmers with freshness ensured.
-                </p>
+              <div className="mt-4 rounded-lg border border-green-200 bg-green-50 p-3 text-sm text-green-700">
+                Quality checked listing from verified farmer network.
               </div>
             </div>
           </div>
-        </div>
+        </article>
       </div>
-    </div>
+    </section>
   );
 }
 

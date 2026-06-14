@@ -1,123 +1,105 @@
-"use client"
-
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import axios from "axios"
-import { Mail, Lock, Eye, EyeOff, ArrowRight, Shield, Zap } from "lucide-react"
+import { ArrowRight, Eye, EyeOff, Lock, Mail } from "lucide-react";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
-  const navigate = useNavigate()
-  const [formData, setFormData] = useState({ email: "", password: "" })
-  const [showPassword, setShowPassword] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setIsLoading(true)
-
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setIsLoading(true);
     try {
-      const response = await axios.post("https://agrolink-5ok6.onrender.com/api/users/login", formData)
-      localStorage.setItem("token", response.data.token)
-      localStorage.setItem("user", JSON.stringify(response.data.user))
-      localStorage.setItem("email", formData.email)
-      navigate("/")
+      const response = await axios.post("https://agrolink-5ok6.onrender.com/api/users/login", formData);
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+      localStorage.setItem("email", formData.email);
+      navigate("/");
     } catch (error) {
-      alert("Login failed. Please check your credentials.")
-      console.error(error)
+      alert("Login failed. Please check your credentials.");
+      console.error(error);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
-    <div className="min-h-screen bg-[#111827] flex items-center justify-center px-4 py-8">
-      <div className="w-full max-w-2xl bg-[#1F2937] rounded-2xl border border-[#374151] shadow-xl p-8 md:p-12">
-        {/* Header */}
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 bg-[#FACC15]/20 text-[#FFFFFF] px-4 py-2 rounded-full border border-[#FACC15]/30 text-sm font-bold mb-4">
-            <Zap className="w-4 h-4" /> Secure Login
-          </div>
-          <h2 className="text-3xl md:text-4xl font-black text-[#FFFFFF] mb-2">
-            Welcome Back
-          </h2>
-          <p className="text-[#D1D5DB] text-lg">Log in to continue your agricultural journey</p>
-        </div>
+    <section className="bg-gray-50 px-4 py-10 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-md rounded-xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
+        <header className="mb-6">
+          <h1 className="text-2xl font-semibold text-gray-900">Sign in</h1>
+          <p className="mt-2 text-sm text-gray-600">Access your AgroLink dashboard and continue managing orders.</p>
+        </header>
 
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Email */}
-          <div className="flex items-center border border-[#374151] rounded-xl px-4 py-3 bg-[#1F2937] focus-within:border-[#FACC15] transition-all">
-            <Mail className="text-[#FFFFFF] mr-3" size={20} />
+        <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+          <div>
+            <label htmlFor="email" className="mb-1 block text-sm font-medium text-gray-700">
+              Email
+            </label>
             <input
-              type="email"
+              id="email"
               name="email"
+              type="email"
               value={formData.email}
               onChange={handleChange}
-              placeholder="Email address"
               required
-              className="w-full bg-transparent text-[#FFFFFF] placeholder-[#D1D5DB] focus:outline-none"
+              className="h-11 w-full rounded-lg border border-gray-300 px-3 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+              placeholder="name@example.com"
             />
           </div>
 
-          {/* Password */}
-          <div className="flex items-center border border-[#374151] rounded-xl px-4 py-3 bg-[#1F2937] focus-within:border-[#FACC15] transition-all">
-            <Lock className="text-[#FFFFFF] mr-3" size={20} />
-            <input
-              type={showPassword ? "text" : "password"}
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Password"
-              required
-              className="w-full bg-transparent text-[#FFFFFF] placeholder-[#D1D5DB] focus:outline-none"
-            />
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="text-[#D1D5DB] hover:text-[#FFFFFF] ml-2"
-            >
-              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-            </button>
+          <div>
+            <label htmlFor="password" className="mb-1 block text-sm font-medium text-gray-700">
+              Password
+            </label>
+            <div className="relative">
+              <input
+                id="password"
+                name="password"
+                type={showPassword ? "text" : "password"}
+                value={formData.password}
+                onChange={handleChange}
+                required
+                className="h-11 w-full rounded-lg border border-gray-300 px-3 pr-10 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+                placeholder="Enter password"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute inset-y-0 right-0 inline-flex w-10 items-center justify-center text-gray-500 hover:text-gray-700"
+                aria-label="Toggle password visibility"
+              >
+                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+              </button>
+            </div>
           </div>
-<button
-  type="submit"
-  disabled={isLoading}
-  className="w-full bg-[#22C55E] hover:bg-[#16A34A] text-[#111827] font-bold py-3 rounded-xl shadow-lg hover:scale-105 transition-transform disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
->
-  {isLoading ? "Logging in..." : <>
-    Login
-    <ArrowRight size={20} />
-  </>}
-</button>
 
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-green-700 px-4 text-sm font-medium text-white hover:bg-green-800 disabled:cursor-not-allowed disabled:opacity-70"
+          >
+            {isLoading ? "Signing in..." : "Sign in"}
+          </button>
         </form>
 
-        {/* Signup Link */}
-        <div className="text-center mt-6">
-          <p className="text-[#D1D5DB]">
-            Don't have an account?{" "}
-            <a
-              href="/signup"
-              className="text-[#FACC15] font-bold hover:underline"
-            >
-              Create Account
-            </a>
-          </p>
-        </div>
-
-        {/* Security Badge */}
-        <div className="mt-6 flex items-center justify-center gap-2 text-[#D1D5DB] text-sm">
-          <Shield className="w-4 h-4 text-[#22C55E]" />
-          <span>Secured with 256-bit SSL encryption</span>
-        </div>
+        <p className="mt-4 text-sm text-gray-600">
+          New to AgroLink?{" "}
+          <Link to="/signup" className="font-medium text-green-700 hover:text-green-800">
+            Create account
+          </Link>
+        </p>
       </div>
-    </div>
-  )
-}
+    </section>
+  );
+};
 
-export default Login
+export default Login;

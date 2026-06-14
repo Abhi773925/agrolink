@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { ShoppingCart, MapPin, Phone, CreditCard, Truck, Package, CheckCircle, AlertCircle, Info, Shield, Star, Clock, Heart } from "lucide-react";
-import { useNavigate, useParams } from "react-router-dom";
+import { AlertCircle, CheckCircle, CreditCard, MapPin, Package, Shield, Truck,Heart,Star,Info } from "lucide-react";
+import { useParams } from "react-router-dom";
 
 const Checkout = () => {
   // Mock product ID for demonstration - replace with actual routing solution
@@ -20,15 +20,13 @@ const Checkout = () => {
   const [orderSuccess, setOrderSuccess] = useState(false);
   const [orderDetails, setOrderDetails] = useState(null);
   const [locationLoading, setLocationLoading] = useState(false);
-  const [toast, setToast] = useState(null); // Add toast state
-  const navigate=useNavigate();
+  const [toast, setToast] = useState(null);
   // Get user email from localStorage
   const userEmail = localStorage?.getItem("email") || "user@example.com";
 
-  // Toast function
   const showToast = (message, type = 'success') => {
     setToast({ message, type });
-    setTimeout(() => setToast(null), 5000); // Hide after 5 seconds
+    setTimeout(() => setToast(null), 4000);
   };
 
   // Load Razorpay script
@@ -76,13 +74,6 @@ const Checkout = () => {
   // Fetch location details from pincode API
   useEffect(() => {
     const fetchLocationDetails = async () => {
-      if (orderSuccess) {
-        orderSuccess();
-        navigate('/');  // Navigate to the home page
-        // Reload the window after navigate
-        window.location.reload();
-      }
-
       if (pincode.length === 6) {
         setLocationLoading(true);
         try {
@@ -322,20 +313,17 @@ const Checkout = () => {
     }
   };
 
-  // Toast Component
   const Toast = ({ message, type, onClose }) => (
     <div className={`fixed top-4 right-4 z-50000 p-4 rounded-lg shadow-lg border-l-4 backdrop-blur-md ${
-      type === 'success' 
-        ? 'bg-[#111827]  border-[#374151] text-[#FFFFFF]' 
-        : 'bg-[#111827]  border-red-400 text-[#FFFFFF]'
-    } animate-slide-in`}>
+      type === 'success' ? 'bg-white border-green-200 text-green-700' : 'bg-white border-red-200 text-red-700'
+    }`}>
       <div className="flex items-center space-x-2">
         {type === 'success' ? (
           <CheckCircle className="w-5 h-5 text-[#FFFFFF]" />
         ) : (
           <AlertCircle className="w-5 h-5 text-[#F87171]" />
         )}
-        <span className="font-medium">{message}</span>
+          <span className="text-sm font-medium">{message}</span>
         <button 
           onClick={onClose}
           className="ml-2 text-[#D1D5DB] hover:text-[#FFFFFF] transition-colors"
@@ -346,50 +334,47 @@ const Checkout = () => {
     </div>
   );
 
-  // Success screen
   if (orderSuccess && orderDetails) {
     return (
-      <div className="min-h-screen bg-[#111827] flex items-center justify-center p-4">
-        <div className="max-w-md w-full bg-[#111827]  backdrop-blur-md rounded-2xl shadow-2xl border border-[#374151] p-8 text-center">
-          <div className="w-16 h-16 bg-[#22C55E] rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg shadow-[#22C55E]/20">
-            <CheckCircle className="w-8 h-8 text-[#D1D5DB]" />
+      <section className="bg-gray-50 px-4 py-10 sm:px-6 lg:px-8">
+        <div className="mx-auto w-full max-w-md rounded-xl border border-gray-200 bg-white p-6 text-center shadow-sm">
+          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-green-100">
+            <CheckCircle className="h-7 w-7 text-green-700" />
           </div>
-          <h2 className="text-2xl font-bold text-[#FFFFFF] mb-2">Order Placed Successfully!</h2>
-          <p className="text-[#D1D5DB] mb-6">Thank you for your purchase. Your order has been confirmed.</p>
+          <h2 className="text-xl font-semibold text-gray-900">Order placed successfully</h2>
+          <p className="mt-2 text-sm text-gray-600">Your purchase has been confirmed.</p>
           
-          <div className="bg-[#374151 ] backdrop-blur-md rounded-xl p-4 mb-6 text-left border border-[#374151]/50">
-            <h3 className="font-semibold text-[#FFFFFF] mb-2">Order Details</h3>
-            <div className="space-y-1 text-sm text-[#D1D5DB]">
-              <p><span className="font-medium text-[#FFFFFF]">Order ID:</span> {orderDetails.orderId}</p>
-              <p><span className="font-medium text-[#FFFFFF]">Product:</span> {orderDetails.productName}</p>
-              <p><span className="font-medium text-[#FFFFFF]">Quantity:</span> {orderDetails.quantity}</p>
-              <p><span className="font-medium text-[#FFFFFF]">Total Amount:</span> ₹{orderDetails.totalAmount}</p>
-              <p><span className="font-medium text-[#FFFFFF]">Payment Method:</span> {orderDetails.paymentMethod}</p>
-              <p><span className="font-medium text-[#FFFFFF]">Status:</span> 
-                <span className="ml-1 px-2 py-1 bg-[#22C55E]/20 text-[#FFFFFF] rounded text-xs border border-[#374151]">
+          <div className="mt-5 rounded-lg border border-gray-200 bg-gray-50 p-4 text-left">
+            <h3 className="text-sm font-semibold text-gray-900">Order details</h3>
+            <div className="mt-2 space-y-1 text-sm text-gray-700">
+              <p><span className="font-medium">Order ID:</span> {orderDetails.orderId}</p>
+              <p><span className="font-medium">Product:</span> {orderDetails.productName}</p>
+              <p><span className="font-medium">Quantity:</span> {orderDetails.quantity}</p>
+              <p><span className="font-medium">Total:</span> ₹{orderDetails.totalAmount}</p>
+              <p><span className="font-medium">Payment:</span> {orderDetails.paymentMethod}</p>
+              <p><span className="font-medium">Status:</span>
+                <span className="ml-1 rounded bg-green-100 px-2 py-0.5 text-xs text-green-700">
                   {orderDetails.orderStatus}
                 </span>
               </p>
             </div>
           </div>
-          
+
           <button 
             onClick={() => window.location.href = '/'}
-            className="w-full bg-[#22C55E] text-[#D1D5DB] font-semibold py-3 px-6 rounded-xl hover:bg-[#374151 transition-all duration-200 transform hover:scale-105 shadow-lg shadow-[#22C55E]/20"
+            className="mt-5 inline-flex h-11 w-full items-center justify-center rounded-lg bg-green-700 px-4 text-sm font-medium text-white hover:bg-green-800"
           >
             Continue Shopping
           </button>
         </div>
-      </div>
+      </section>
     );
   }
 
-  // Helper function to get stock status
   const getStockStatus = (quantity) => {
-    if (quantity === 0) return { text: "Out of Stock", color: "text-[#F87171] bg-red-400/10 border-red-400/30", icon: "⚠️" };
-    if (quantity <= 5) return { text: `Only ${quantity} left`, color: "text-[#FFFFFF] bg-[#22C55E]/10 border-[#374151]", icon: "⚡" };
-    if (quantity <= 10) return { text: `${quantity} in stock`, color: "text-[#FFFFFF] bg-[#22C55E]/10 border-[#374151]", icon: "📦" };
-    return { text: `${quantity} in stock`, color: "text-[#FFFFFF] bg-[#22C55E]/10 border-[#374151]", icon: "✅" };
+    if (quantity === 0) return { text: "Out of Stock", color: "text-red-700 bg-red-50 border-red-200", icon: "!" };
+    if (quantity <= 5) return { text: `Only ${quantity} left`, color: "text-amber-700 bg-amber-50 border-amber-200", icon: "!" };
+    return { text: `${quantity} in stock`, color: "text-green-700 bg-green-50 border-green-200", icon: "i" };
   };
 
   const totalPrice = item?.price * quantity || 0;
@@ -397,8 +382,7 @@ const Checkout = () => {
   const savings = Math.floor(totalPrice * 0.15);
 
   return (
-    <div className="min-h-screen bg-[#111827] backdrop-blur-md">
-      {/* Toast Notification */}
+    <section className="bg-gray-50 px-4 py-10 sm:px-6 lg:px-8">
       {toast && (
         <Toast
           message={toast.message}
@@ -407,15 +391,13 @@ const Checkout = () => {
         />
       )}
 
-      <div className="max-w-7xl mx-auto px-4 py-8">
+      <div className="mx-auto w-full max-w-7xl">
         <div className="grid lg:grid-cols-3 gap-8">
-          {/* Product Summary - Left Column */}
           <div className="lg:col-span-2 space-y-6">
-            {/* Product Card */}
-            <div className="bg-[#111827]  backdrop-blur-md rounded-2xl shadow-2xl border border-[#374151] overflow-hidden">
+            <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
               <div className="p-6">
-                <h2 className="text-xl font-bold text-[#FFFFFF] mb-6 flex items-center">
-                  <Package className="w-5 h-5 mr-2 text-[#FFFFFF]" />
+                <h2 className="mb-6 flex items-center text-lg font-semibold text-gray-900">
+                  <Package className="mr-2 h-5 w-5 text-green-700" />
                   Order Summary
                 </h2>
 
@@ -557,14 +539,14 @@ const Checkout = () => {
                     </div>
                   </div>
                 ) : (
-                  <div className="text-center py-8">
-                    <AlertCircle className="w-12 h-12 text-[#F87171] mx-auto mb-4" />
-                    <p className="text-[#D1D5DB] mb-4">
+                    <div className="py-8 text-center">
+                    <AlertCircle className="mx-auto mb-4 h-10 w-10 text-red-500" />
+                    <p className="mb-4 text-sm text-gray-600">
                       Failed to load product details
                     </p>
                     <button
                       onClick={() => window.location.reload()}
-                      className="px-6 py-2 bg-[#22C55E] text-[#D1D5DB] rounded-lg hover:bg-[#374151 transition-all duration-200 font-semibold shadow-lg shadow-[#22C55E]/20"
+                      className="inline-flex h-10 items-center rounded-lg bg-green-700 px-4 text-sm font-medium text-white hover:bg-green-800"
                     >
                       Retry
                     </button>
@@ -574,17 +556,17 @@ const Checkout = () => {
             </div>
 
             {/* Delivery Form */}
-            <div className="bg-[#111827]  backdrop-blur-md rounded-2xl shadow-2xl border border-[#374151] overflow-hidden">
+            <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
               <div className="p-6">
-                <h2 className="text-xl font-bold text-[#FFFFFF] mb-6 flex items-center">
-                  <MapPin className="w-5 h-5 mr-2 text-[#FFFFFF]" />
+                <h2 className="mb-6 flex items-center text-lg font-semibold text-gray-900">
+                  <MapPin className="mr-2 h-5 w-5 text-green-700" />
                   Delivery Information
                 </h2>
 
                 {error && (
-                  <div className="flex items-center space-x-2 p-4 bg-red-400/10 border border-red-400/30 rounded-xl mb-6 backdrop-blur-md">
-                    <AlertCircle className="w-5 h-5 text-[#F87171]" />
-                    <p className="text-[#F87171] font-medium">{error}</p>
+                  <div className="mb-6 flex items-center space-x-2 rounded-lg border border-red-200 bg-red-50 p-3">
+                    <AlertCircle className="h-5 w-5 text-red-600" />
+                    <p className="text-sm font-medium text-red-700">{error}</p>
                   </div>
                 )}
 
@@ -596,7 +578,7 @@ const Checkout = () => {
                     <textarea
                       value={address}
                       onChange={(e) => setAddress(e.target.value)}
-                      className="w-full p-4 bg-[#374151 ] border border-[#374151]/50 rounded-xl focus:ring-2 focus:ring-[#22C55E]/50 focus:border-[#22C55E]/50 transition-all resize-none text-[#FFFFFF] placeholder-[#D1D5DB] backdrop-blur-md"
+                      className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
                       placeholder="Enter your complete farming address..."
                       rows="3"
                       required
@@ -613,14 +595,14 @@ const Checkout = () => {
                         onChange={(e) =>
                           setPincode(e.target.value.replace(/\D/g, ""))
                         }
-                        className="w-full p-4 bg-[#374151 ] border border-[#374151]/50 rounded-xl focus:ring-2 focus:ring-[#22C55E]/50 focus:border-[#22C55E]/50 transition-all text-[#FFFFFF] placeholder-[#D1D5DB] backdrop-blur-md"
+                        className="h-11 w-full rounded-lg border border-gray-300 px-3 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
                         placeholder="Enter PIN code"
                         maxLength="6"
                         required
                       />
                       {locationLoading && pincode.length === 6 && (
                         <div className="flex items-center mt-2 text-sm text-[#D1D5DB]">
-                          <div className="w-4 h-4 border-2 border-gray-600 border-t-yellow-400 rounded-full animate-spin mr-2"></div>
+                          <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-gray-300 border-t-green-700"></div>
                           Verifying location...
                         </div>
                       )}
@@ -643,7 +625,7 @@ const Checkout = () => {
                         onChange={(e) =>
                           setPhone(e.target.value.replace(/\D/g, ""))
                         }
-                        className="w-full p-4 bg-[#374151 ] border border-[#374151]/50 rounded-xl focus:ring-2 focus:ring-[#22C55E]/50 focus:border-[#22C55E]/50 transition-all text-[#FFFFFF] placeholder-[#D1D5DB] backdrop-blur-md"
+                        className="h-11 w-full rounded-lg border border-gray-300 px-3 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
                         placeholder="Enter 10-digit phone number"
                         maxLength="10"
                         required
@@ -655,10 +637,10 @@ const Checkout = () => {
             </div>
 
             {/* Payment Method */}
-            <div className="bg-[#111827]  backdrop-blur-md rounded-2xl shadow-2xl border border-[#374151] overflow-hidden">
+            <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
               <div className="p-6">
-                <h2 className="text-xl font-bold text-[#FFFFFF] mb-6 flex items-center">
-                  <CreditCard className="w-5 h-5 mr-2 text-[#FFFFFF]" />
+                <h2 className="mb-6 flex items-center text-lg font-semibold text-gray-900">
+                  <CreditCard className="mr-2 h-5 w-5 text-green-700" />
                   Payment Method
                 </h2>
 
@@ -691,8 +673,8 @@ const Checkout = () => {
                       <div
                         className={`p-4 border-2 rounded-xl transition-all duration-200 backdrop-blur-md ${
                           paymentMethod === method.value
-                            ? "border-[#374151] bg-[#22C55E]/10 shadow-lg shadow-[#22C55E]/20"
-                            : "border-[#374151]/50 bg-[#374151 ] hover:border-gray-600/50 hover:bg-[#374151]/50"
+                            ? "border-green-300 bg-green-50"
+                            : "border-gray-300 bg-white hover:bg-gray-50"
                         }`}
                       >
                         <div className="flex items-center space-x-3">
@@ -724,35 +706,35 @@ const Checkout = () => {
           </div>
           {/* Order Summary - Right Column */}
           <div className="lg:col-span-1">
-            <div className="bg-[#111827]  backdrop-blur-md rounded-2xl shadow-lg border border-[#374151] sticky top-24">
+            <div className="sticky top-24 rounded-xl border border-gray-200 bg-white shadow-sm">
               <div className="p-6">
-                <h3 className="text-lg font-bold text-[#FFFFFF] mb-6">
+                <h3 className="mb-6 text-lg font-semibold text-gray-900">
                   Order Summary
                 </h3>
 
                 <div className="space-y-4 mb-6">
                   <div className="flex justify-between text-sm">
-                    <span className="text-[#D1D5DB]">Subtotal</span>
-                    <span className="font-medium text-[#FFFFFF]">
+                    <span className="text-gray-600">Subtotal</span>
+                    <span className="font-medium text-gray-900">
                       ₹{totalPrice}
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-[#D1D5DB]">Delivery</span>
-                    <span className="font-medium text-[#FFFFFF]">Free</span>
+                    <span className="text-gray-600">Delivery</span>
+                    <span className="font-medium text-gray-900">Free</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-[#D1D5DB]">You Save</span>
-                    <span className="font-medium text-[#FFFFFF]">
+                    <span className="text-gray-600">You Save</span>
+                    <span className="font-medium text-gray-900">
                       ₹{savings}
                     </span>
                   </div>
                   <div className="border-t border-[#374151]/50 pt-4">
                     <div className="flex justify-between">
-                      <span className="text-lg font-bold text-[#FFFFFF]">
+                      <span className="text-lg font-semibold text-gray-900">
                         Total
                       </span>
-                      <span className="text-lg font-bold text-[#FFFFFF]">
+                      <span className="text-lg font-semibold text-gray-900">
                         ₹{totalPrice}
                       </span>
                     </div>
@@ -760,14 +742,14 @@ const Checkout = () => {
                 </div>
 
                 {/* Delivery Info */}
-                <div className="bg-[#374151 ] rounded-xl p-4 mb-6 border border-[#374151]/50">
+                <div className="mb-6 rounded-lg border border-gray-200 bg-gray-50 p-4">
                   <div className="flex items-center space-x-2 mb-2">
-                    <Clock className="w-4 h-4 text-[#FFFFFF]" />
-                    <span className="text-sm font-medium text-[#FFFFFF]">
+                    <Truck className="h-4 w-4 text-green-700" />
+                    <span className="text-sm font-medium text-gray-900">
                       Expected Delivery
                     </span>
                   </div>
-                  <p className="text-sm text-[#D1D5DB]">3-5 business days</p>
+                  <p className="text-sm text-gray-600">3-5 business days</p>
                 </div>
 
                 {/* Place Order Button */}
@@ -781,11 +763,11 @@ const Checkout = () => {
                     !phone ||
                     !pincode
                   }
-                  className="w-full bg-[#22C55E] text-[#FFFFFF] font-bold py-4 px-6 rounded-xl transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg shadow-[#22C55E]/20"
+                  className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-green-700 px-4 text-sm font-medium text-white hover:bg-green-800 disabled:cursor-not-allowed disabled:bg-gray-300"
                 >
                   {loading ? (
                     <div className="flex items-center justify-center space-x-2">
-                      <div className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
+                      <div className="h-5 w-5 animate-spin rounded-full border-2 border-gray-200 border-t-white"></div>
                       <span>Processing...</span>
                     </div>
                   ) : item?.quantity === 0 ? (
@@ -795,7 +777,7 @@ const Checkout = () => {
                     </div>
                   ) : (
                     <div className="flex items-center justify-center space-x-2">
-                      <Package className="w-5 h-5" />
+                      <Package className="h-5 w-5" />
                       <span>
                         {paymentMethod === "COD" ? "Place Order" : "Pay Now"} •
                         ₹{totalPrice}
@@ -805,8 +787,8 @@ const Checkout = () => {
                 </button>
 
                 {/* Security Badge */}
-                <div className="flex items-center justify-center space-x-2 mt-4 text-sm text-[#D1D5DB]">
-                  <Shield className="w-4 h-4" />
+                <div className="mt-4 flex items-center justify-center space-x-2 text-sm text-gray-600">
+                  <Shield className="h-4 w-4" />
                   <span>Secure & encrypted checkout</span>
                 </div>
               </div>
@@ -814,7 +796,7 @@ const Checkout = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
